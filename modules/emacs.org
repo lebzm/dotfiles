@@ -225,6 +225,12 @@ Treat subword movement for camel case in programming mode.
   (add-hook 'prog-mode-hook 'subword-mode)
 #+end_src
 
+Auto pair in programming mode.
+
+#+begin_src elisp
+  (add-hook 'prog-mode-hook 'electric-pair-mode)
+#+end_src
+
 Make script with shebang in it executable.
 
 #+begin_src elisp
