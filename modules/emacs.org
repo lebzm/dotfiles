@@ -785,9 +785,7 @@ Nerd Fonts all the way.
   (use-package faces
     :demand t
     :config
-    (set-face-attribute 'default nil :font "FiraCode Nerd Font")
-    (when (fboundp 'mac-auto-operator-composition-mode)
-      (mac-auto-operator-composition-mode 1)))
+    (set-face-attribute 'default nil :font "FiraCode Nerd Font"))
 #+end_src
 
 ** nerd-icons :font:
