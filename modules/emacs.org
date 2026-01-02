@@ -805,6 +805,32 @@ Support Nerd Fonts for the icons.
     (nerd-icons-font-family "FiraCode Nerd Font"))
 #+end_src
 
+** ligature :font:
+
+#+begin_src nix :tangle no :noweb-ref epkgs
+  epkgs.ligature
+#+end_src
+
+#+begin_src elisp
+  (use-package ligature
+    :hook (after-init . global-ligature-mode)
+    :config
+    (ligature-set-ligatures 'prog-mode
+                            '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
+                              ":::" "::=" "=:=" "===" "==>" "=!=" "=>>" "=<<" "=/=" "!=="
+                              "!!." ">=>" ">>=" ">>>" ">>-" ">->" "->>" "-->" "---" "-<<"
+                              "<~~" "<~>" "<*>" "<||" "<|>" "<$>" "<==" "<=>" "<=<" "<->"
+                              "<--" "<-<" "<<=" "<<-" "<<<" "<+>" "</>" "###" "#_(" "..<"
+                              "..." "+++" "/==" "///" "_|_" "www" "&&" "^=" "~~" "~@" "~="
+                              "~>" "~-" "**" "*>" "*/" "||" "|}" "|]" "|=" "|>" "|-" "{|"
+                              "[|" "]#" "::" ":=" ":>" ":<" "$>" "==" "=>" "!=" "!!" ">:"
+                              ">=" ">>" ">-" "-~" "-|" "->" "--" "-<" "<~" "<*" "<|" "<:"
+                              "<$" "<=" "<>" "<-" "<<" "<+" "</" "#{" "#[" "#:" "#=" "#!"
+                              "##" "#(" "#?" "#_" "%%" ".=" ".-" ".." ".?" "+>" "++" "?:"
+                              "?=" "?." "??" ";;" "/*" "/=" "/>" "//" "__" "~~" "(*" "*)"
+                              "\\\\" "://")))
+#+end_src
+
 ** doom-themes :theme:
 
 Not a fan of dark themes, but light themes also too bright. Solarized with warm

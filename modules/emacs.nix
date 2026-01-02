@@ -22,6 +22,7 @@ let
     epkgs.meow
     epkgs.evil
     epkgs.nerd-icons
+    epkgs.ligature
     epkgs.doom-themes
     epkgs.doom-modeline
     epkgs.corfu
