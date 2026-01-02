@@ -72,8 +72,10 @@ Noweb reference:
       <<config>>
 
       mod.activationScripts.tangleEmacsConfig.text = ''
-        ${emacs}/bin/emacs ${./.}/emacs.org \
-          -Q --batch --eval '(org-babel-tangle nil nil "^elisp$")' --kill
+        ${emacs}/bin/emacs -Q --batch --kill \
+          --eval "
+          <<startup-script>>
+          "
       '';
       };
     }
@@ -248,6 +250,12 @@ Better main buffer default.
 
 #+begin_src elisp
   (setopt sentence-end-double-space nil)
+#+end_src
+
+Early setup.
+
+#+begin_src elisp :noweb yes
+  <<early-setup>>
 #+end_src
 
 * Environment and Nix
@@ -777,7 +785,9 @@ Nerd Fonts all the way.
   (use-package faces
     :demand t
     :config
-    (set-face-attribute 'default nil :font "FiraCode Nerd Font"))
+    (set-face-attribute 'default nil :font "FiraCode Nerd Font")
+    (when (fboundp 'mac-auto-operator-composition-mode)
+      (mac-auto-operator-composition-mode 1)))
 #+end_src
 
 ** nerd-icons :font:
@@ -1560,7 +1570,14 @@ with =org-modern-indent-mode=.
 Register the programming languages to support in evaluation. See [[https://orgmode.org/worg/org-contrib/babel/languages/index.html][Babel language
 support]].
 
-#+begin_src elisp
+#+begin_src elisp :tangle no :noweb-ref startup-script
+  (progn
+    (require 'ob-tangle)
+    (setf (alist-get :noweb org-babel-default-header-args) \"yes\")
+    (org-babel-tangle-file \"${./.}/emacs.org\" nil \"^elisp$\"))
+#+end_src
+
+#+begin_src elisp :tangle no :noweb-ref early-setup
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)

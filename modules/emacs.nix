@@ -129,8 +129,13 @@ in
     ];
 
     mod.activationScripts.tangleEmacsConfig.text = ''
-      ${emacs}/bin/emacs ${./.}/emacs.org \
-        -Q --batch --eval '(org-babel-tangle nil nil "^elisp$")' --kill
+      ${emacs}/bin/emacs -Q --batch --kill \
+        --eval "
+        (progn
+          (require 'ob-tangle)
+          (setf (alist-get :noweb org-babel-default-header-args) \"yes\")
+          (org-babel-tangle-file \"${./.}/emacs.org\" nil \"^elisp$\"))
+        "
     '';
     };
   }
