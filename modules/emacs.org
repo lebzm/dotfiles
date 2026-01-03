@@ -369,7 +369,7 @@ We'll use meow and evil as a learning source and reference.
   (defun smooth-enter-normal-state ()
     (interactive)
     (setq-local smooth--state 'normal)
-    (setq-local cursor-type 'bar)
+    (setq-local cursor-type 'box)
     (focus-mode 0)
     (smooth--refresh-keymap))
 
