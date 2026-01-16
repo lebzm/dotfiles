@@ -10,6 +10,10 @@
 + more tempel template (also move to its own section)
 + sql, nosql, redis client
 + consider using mwim
++ consider using puni
++ consider using golden-ratio-scroll-screen
++ consider using beginend
++ consider using expand-region
 + consider using literate-calc-mode
 + consider using smart-hungry-delete
 + consider using expand-region
