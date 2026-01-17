@@ -1635,7 +1635,7 @@ Register missing major mode for some programing languages.
     :after ox)
 #+end_src
 
-** TODO org-present
+** org-present
 
 #+begin_src nix :tangle no :noweb-ref epkgs
   epkgs.org-present
@@ -1644,8 +1644,12 @@ Register missing major mode for some programing languages.
 #+begin_src elisp
   (use-package org-present
     :hook
-    (org-present-mode . org-present-big)
-    (org-present-mode-quit . org-present-small))
+    (org-present-mode . (lambda()
+                          (org-present-big)
+                          (toggle-frame-fullscreen)))
+    (org-present-mode-quit . (lambda ()
+                               (org-present-small)
+                               (toggle-frame-fullscreen))))
 #+end_src
 
 ** TODO org-roam
