@@ -33,6 +33,7 @@ let
     epkgs.focus
     epkgs.pulsar
     epkgs.spacious-padding
+    epkgs.hide-mode-line
     epkgs.helpful
     epkgs.which-key
     epkgs.keycast

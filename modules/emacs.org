@@ -1023,6 +1023,16 @@ Fix text in compilation buffer.
     :hook (compilation-filter . ansi-color-compilation-filter))
 #+end_src
 
+** hide-mode-line
+
+#+begin_src nix :tangle no :noweb-ref epkgs
+  epkgs.hide-mode-line
+#+end_src
+
+#+begin_src elisp
+  (use-package hide-mode-line)
+#+end_src
+
 * Help system
 
 ** helpful
@@ -1646,10 +1656,12 @@ Register missing major mode for some programing languages.
     :hook
     (org-present-mode . (lambda()
                           (org-present-big)
-                          (toggle-frame-fullscreen)))
+                          (toggle-frame-fullscreen)
+                          (hide-mode-line-mode 1)))
     (org-present-mode-quit . (lambda ()
                                (org-present-small)
-                               (toggle-frame-fullscreen))))
+                               (toggle-frame-fullscreen)
+                               (hide-mode-line-mode -1))))
 #+end_src
 
 ** TODO org-roam
