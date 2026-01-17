@@ -1033,6 +1033,18 @@ Fix text in compilation buffer.
   (use-package hide-mode-line)
 #+end_src
 
+** visual-fill-mode
+
+#+begin_src nix :tangle no :noweb-ref epkgs
+  epkgs.visual-fill-column
+#+end_src
+
+#+begin_src elisp
+  (use-package visual-fill-column
+    :custom
+    (visual-fill-column-center-text t))
+#+end_src
+
 * Help system
 
 ** helpful
@@ -1654,14 +1666,24 @@ Register missing major mode for some programing languages.
 #+begin_src elisp
   (use-package org-present
     :hook
-    (org-present-mode . (lambda()
-                          (org-present-big)
-                          (toggle-frame-fullscreen)
-                          (hide-mode-line-mode 1)))
-    (org-present-mode-quit . (lambda ()
-                               (org-present-small)
-                               (toggle-frame-fullscreen)
-                               (hide-mode-line-mode -1))))
+    (org-present-mode . smooth/present-start)
+    (org-present-mode-quit . smooth/present-stop)
+    :config
+    (defun smooth/present-start ()
+      (org-present-big)
+      (toggle-frame-fullscreen)
+      (hide-mode-line-mode 1)
+      (visual-line-fill-column-mode 1))
+    (defun smooth/present-stop ()
+      (org-present-small)
+      (toggle-frame-fullscreen)
+      (hide-mode-line-mode 0)
+      (visual-line-fill-column-mode 0))
+    (defun smooth/present-prepare-slide (buffer heading)
+      (org-overview)
+      (org-fold-show-entry)
+      (org-fold-show-children))
+    (add-hook 'org-present-after-navigate-functions 'smooth/present-prepare-slide))
 #+end_src
 
 ** TODO org-roam

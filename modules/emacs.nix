@@ -34,6 +34,7 @@ let
     epkgs.pulsar
     epkgs.spacious-padding
     epkgs.hide-mode-line
+    epkgs.visual-fill-column
     epkgs.helpful
     epkgs.which-key
     epkgs.keycast
