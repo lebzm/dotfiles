@@ -70,7 +70,6 @@ with lib;
 	"audacity"
 	"inkscape"
 	"affinity"
-	"container"
 	"docker-desktop"
   ];
 
@@ -83,6 +82,8 @@ with lib;
     keep-outputs = true
     keep-derivations = true
   '';
+  
+  nix.package = pkgs.lixPackageSets.stable.lix;
   nixpkgs.hostPlatform = platform;
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;

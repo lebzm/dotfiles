@@ -18,17 +18,13 @@ brew/install:
 	@sudo NONINTERACTIVE=1 curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
 	@echo "$$source_brew" >> ~/.zprofile
 
-# https://github.com/DeterminateSystems/nix-installer
+# https://lix.systems
 #
-# Install upstream Nix using Determinate Nix Installer.
-# Its offer number of advantages compare to vanilla Nix Installer:
-#   - Enable flakes by default
-#   - Better support for uninstalling Nix
-#   - Survive macOS upgrades
+# Lix is a modern implementation of Nix package manager.
 nix/install:
-	@curl -fsSL https://install.determinate.systems/nix | sh -s -- install --no-confirm
+	@curl -sSf -L https://install.lix.systems/lix | sh -s -- install --no-confirm
 nix/uninstall:
-	@/nix/nix-installer uninstall
+	@/nix/lix-installer uninstall
 nix/upgrade:
 	@sudo -i nix upgrade-nix
 

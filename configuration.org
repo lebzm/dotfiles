@@ -101,6 +101,8 @@ Noweb reference:
     keep-outputs = true
     keep-derivations = true
   '';
+
+  nix.package = pkgs.lixPackageSets.stable.lix;
 #+end_src
 
 ** Nixpkgs
@@ -207,7 +209,6 @@ See: https://github.com/nix-darwin/nix-darwin/issues/1041
   "audacity"
   "inkscape"
   "affinity"
-  "container"
   "docker-desktop"
 #+end_src
 

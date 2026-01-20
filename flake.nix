@@ -21,6 +21,14 @@
           };
           modules = [ ./configuration.nix ];
         };
+        quicksilver = nix-darwin.lib.darwinSystem {
+          specialArgs = {
+            inherit inputs;
+            username = "bzm";
+            platform = "aarch64-darwin";
+          };
+          modules = [ ./configuration.nix ];
+        };
       };
     };
 }
