@@ -214,13 +214,6 @@ variable.
   (setq-default tab-width global-tab-width)
 #+end_src
 
-Limit the column to 80 character.
-
-#+begin_src elisp
-  (setq-default fill-column 80)
-  (add-hook 'text-mode-hook 'auto-fill-mode)
-#+end_src
-
 Add newline at the end of file.
 
 #+begin_src elisp
@@ -1035,16 +1028,22 @@ Fix text in compilation buffer.
   (use-package hide-mode-line)
 #+end_src
 
-** visual-fill-mode
+** visual-fill-column
 
 #+begin_src nix :tangle no :noweb-ref epkgs
   epkgs.visual-fill-column
 #+end_src
 
 #+begin_src elisp
-  (use-package visual-fill-column
-    :custom
-    (visual-fill-column-center-text t))
+  ;; (use-package visual-fill-column
+  ;;   :demand t
+  ;;   :hook
+  ;;   (text-mode . visual-line-mode)
+  ;;   :custom
+  ;;   (visual-fill-column-width 120)
+  ;;   (visual-fill-column-center-text t)
+  ;;   :config
+  ;;   (add-hook 'visual-line-mode-hook #'visual-fill-column-for-vline))
 #+end_src
 
 * Help system
