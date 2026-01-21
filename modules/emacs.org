@@ -341,29 +341,50 @@ We'll use meow and evil as a learning source and reference.
 
   (defun smooth--mode-p (mode)
     (cond
+     ;; active minor mode (buffer-local)
+     ((and (symbolp mode)
+           (local-variable-p mode)
+           (symbol-value mode))
+      t)
+     ;; exact major mode
      ((eq mode major-mode) t)
+     ;; derived major mode
      ((derived-mode-p mode) t)
-     ((and (boundp mode) (symbol-value mode)) t)
      (t nil)))
 
   (defun smooth--refresh-keymap ()
     (setq minor-mode-overriding-map-alist
-  		(assq-delete-all 'smooth-mode minor-mode-overriding-map-alist))
+          (assq-delete-all 'smooth-mode minor-mode-overriding-map-alist))
     (cond
      ((eq smooth--state 'normal)
-  	(let ((pair (seq-find (lambda (pair)
-  							(smooth--mode-p (car pair)))
-  						  smooth-mode-normal-maps)))
-  	  (push `(smooth-mode . ,smooth-normal-map) minor-mode-overriding-map-alist)
-  	  (when pair
-  		(push `(smooth-mode . ,(cdr pair)) minor-mode-overriding-map-alist))))
+      (let ((pair (seq-find (lambda (pair)
+                              (smooth--mode-p (car pair)))
+                            smooth-mode-normal-maps)))
+        (push `(smooth-mode . ,smooth-normal-map) minor-mode-overriding-map-alist)
+        (when pair
+          (push `(smooth-mode . ,(cdr pair)) minor-mode-overriding-map-alist))))
      ((eq smooth--state 'insert)
-  	(let ((pair (seq-find (lambda (pair)
-  							(smooth--mode-p (car pair)))
-  						  smooth-mode-insert-maps)))
-  	  (push `(smooth-mode . ,smooth-insert-map) minor-mode-overriding-map-alist)
-  	  (when pair
-  		(push `(smooth-mode . ,(cdr pair)) minor-mode-overriding-map-alist))))))
+      (let ((pair (seq-find (lambda (pair)
+                              (smooth--mode-p (car pair)))
+                            smooth-mode-insert-maps)))
+        (push `(smooth-mode . ,smooth-insert-map) minor-mode-overriding-map-alist)
+        (when pair
+          (push `(smooth-mode . ,(cdr pair)) minor-mode-overriding-map-alist))))))
+
+  (defvar smooth--last-active-modes nil)
+
+  (defun smooth--active-minor-modes ()
+    (seq-filter
+     (lambda (m) (and (boundp m) (symbol-value m)))
+     minor-mode-list))
+
+  (defun smooth--maybe-refresh ()
+    (let ((current (smooth--active-minor-modes)))
+      (unless (equal current smooth--last-active-modes)
+        (setq smooth--last-active-modes current)
+        (smooth--refresh-keymap))))
+
+  (add-hook 'post-command-hook #'smooth--maybe-refresh)
 
   (defun smooth-enter-normal-state ()
     (interactive)
@@ -389,14 +410,14 @@ We'll use meow and evil as a learning source and reference.
 
   (defun smooth--hist-make-entry ()
     (let* ((win (selected-window))
-  		 (buf (window-buffer win))
-  		 (pos (window-point win)))
+           (buf (window-buffer win))
+           (pos (window-point win)))
       (list :window win :buffer buf :point pos)))
 
   (defun smooth--hist-jump-to (entry)
     (let ((win (plist-get entry :window))
-  		(buf (plist-get entry :buffer))
-  		(pos (plist-get entry :point)))
+          (buf (plist-get entry :buffer))
+          (pos (plist-get entry :point)))
       (cond
        ((window-live-p win)
         (select-window win)
@@ -460,7 +481,7 @@ We'll use meow and evil as a learning source and reference.
     (cond
      ;; 1. Corfu popup is visible
      ((and (bound-and-true-p corfu-mode)
-        	 corfu--candidates)
+           corfu--candidates)
       (corfu-quit)
       (smooth-enter-normal-state))
 
@@ -488,65 +509,65 @@ We'll use meow and evil as a learning source and reference.
 
   (defmacro smooth-keys (&rest forms)
     (let ((state nil)
-  		(mode nil)
-  		(expansions nil))
+          (mode nil)
+          (expansions nil))
       (dolist (form forms)
         (unless (consp form)
-  		(error "smooth-keys: invalid form: %S" form))
+          (error "smooth-keys: invalid form: %S" form))
         (let ((new-state (plist-get form :state))
-  			(new-mode (plist-get form :mode)))
-  		(cond
-  		 ((or new-state new-mode)
-  		  (when new-state (setq state new-state))
-  		  (when new-mode (setq mode new-mode)))
-  		 (t
-  		  (unless state
-  			(error "smooth-keys: key binding appears before setting state"))
-  		  (let* ((key (nth 0 form))
-  				 (cmd (nth 1 form))
-  				 (args (cddr form))
-  				 (name (plist-get args :name))
-  				 (record (plist-get args :record))
-  				 (select (plist-get args :select))
-  				 (insert (plist-get args :insert))
-  				 (pulse (plist-get args :pulse))
-  				 (keymap (if mode
-  							 `(cdr (assoc ',mode
-  										  ,(if (eq state 'normal)
-  											   'smooth-mode-normal-maps
-  											 'smooth-mode-insert-maps)))
-  						   (intern (format "smooth-%s-map" state)))))
-  			(when mode
-  			  (let ((table (if (eq state 'normal)
-  							   'smooth-mode-normal-maps
-  							 'smooth-mode-insert-maps)))
-  				(unless (assoc mode (symbol-value table))
-  				  (push (cons mode (make-sparse-keymap))
-  						(symbol-value table)))))
-  			(if (not name)
-  				(push `(keymap-set ,keymap ,key #',cmd) expansions)
-  			  (let ((sym (intern (format "smooth:%s" name))))
-  				(push
-  				 `(progn
-  					(fset ',sym
-  						  (lambda ()
-  							(interactive)
-  							,@(when (and pulse (eq cmd 'keyboard-quit))
-  								`((smooth--pulse ',pulse)))
-  							,@(when (and record (not insert))
-  								`((smooth--hist-record)))
-  							,@(when (and select (not insert))
-  								`((smooth--resolve-select ',select)))
-  							,@(unless (eq cmd 'ignore)
-  								`((call-interactively #',cmd)))
-  							,@(when insert
-  								`((smooth--resolve-select 'deactivate)
-  								  (smooth-enter-insert-state)))
-  							,@(when (and pulse (not (eq cmd 'keyboard-quit)))
-  								`((smooth--pulse ',pulse)))))
-  					(keymap-set ,keymap ,key #',sym))
-  				 expansions))))))))
-  	`(progn ,@(nreverse expansions))))
+              (new-mode (plist-get form :mode)))
+          (cond
+           ((or new-state new-mode)
+            (when new-state (setq state new-state))
+            (when new-mode (setq mode new-mode)))
+           (t
+            (unless state
+              (error "smooth-keys: key binding appears before setting state"))
+            (let* ((key (nth 0 form))
+                   (cmd (nth 1 form))
+                   (args (cddr form))
+                   (name (plist-get args :name))
+                   (record (plist-get args :record))
+                   (select (plist-get args :select))
+                   (insert (plist-get args :insert))
+                   (pulse (plist-get args :pulse))
+                   (keymap (if mode
+                               `(cdr (assoc ',mode
+                                            ,(if (eq state 'normal)
+                                                 'smooth-mode-normal-maps
+                                               'smooth-mode-insert-maps)))
+                             (intern (format "smooth-%s-map" state)))))
+              (when mode
+                (let ((table (if (eq state 'normal)
+                                 'smooth-mode-normal-maps
+                               'smooth-mode-insert-maps)))
+                  (unless (assoc mode (symbol-value table))
+                    (push (cons mode (make-sparse-keymap))
+                          (symbol-value table)))))
+              (if (not name)
+                  (push `(keymap-set ,keymap ,key #',cmd) expansions)
+                (let ((sym (intern (format "smooth:%s" name))))
+                  (push
+                   `(progn
+                      (fset ',sym
+                            (lambda ()
+                              (interactive)
+                              ,@(when (and pulse (eq cmd 'keyboard-quit))
+                                  `((smooth--pulse ',pulse)))
+                              ,@(when (and record (not insert))
+                                  `((smooth--hist-record)))
+                              ,@(when (and select (not insert))
+                                  `((smooth--resolve-select ',select)))
+                              ,@(unless (eq cmd 'ignore)
+                                  `((call-interactively #',cmd)))
+                              ,@(when insert
+                                  `((smooth--resolve-select 'deactivate)
+                                    (smooth-enter-insert-state)))
+                              ,@(when (and pulse (not (eq cmd 'keyboard-quit)))
+                                  `((smooth--pulse ',pulse)))))
+                      (keymap-set ,keymap ,key #',sym))
+                   expansions))))))))
+      `(progn ,@(nreverse expansions))))
 
   (with-eval-after-load 'use-package-core
     (unless (member :smooth use-package-keywords)
@@ -564,9 +585,9 @@ We'll use meow and evil as a learning source and reference.
     "Toggle Smooth modal editing (Smooth mode)."
     :keymap nil
     (if smooth-mode
-  	  (if (and (minibufferp))
-  		  (smooth-enter-insert-state)
-  		(smooth-enter-normal-state))
+        (if (and (minibufferp))
+            (smooth-enter-insert-state)
+          (smooth-enter-normal-state))
       (smooth-reset-state)))
 
   (define-global-minor-mode global-smooth-mode smooth-mode
@@ -1666,6 +1687,9 @@ Register missing major mode for some programing languages.
 
 #+begin_src elisp
   (use-package org-present
+    :smooth
+    (:state normal :mode org-present-mode)
+    ("SPC q" org-present-quit)
     :hook
     (org-present-mode . smooth/present-start)
     (org-present-mode-quit . smooth/present-stop)
@@ -1673,13 +1697,13 @@ Register missing major mode for some programing languages.
     (defun smooth/present-start ()
       (setq visual-fill-column-center-text t)
       (org-present-big)
-      (toggle-frame-fullscreen)
-      (hide-mode-line-mode 1))
+      (toggle-frame-fullscreen))
+      ;; (hide-mode-line-mode 1))
     (defun smooth/present-stop ()
       (setq visual-fill-column-center-text nil)
       (org-present-small)
-      (toggle-frame-fullscreen)
-      (hide-mode-line-mode 0))
+      (toggle-frame-fullscreen))
+      ;; (hide-mode-line-mode 0))
     (defun smooth/present-prepare-slide (buffer heading)
       (org-overview)
       (org-fold-show-entry)
@@ -1766,7 +1790,7 @@ Register missing major mode for some programing languages.
     ("p u" magit-push-current-to-upstream)
     (:mode with-editor-mode)
     ("SPC c" with-editor-finish)
-    ("SPC k" with-editor-cancel)
+    ("SPC q" with-editor-cancel)
     :custom
     (auto-revert-check-vc-info t))
 #+end_src
