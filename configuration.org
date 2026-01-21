@@ -120,59 +120,10 @@ Noweb reference:
   system.defaults.NSGlobalDomain = {
     "com.apple.swipescrolldirection" = true;
   };
-#+end_src
-
-* Keyboard mapper =karabiner-elements=
-
-Karabiner-Elements v15.x.x is broken at the moment, fallback to v14.x.x.
-See: https://github.com/nix-darwin/nix-darwin/issues/1041
-
-#+begin_src nix :tangle no :noweb-ref config
-  services.karabiner-elements = {
-    enable = true;
-    package = pkgs.karabiner-elements.overrideAttrs (old: {
-      version = "14.13.0";
-      src = pkgs.fetchurl {
-        inherit (old.src) url;
-        hash = "sha256-gmJwoht/Tfm5qMecmq1N6PSAIfWOqsvuHU8VDJY8bLw=";
-      };
-      dontFixup = true;
-    });
+  system.keyboard = {
+    enableKeyMapping = true;
+    remapCapsLockToEscape = true;
   };
-#+end_src
-
-#+begin_src json :mkdirp yes :tangle ~/.config/karabiner/karabiner.json
-  {
-    "profiles": [{
-      "name": "Default profile",
-      "complex_modifications": {
-        "rules": [
-          {
-            "description": "extend homerow by remapping capslock and ; into useful modifier",
-            "manipulators": [
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "caps_lock",
-                  "modifiers": { "optional": [ "any" ] }
-                },
-                "to": [{"key_code": "left_control"}],
-                "to_if_alone": [{ "key_code": "escape" }]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "right_command",
-                  "modifiers": { "optional": [ "any" ] }
-                },
-                "to": [{ "key_code": "right_option" }]
-              }
-            ]
-          }
-        ]
-      }
-    }]
-  }
 #+end_src
 
 * Text editor / IDE =emacs=
