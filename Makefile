@@ -10,6 +10,8 @@ export source_brew
 
 build:
 	@sudo darwin-rebuild switch --flake .#$(hostname)
+gc:
+	@nix-collect-garbage -d
 
 # https://brew.sh/
 #
