@@ -1035,15 +1035,14 @@ Fix text in compilation buffer.
 #+end_src
 
 #+begin_src elisp
-  ;; (use-package visual-fill-column
-  ;;   :demand t
-  ;;   :hook
-  ;;   (text-mode . visual-line-mode)
-  ;;   :custom
-  ;;   (visual-fill-column-width 120)
-  ;;   (visual-fill-column-center-text t)
-  ;;   :config
-  ;;   (add-hook 'visual-line-mode-hook #'visual-fill-column-for-vline))
+  (use-package visual-fill-column
+    :hook
+    (text-mode . visual-line-mode)
+    :custom
+    (visual-fill-column-width 120)
+    (visual-fill-column-enable-sensible-window-split t)
+    :init
+    (add-hook 'visual-line-mode-hook #'visual-fill-column-for-vline))
 #+end_src
 
 * Help system
