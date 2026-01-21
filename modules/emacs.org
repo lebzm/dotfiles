@@ -1764,6 +1764,9 @@ Register missing major mode for some programing languages.
     ("c c" magit-commit-create)
     ("c a" magit-commit-amend)
     ("p u" magit-push-current-to-upstream)
+    (:mode with-editor-mode)
+    ("SPC c" with-editor-finish)
+    ("SPC k" with-editor-cancel)
     :custom
     (auto-revert-check-vc-info t))
 #+end_src
