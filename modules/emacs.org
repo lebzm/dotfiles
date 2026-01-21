@@ -1540,6 +1540,7 @@ the box.
   (use-package org
     :smooth
     (:state normal :mode org-mode)
+    ("SPC c" org-ctrl-c-ctrl-c)
     ("SPC i t" org-insert-structure-template)
     ("SPC i h" org-babel-insert-header-arg)
     ("SPC i l" org-insert-link)
