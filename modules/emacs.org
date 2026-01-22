@@ -1115,23 +1115,17 @@ Fix text in compilation buffer.
   (use-package project
     :smooth
     (:state normal)
-    ("SPC p" project-switch-project :name "project")
-    ("SPC d d" project-dired :name "project directory")
-    ("SPC d ." dired-jump :name "directory")
-    ("SPC f f" project-find-file :name "project file")
-    ("SPC f ." find-file :name "file")
-    ("SPC s s" (lambda ()
-  			 (interactive)
-  			 (let ((current-prefix-arg '(4)))
-  			   (call-interactively #'project-compile)))
-     :name "project compile")
-    ("SPC s ." (lambda ()
-  			 (interactive)
-  			 (let ((current-prefix-arg '(4)))
-  			   (call-interactively #'compile)))
-     :name "compile")
-    ("SPC e" project-eshell :name "eshell")
-    ("SPC b" project-switch-to-buffer :name "buffer")
+    ("SPC p" project-switch-project :name project)
+    ("SPC d d" project-dired :name project-directory)
+    ("SPC d ." dired-jump :name directory)
+    ("SPC f f" project-find-file :name project-file)
+    ("SPC f ." find-file :name file)
+    ("SPC c c" smooth/project-compile :name project-compile)
+    ("SPC c ." smooth/project :name compile)
+    ("SPC e e" project-eshell :name project-eshell)
+    ("SPC e ." eshell :name eshell)
+    ("SPC b b" project-switch-to-buffer :name project-buffer)
+    ("SPC b ." switch-to-buffer :name buffer)
     :custom
     (project-switch-commands #'smooth/project-auto-buffer)
     :config
@@ -1142,7 +1136,15 @@ Fix text in compilation buffer.
              (buffers (project-buffers pr)))
         (if buffers
             (switch-to-buffer (car buffers))
-          (project-find-file)))))
+          (project-find-file))))
+    (defun smooth/compile ()
+      (interactive)
+      (let ((current-prefix-arg '(4)))
+  	  (call-interactively #'compile)))
+    (defun smooth/project-compile ()
+      (interactive)
+      (let ((current-prefix-arg '(4)))
+  	  (call-interactively #'project-compile))))
 #+end_src
 
 ** otpp
