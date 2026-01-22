@@ -93,7 +93,7 @@ with lib;
   };
   system.keyboard = {
     enableKeyMapping = true;
-    remapCapsLockToEscape = true;
+    remapCapsLockToControl = true;
   };
   mod.emacs.enable = true;
 }
