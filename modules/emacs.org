@@ -608,18 +608,10 @@ We'll use meow and evil as a learning source and reference.
 
 #+begin_src elisp :tangle no :noweb-ref smooth-default
   (:state insert)
-  ("<escape>" smooth--escape :name escape-insert :pulse green)
-  ("ESC" smooth--escape :name escape-insert :pulse green)
+  ("C-;" smooth--escape :name escape-insert :pulse green)
 
   (:state normal)
-  ("<escape>" smooth--escape :name escape-normal :select deactivate :pulse red)
-  ("ESC" smooth--escape :name escape :select deactivate :pulse red)
-  ("<delete>" undefined)
-  ("DEL" undefined)
-  ;; ("<return>" undefined)
-  ;; ("RET" undefined)
-  ;; ("<space>" undefined)
-  ;; ("SPC" undefined)
+  ("C-;" smooth--escape :name escape-normal :select deactivate :pulse red)
 
   (:state normal)
   ("1" digit-argument)
