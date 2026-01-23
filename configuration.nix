@@ -139,6 +139,10 @@ with lib;
           "if".app-id = "com.openai.chat";
           run = ["move-node-to-workspace ai"];
         }
+        {
+          "if".app-id = "com.apple.finder";
+          run = ["layout floating"];
+        }
       ];
   
       mode.main.binding = {
