@@ -88,12 +88,83 @@ with lib;
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
   security.pam.services.sudo_local.touchIdAuth = true;
-  system.defaults.NSGlobalDomain = {
-    "com.apple.swipescrolldirection" = true;
-  };
-  system.keyboard = {
-    enableKeyMapping = true;
-    remapCapsLockToControl = true;
+    system.defaults = {
+      NSGlobalDomain = {
+        "com.apple.swipescrolldirection" = true;
+        AppleSpacesSwitchOnActivate = false;
+      };
+      dock = {
+        mru-spaces = false;
+      };
+    };
+    system.keyboard = {
+      enableKeyMapping = true;
+      remapCapsLockToControl = true;
+    };
+  services.aerospace = {
+    enable = true;
+    settings = {
+      config-version = 2;
+      automatically-unhide-macos-hidden-apps = true;
+  
+      persistent-workspaces = [
+        "main"
+        "browser"
+        "code"
+        "ai"
+      ];
+  
+      on-window-detected = [
+        {
+          "if".app-id = "com.hnc.Discord";
+          run = ["move-node-to-workspace main"];
+        }
+        {
+          "if".app-id = "com.tinyspeck.slackmacgap";
+          run = ["move-node-to-workspace main"];
+        }
+        {
+          "if".app-id = "com.apple.Safari";
+          run = ["move-node-to-workspace browser"];
+        }
+        {
+          "if".app-id = "app.zen-browser.zen";
+          run = ["move-node-to-workspace browser"];
+        }
+        {
+          "if".app-id = "org.gnu.Emacs";
+          run = ["move-node-to-workspace code"];
+        }
+        {
+          "if".app-id = "com.openai.chat";
+          run = ["move-node-to-workspace ai"];
+        }
+      ];
+  
+      mode.main.binding = {
+        cmd-f11 = "fullscreen";
+  
+        cmd-h = "focus left";
+        cmd-j = "focus down";
+        cmd-k = "focus up";
+        cmd-l = "focus right";
+  
+        cmd-shift-h = "move left";
+        cmd-shift-j = "move down";
+        cmd-shift-k = "move up";
+        cmd-shift-l = "move right";
+  
+        cmd-1 = "workspace main";
+        cmd-2 = "workspace browser";
+        cmd-3 = "workspace code";
+        cmd-4 = "workspace ai";
+  
+        cmd-alt-1 = "move-node-to-workspace main";
+        cmd-alt-2 = "move-node-to-workspace browser";
+        cmd-alt-3 = "move-node-to-workspace code";
+        cmd-alt-4 = "move-node-to-workspace ai";
+      };
+    };
   };
   mod.emacs.enable = true;
 }
