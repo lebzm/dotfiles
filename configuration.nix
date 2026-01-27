@@ -121,6 +121,7 @@ with lib;
         "browser"
         "code"
         "ai"
+        "vm"
       ];
   
       on-window-detected = [
@@ -149,6 +150,10 @@ with lib;
           run = ["move-node-to-workspace ai"];
         }
         {
+          "if".app-id = "com.vmware.fusion";
+          run = ["move-node-to-workspace vm"];
+        }
+        {
           "if".app-id = "com.apple.finder";
           run = ["layout floating"];
         }
@@ -175,11 +180,13 @@ with lib;
         cmd-2 = "workspace browser";
         cmd-3 = "workspace code";
         cmd-4 = "workspace ai";
+        cmd-5 = "workspace vm";
   
         cmd-ctrl-1 = "move-node-to-workspace main";
         cmd-ctrl-2 = "move-node-to-workspace browser";
         cmd-ctrl-3 = "move-node-to-workspace code";
         cmd-ctrl-4 = "move-node-to-workspace ai";
+        cmd-ctrl-5 = "move-node-to-workspace vm";
       };
     };
   };
