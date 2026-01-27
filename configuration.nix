@@ -176,10 +176,10 @@ with lib;
         cmd-3 = "workspace code";
         cmd-4 = "workspace ai";
   
-        cmd-alt-1 = "move-node-to-workspace main";
-        cmd-alt-2 = "move-node-to-workspace browser";
-        cmd-alt-3 = "move-node-to-workspace code";
-        cmd-alt-4 = "move-node-to-workspace ai";
+        cmd-ctrl-1 = "move-node-to-workspace main";
+        cmd-ctrl-2 = "move-node-to-workspace browser";
+        cmd-ctrl-3 = "move-node-to-workspace code";
+        cmd-ctrl-4 = "move-node-to-workspace ai";
       };
     };
   };
