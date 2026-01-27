@@ -152,10 +152,14 @@ with lib;
           "if".app-id = "com.apple.finder";
           run = ["layout floating"];
         }
+        {
+          "if".app-id = "net.whatsapp.WhatsApp";
+          run = ["layout floating"];
+        }
       ];
   
       mode.main.binding = {
-        cmd-f11 = "fullscreen";
+        cmd-ctrl-f = "fullscreen";
   
         cmd-h = "focus left";
         cmd-j = "focus down";
