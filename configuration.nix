@@ -107,6 +107,15 @@ with lib;
       config-version = 2;
       automatically-unhide-macos-hidden-apps = true;
   
+      gaps = {
+        inner.horizontal = 8;
+        inner.vertical = 8;
+        outer.left = 8;
+        outer.bottom = 8;
+        outer.top = 0;
+        outer.right = 8;
+      };
+  
       persistent-workspaces = [
         "main"
         "browser"
