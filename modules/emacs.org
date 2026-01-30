@@ -1683,7 +1683,7 @@ Register missing major mode for some programing languages.
   (use-package org-present
     :smooth
     (:state normal :mode org-present-mode)
-    ("C-c C-k" org-present-quit)
+    ("q" org-present-quit)
     :hook
     (org-present-mode . smooth/present-start)
     (org-present-mode-quit . smooth/present-stop)
@@ -1691,13 +1691,13 @@ Register missing major mode for some programing languages.
     (defun smooth/present-start ()
       (setq visual-fill-column-center-text t)
       (org-present-big)
-      (toggle-frame-fullscreen))
-      ;; (hide-mode-line-mode 1))
+      (toggle-frame-fullscreen)
+      (hide-mode-line-mode 1))
     (defun smooth/present-stop ()
       (setq visual-fill-column-center-text nil)
       (org-present-small)
-      (toggle-frame-fullscreen))
-      ;; (hide-mode-line-mode 0))
+      (toggle-frame-fullscreen)
+      (hide-mode-line-mode 0))
     (defun smooth/present-prepare-slide (buffer heading)
       (org-overview)
       (org-fold-show-entry)
