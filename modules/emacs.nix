@@ -70,7 +70,8 @@ let
       };
     })
     epkgs.ox-hugo
-    epkgs.org-present
+    epkgs.org-tree-slide
+    epkgs.org-tree-slide-pauses
     epkgs.org-roam
     epkgs.org-roam-ui
     epkgs.verb

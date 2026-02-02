@@ -1673,36 +1673,42 @@ Register missing major mode for some programing languages.
     :after ox)
 #+end_src
 
-** org-present
+** org-tree-slide
 
 #+begin_src nix :tangle no :noweb-ref epkgs
-  epkgs.org-present
+  epkgs.org-tree-slide
+  epkgs.org-tree-slide-pauses
 #+end_src
 
 #+begin_src elisp
-  (use-package org-present
+  (use-package org-tree-slide
     :smooth
-    (:state normal :mode org-present-mode)
-    ("q" org-present-quit)
+    (:state normal :mode org-tree-slide-mode)
+    ("<left>" org-tree-slide-move-previous-tree)
+    ("<right>" org-tree-slide-move-next-tree)
+    ("<down>" smooth/next-pause)
     :hook
-    (org-present-mode . smooth/present-start)
-    (org-present-mode-quit . smooth/present-stop)
+    (org-tree-slide-play . smooth/org-tree-slide-play)
+    (org-tree-slide-stop . smooth/org-tree-slide-stop)
     :config
-    (defun smooth/present-start ()
-      (setq visual-fill-column-center-text t)
-      (org-present-big)
+    (defun smooth/next-pause ()
+      (interactive)
+      (org-tree-slide-pauses-next-pause))
+    (defun smooth/org-tree-slide-play ()
+      (org-tree-slide-simple-profile)
+      (text-scale-set 5)
       (toggle-frame-fullscreen)
       (hide-mode-line-mode 1))
-    (defun smooth/present-stop ()
-      (setq visual-fill-column-center-text nil)
-      (org-present-small)
+    (defun smooth/org-tree-slide-stop ()
+      (text-scale-set 0)
       (toggle-frame-fullscreen)
-      (hide-mode-line-mode 0))
-    (defun smooth/present-prepare-slide (buffer heading)
-      (org-overview)
-      (org-fold-show-entry)
-      (org-fold-show-children))
-    (add-hook 'org-present-after-navigate-functions 'smooth/present-prepare-slide))
+      (hide-mode-line-mode 0)))
+
+  (use-package org-tree-slide-pauses
+    :demand t
+    :after org-tree-slide
+    :config
+    (advice-remove 'org-tree-slide-move-next-tree 'org-tree-slide-pauses-next-advice))
 #+end_src
 
 ** TODO org-roam
