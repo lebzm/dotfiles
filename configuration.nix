@@ -71,6 +71,7 @@ with lib;
 	"inkscape"
 	"affinity"
 	"docker-desktop"
+	"obs"
   ];
 
   system.stateVersion = 6;

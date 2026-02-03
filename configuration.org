@@ -261,6 +261,7 @@ Noweb reference:
   "inkscape"
   "affinity"
   "docker-desktop"
+  "obs"
 #+end_src
 
 VMWare download information https://knowledge.broadcom.com/external/article/368667/download-and-license-information-for-vmw.html
