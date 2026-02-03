@@ -608,6 +608,9 @@ We'll use meow and evil as a learning source and reference.
 ** smooth-default
 
 #+begin_src elisp :tangle no :noweb-ref smooth-default
+  (:state normal)
+  ("<f5>" ignore)
+
   (:state insert)
   ("C-;" smooth--escape :name escape-insert :pulse green)
 
