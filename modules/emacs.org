@@ -1684,6 +1684,7 @@ Register missing major mode for some programing languages.
   (use-package org-tree-slide
     :smooth
     (:state normal :mode org-tree-slide-mode)
+    ("q" org-tree-slide-mode)
     ("<left>" org-tree-slide-move-previous-tree)
     ("<right>" org-tree-slide-move-next-tree)
     ("<down>" smooth/next-pause)
