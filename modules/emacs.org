@@ -1698,11 +1698,11 @@ Register missing major mode for some programing languages.
     (defun smooth/org-tree-slide-play ()
       (org-tree-slide-simple-profile)
       (text-scale-set 5)
-      (toggle-frame-fullscreen)
+      ;; (toggle-frame-fullscreen)
       (hide-mode-line-mode 1))
     (defun smooth/org-tree-slide-stop ()
       (text-scale-set 0)
-      (toggle-frame-fullscreen)
+      ;; (toggle-frame-fullscreen)
       (hide-mode-line-mode 0)))
 
   (use-package org-tree-slide-pauses
