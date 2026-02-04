@@ -13,7 +13,7 @@
     { nix-darwin, ... }@inputs:
     {
       darwinConfigurations = {
-        amartha = nix-darwin.lib.darwinSystem {
+        billyzaelanimalik_amartha = nix-darwin.lib.darwinSystem {
           specialArgs = {
             inherit inputs;
             username = "billyzaelanimalik";
@@ -21,7 +21,15 @@
           };
           modules = [ ./configuration.nix ];
         };
-        quicksilver = nix-darwin.lib.darwinSystem {
+        bzm_amartha = nix-darwin.lib.darwinSystem {
+          specialArgs = {
+            inherit inputs;
+            username = "bzm";
+            platform = "aarch64-darwin";
+          };
+          modules = [ ./configuration.nix ];
+        };
+        bzm_quicksilver = nix-darwin.lib.darwinSystem {
           specialArgs = {
             inherit inputs;
             username = "bzm";
