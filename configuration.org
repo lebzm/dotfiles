@@ -123,6 +123,7 @@ Noweb reference:
         AppleSpacesSwitchOnActivate = false;
       };
       dock = {
+        autohide = true;
         mru-spaces = false;
       };
     };

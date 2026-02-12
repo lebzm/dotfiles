@@ -95,6 +95,7 @@ with lib;
         AppleSpacesSwitchOnActivate = false;
       };
       dock = {
+        autohide = true;
         mru-spaces = false;
       };
     };
