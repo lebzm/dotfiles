@@ -93,6 +93,7 @@ with lib;
       NSGlobalDomain = {
         "com.apple.swipescrolldirection" = true;
         AppleSpacesSwitchOnActivate = false;
+        NSAutomaticSpellingCorrectionEnabled = false;
       };
       dock = {
         autohide = true;
