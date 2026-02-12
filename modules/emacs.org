@@ -1494,6 +1494,15 @@ the box.
     (js-indent-level 2))
 #+end_src
 
+** yaml
+
+#+begin_src elisp
+  (use-package yaml-ts-mode
+    :mode
+    (rx ".yaml" eos)
+    (rx ".yml" eos))
+#+end_src
+
 ** guile :noob:
 
 #+begin_src nix :tangle no :noweb-ref pkgs
