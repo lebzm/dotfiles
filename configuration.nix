@@ -94,6 +94,7 @@ with lib;
         "com.apple.swipescrolldirection" = true;
         AppleSpacesSwitchOnActivate = false;
         NSAutomaticSpellingCorrectionEnabled = false;
+        NSAutomaticCapitalizationEnabled = false;
       };
       dock = {
         autohide = true;
