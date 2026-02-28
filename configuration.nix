@@ -12,6 +12,8 @@ with lib;
 
 {
   imports = [
+    inputs.home-manager.darwinModules.home-manager
+
     ({
       options.mod.activationScripts = mkOption {
         type = types.attrsOf (
@@ -24,11 +26,11 @@ with lib;
         );
         default = { };
       };
-    
+
       config.system.activationScripts.postActivation.text = ''
         # Apply changes without logout/login cycle.
         /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-    
+
         echo "running user activation scripts as ${username}..."
         sudo -u ${username} --login bash <<'EOF'
           set -euo pipefail
@@ -44,7 +46,8 @@ with lib;
   ];
 
   environment.systemPackages = with pkgs; [
-	inputs.ctools.packages."${platform}".shadowify
+    inputs.ctools.packages."${platform}".shadowify
+    inputs.zen-browser.packages."${platform}".twilight
     git
     gnumake
     pkgs.potrace
@@ -54,24 +57,29 @@ with lib;
 
   homebrew.enable = true;
   homebrew.casks = [
-	"whatsapp"
-	"discord"
-	"godot"
-	"robloxstudio"
-	"roblox"
-	"opera-gx"
-	"slack"
-	"chatgpt"
-	"dbeaver-community"
-	"mongodb-compass"
-	"postman"
-	"figma"
-	"blender"
-	"audacity"
-	"inkscape"
-	"affinity"
-	"docker-desktop"
-	"obs"
+    "whatsapp"
+    "discord"
+    "godot"
+    "slack"
+    "chatgpt"
+    "dbeaver-community"
+    "mongodb-compass"
+    "postman"
+    "figma"
+    "blender"
+    "audacity"
+    "inkscape"
+    "affinity"
+    "docker-desktop"
+    "obs"
+  ];
+
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
+  home-manager.sharedModules = [
+    {
+      home.stateVersion = "26.05";
+    }
   ];
 
   system.stateVersion = 6;
@@ -83,34 +91,34 @@ with lib;
     keep-outputs = true
     keep-derivations = true
   '';
-  
+
   nix.package = pkgs.lixPackageSets.stable.lix;
   nixpkgs.hostPlatform = platform;
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
   security.pam.services.sudo_local.touchIdAuth = true;
-    system.defaults = {
-      NSGlobalDomain = {
-        "com.apple.swipescrolldirection" = true;
-        AppleSpacesSwitchOnActivate = false;
-        NSAutomaticSpellingCorrectionEnabled = false;
-        NSAutomaticCapitalizationEnabled = false;
-      };
-      dock = {
-        autohide = true;
-        mru-spaces = false;
-      };
+  system.defaults = {
+    NSGlobalDomain = {
+      "com.apple.swipescrolldirection" = true;
+      AppleSpacesSwitchOnActivate = false;
+      NSAutomaticSpellingCorrectionEnabled = false;
+      NSAutomaticCapitalizationEnabled = false;
     };
-    system.keyboard = {
-      enableKeyMapping = true;
-      remapCapsLockToControl = true;
+    dock = {
+      autohide = true;
+      mru-spaces = false;
     };
+  };
+  system.keyboard = {
+    enableKeyMapping = true;
+    remapCapsLockToControl = true;
+  };
   services.aerospace = {
     enable = true;
     settings = {
       config-version = 2;
       automatically-unhide-macos-hidden-apps = true;
-  
+
       gaps = {
         inner.horizontal = 8;
         inner.vertical = 8;
@@ -119,7 +127,7 @@ with lib;
         outer.top = 0;
         outer.right = 8;
       };
-  
+
       persistent-workspaces = [
         "main"
         "browser"
@@ -127,65 +135,65 @@ with lib;
         "ai"
         "vm"
       ];
-  
+
       on-window-detected = [
         {
           "if".app-id = "com.hnc.Discord";
-          run = ["move-node-to-workspace main"];
+          run = [ "move-node-to-workspace main" ];
         }
         {
           "if".app-id = "com.tinyspeck.slackmacgap";
-          run = ["move-node-to-workspace main"];
+          run = [ "move-node-to-workspace main" ];
         }
         {
           "if".app-id = "com.apple.Safari";
-          run = ["move-node-to-workspace browser"];
+          run = [ "move-node-to-workspace browser" ];
         }
         {
           "if".app-id = "app.zen-browser.zen";
-          run = ["move-node-to-workspace browser"];
+          run = [ "move-node-to-workspace browser" ];
         }
         {
           "if".app-id = "org.gnu.Emacs";
-          run = ["move-node-to-workspace code"];
+          run = [ "move-node-to-workspace code" ];
         }
         {
           "if".app-id = "com.openai.chat";
-          run = ["move-node-to-workspace ai"];
+          run = [ "move-node-to-workspace ai" ];
         }
         {
           "if".app-id = "com.vmware.fusion";
-          run = ["move-node-to-workspace vm"];
+          run = [ "move-node-to-workspace vm" ];
         }
         {
           "if".app-id = "com.apple.finder";
-          run = ["layout floating"];
+          run = [ "layout floating" ];
         }
         {
           "if".app-id = "net.whatsapp.WhatsApp";
-          run = ["layout floating"];
+          run = [ "layout floating" ];
         }
       ];
-  
+
       mode.main.binding = {
         cmd-ctrl-f = "fullscreen";
-  
+
         cmd-h = "focus left";
         cmd-j = "focus down";
         cmd-k = "focus up";
         cmd-l = "focus right";
-  
+
         cmd-shift-h = "move left";
         cmd-shift-j = "move down";
         cmd-shift-k = "move up";
         cmd-shift-l = "move right";
-  
+
         cmd-1 = "workspace main";
         cmd-2 = "workspace browser";
         cmd-3 = "workspace code";
         cmd-4 = "workspace ai";
         cmd-5 = "workspace vm";
-  
+
         cmd-ctrl-1 = "move-node-to-workspace main";
         cmd-ctrl-2 = "move-node-to-workspace browser";
         cmd-ctrl-3 = "move-node-to-workspace code";
