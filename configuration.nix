@@ -78,6 +78,7 @@ with lib;
   home-manager.useUserPackages = true;
   home-manager.sharedModules = [
     {
+      xdg.enable = true;
       home.stateVersion = "26.05";
     }
   ];
