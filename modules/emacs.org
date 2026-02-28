@@ -1301,6 +1301,7 @@ system path and configure the following variable:
     (prog-mode . (lambda () (add-hook 'before-save-hook 'eglot-format-buffer)))
     :custom
     (eglot-events-buffer-config '(:size 0))
+    (eglot-code-action-indicator "!")
     :config
     (setq eglot-server-programs '(
                                   <<eglot-server-programs>>
