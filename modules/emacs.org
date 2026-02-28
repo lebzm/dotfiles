@@ -1198,7 +1198,7 @@ Fix text in compilation buffer.
     ("SPC 2" harpoon-go-to-2)
     ("SPC 3" harpoon-go-to-3)
     ("SPC 4" harpoon-go-to-4)
-    ("SPC 4" harpoon-go-to-5))
+    ("SPC 5" harpoon-go-to-5))
 #+end_src
 
 ** dired
