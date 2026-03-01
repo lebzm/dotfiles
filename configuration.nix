@@ -1,9 +1,8 @@
 {
   lib,
   pkgs,
-  username,
-  platform,
   inputs,
+  platform,
   ...
 }:
 
@@ -12,11 +11,11 @@ with lib;
 {
   imports = [
     inputs.home-manager.darwinModules.home-manager
+    ./users
   ];
 
   environment.systemPackages = with pkgs; [
     inputs.ctools.packages."${platform}".shadowify
-    inputs.zen-browser.packages."${platform}".twilight
     git
     gnumake
     pkgs.potrace
@@ -48,6 +47,7 @@ with lib;
   home-manager.sharedModules = [
     {
       imports = [
+        inputs.zen-browser.homeModules.twilight
         ./modules/emacs
       ];
       xdg.enable = true;
@@ -56,8 +56,6 @@ with lib;
   ];
 
   system.stateVersion = 6;
-  system.primaryUser = username;
-  users.users.${username}.home = "/Users/${username}";
   nix.extraOptions = ''
     experimental-features = nix-command flakes
     warn-dirty = false
