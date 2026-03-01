@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   pkgs,
   username,
@@ -13,36 +12,6 @@ with lib;
 {
   imports = [
     inputs.home-manager.darwinModules.home-manager
-
-    ({
-      options.mod.activationScripts = mkOption {
-        type = types.attrsOf (
-          types.submodule {
-            options.text = mkOption {
-              type = types.lines;
-              description = "Shell script content to run during activation.";
-            };
-          }
-        );
-        default = { };
-      };
-
-      config.system.activationScripts.postActivation.text = ''
-        # Apply changes without logout/login cycle.
-        /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-
-        echo "running user activation scripts as ${username}..."
-        sudo -u ${username} --login bash <<'EOF'
-          set -euo pipefail
-          ${concatStringsSep "\n\n" (
-            mapAttrsToList (
-              name: script: "# --- ${name} ---\n${script.text}\n# --- end ${name} ---"
-            ) config.mod.activationScripts
-          )}
-        EOF
-      '';
-    })
-    ./modules/emacs.nix
   ];
 
   environment.systemPackages = with pkgs; [
@@ -78,6 +47,9 @@ with lib;
   home-manager.useUserPackages = true;
   home-manager.sharedModules = [
     {
+      imports = [
+        ./modules/emacs
+      ];
       xdg.enable = true;
       home.stateVersion = "26.05";
     }
@@ -203,5 +175,16 @@ with lib;
       };
     };
   };
-  mod.emacs.enable = true;
+
+  fonts.packages = with pkgs.nerd-fonts; [
+    fira-code
+    jetbrains-mono
+    iosevka
+  ];
+
+  system.activationScripts.postActivation.text = ''
+    # Apply changes without logout/login cycle.
+    /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+  '';
+
 }
