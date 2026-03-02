@@ -36,7 +36,6 @@ with lib;
     "figma"
     "blender"
     "audacity"
-    "inkscape"
     "affinity"
     "docker-desktop"
     "obs"
