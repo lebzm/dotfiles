@@ -29,25 +29,6 @@ with lib;
     pkgs.backgroundremover
   ];
 
-  homebrew.enable = true;
-  homebrew.casks = [
-    "whatsapp"
-    "discord"
-    "godot"
-    "slack"
-    "chatgpt"
-    "dbeaver-community"
-    "mongodb-compass"
-    "postman"
-    "figma"
-    "blender"
-    "audacity"
-    "affinity"
-    "docker-desktop"
-    "obs"
-    "zen"
-  ];
-
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.sharedModules = [
