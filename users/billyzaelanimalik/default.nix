@@ -14,6 +14,20 @@
     zen
   ];
 
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+    matchBlocks = {
+      "bitbucket.org" = {
+        user = "git";
+        hostname = "bitbucket.org";
+        identityFile = "~/.ssh/amartha";
+        identitiesOnly = true;
+        addKeysToAgent = "yes";
+      };
+    };
+  };
+
   programs.git = {
     enable = true;
     ignores = [

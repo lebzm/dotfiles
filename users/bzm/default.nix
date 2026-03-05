@@ -18,6 +18,20 @@
     zen
   ];
 
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+    matchBlocks = {
+      "git.sr.ht" = {
+        user = "git";
+        hostname = "git.sr.ht";
+        identityFile = "~/.ssh/bzm";
+        identitiesOnly = true;
+        addKeysToAgent = "yes";
+      };
+    };
+  };
+
   programs.git = {
     enable = true;
     ignores = [
