@@ -1,6 +1,10 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
+  home.packages = with pkgs.brewCasks; [
+    zen
+  ];
+
   programs.git = {
     enable = true;
     ignores = [

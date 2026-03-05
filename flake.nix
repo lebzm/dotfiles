@@ -11,6 +11,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    brew-nix = {
+      url = "github:BatteredBunny/brew-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nix-darwin.follows = "nix-darwin";
+    };
     ctools = {
       url = "github:pinggirjurangstudio/ctools";
       inputs.nixpkgs.follows = "nixpkgs";

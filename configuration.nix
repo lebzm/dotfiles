@@ -14,6 +14,12 @@ with lib;
     ./users
   ];
 
+  nixpkgs = {
+    overlays = [
+      inputs.brew-nix.overlays.default
+    ];
+  };
+
   environment.systemPackages = with pkgs; [
     inputs.ctools.packages."${platform}".shadowify
     git
