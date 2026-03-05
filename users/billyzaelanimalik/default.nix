@@ -7,10 +7,10 @@
     discord
     docker-desktop
     mongodb-compass
-    openvpn-connect
+    # openvpn-connect # broken
     postman
     slack
-    whatsapp
+    # whatsapp # broken
     zen
   ];
 
