@@ -16,27 +16,4 @@
       };
     };
   };
-
-  programs.zen-browser = {
-    # https://github.com/0xc000022070/zen-browser-flake
-    enable = true;
-    policies = {
-      # More policies can be browse at:
-      # https://mozilla.github.io/policy-templates/
-      NoDefaultBookmarks = true;
-      DisableAppUpdate = true;
-      DisableTelemetry = true;
-    };
-
-    # TODO: the profiles is not working
-    # profiles.default = {
-    #   settings = {
-    #     "zen.welcome-screen.seen" = true;
-    #   };
-    #   search = {
-    #     force = true;
-    #     default = "google";
-    #   };
-    # };
-  };
 }

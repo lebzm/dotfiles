@@ -39,6 +39,7 @@ with lib;
     "affinity"
     "docker-desktop"
     "obs"
+    "zen"
   ];
 
   home-manager.useGlobalPkgs = true;
@@ -46,7 +47,6 @@ with lib;
   home-manager.sharedModules = [
     {
       imports = [
-        inputs.zen-browser.homeModules.twilight
         ./modules/emacs
       ];
       xdg.enable = true;
