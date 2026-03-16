@@ -1436,6 +1436,15 @@ the box.
   (:nil . (:formatting (:command ["nixfmt"])))
 #+end_src
 
+** sh
+
+#+begin_src elisp
+  (use-package sh-script
+    :mode (rx ".sh" eos)
+    :custom
+    (sh-basic-offset 2))
+#+end_src
+
 ** js/json
 
 #+begin_src elisp
@@ -1687,6 +1696,8 @@ Register missing major mode for some programing languages.
     :hook
     ((org-mode . smooth/org-enable-verb-mode-if-has-tag)
      (org-after-tags-change-hook . smooth/org-enable-verb-mode-if-has-tag))
+    :custom
+    (verb-suppress-load-unsecure-prelude-warning t)
     :config
     (defun smooth/org-enable-verb-mode-if-has-tag ()
       "Toggle `verb-mode` based on Org buffer has the tag :verb:."
