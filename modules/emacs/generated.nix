@@ -14,6 +14,7 @@
     pkgs.erlang-language-platform
     pkgs.nil
     pkgs.nixfmt
+    pkgs.bash-language-server
     pkgs.guile
     pkgs.luajit
     pkgs.lua-language-server
