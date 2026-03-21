@@ -1084,6 +1084,8 @@ Fix text in compilation buffer.
     ("SPC b ." switch-to-buffer :name buffer)
     :custom
     (project-switch-commands #'smooth/project-auto-buffer)
+    (project-compilation-buffer-name-function #'smooth/project-compilation-buffer-name-function)
+    (project-vc-extra-root-markers '("gleam.toml"))
     :config
     (defun smooth/project-auto-buffer ()
       "After switching to a project, jump to its first buffer or *scratch*."
@@ -1096,11 +1098,13 @@ Fix text in compilation buffer.
     (defun smooth/compile ()
       (interactive)
       (let ((current-prefix-arg '(4)))
-  	  (call-interactively #'compile)))
+    	  (call-interactively #'compile)))
     (defun smooth/project-compile ()
       (interactive)
       (let ((current-prefix-arg '(4)))
-  	  (call-interactively #'project-compile))))
+    	  (call-interactively #'project-compile)))
+    (defun smooth/project-compilation-buffer-name-function (name-of-mode)
+      (format "*compilation: %s*" (project-name (project-current)))))
 #+end_src
 
 ** otpp
