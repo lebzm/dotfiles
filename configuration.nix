@@ -47,6 +47,8 @@ with lib;
     warn-dirty = false
     keep-outputs = true
     keep-derivations = true
+    accept-flake-config = true
+    trusted-users = root bzm
   '';
 
   nix.package = pkgs.lixPackageSets.stable.lix;
