@@ -1846,3 +1846,13 @@ Register missing major mode for some programing languages.
 #+begin_src elisp
   (use-package ledger-mode)
 #+end_src
+
+** electric-pair-mode
+
+#+begin_src elisp
+  (use-package elec-pair
+    :config
+    (setq-default electric-pair-pairs
+                  (append electric-pair-pairs
+                          '((?` . ?`)))))
+#+end_src
