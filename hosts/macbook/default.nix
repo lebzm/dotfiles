@@ -1,56 +1,6 @@
 {
-  lib,
-  pkgs,
-  inputs,
-  platform,
-  ...
-}:
+  imports = [ ../nix-darwin.nix ];
 
-with lib;
-
-{
-  nixpkgs = {
-    overlays = [
-      inputs.brew-nix.overlays.default
-    ];
-  };
-
-  environment.systemPackages = with pkgs; [
-    git
-    gnumake
-  ];
-
-  system.stateVersion = 6;
-  nix.extraOptions = ''
-    experimental-features = nix-command flakes
-    warn-dirty = false
-    keep-outputs = true
-    keep-derivations = true
-    accept-flake-config = true
-    trusted-users = root bzm
-  '';
-  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
-  nix.package = pkgs.lixPackageSets.stable.lix;
-  nixpkgs.hostPlatform = platform;
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.allowBroken = true;
-  security.pam.services.sudo_local.touchIdAuth = true;
-  system.defaults = {
-    NSGlobalDomain = {
-      "com.apple.swipescrolldirection" = true;
-      AppleSpacesSwitchOnActivate = false;
-      NSAutomaticSpellingCorrectionEnabled = false;
-      NSAutomaticCapitalizationEnabled = false;
-    };
-    dock = {
-      autohide = true;
-      mru-spaces = false;
-    };
-  };
-  system.keyboard = {
-    enableKeyMapping = true;
-    remapCapsLockToEscape = true;
-  };
   services.aerospace = {
     enable = true;
     settings = {
@@ -140,17 +90,4 @@ with lib;
       };
     };
   };
-
-  fonts.packages = with pkgs.nerd-fonts; [
-    fira-code
-    jetbrains-mono
-    iosevka
-    geist-mono
-  ];
-
-  system.activationScripts.postActivation.text = ''
-    # Apply changes without logout/login cycle.
-    /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-  '';
-
 }

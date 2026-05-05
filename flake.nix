@@ -31,7 +31,7 @@
           };
           modules = [
             ./users/billyzaelanimalik
-            ./configuration.nix
+            ./hosts/macbook
           ];
         };
 
@@ -43,7 +43,7 @@
           };
           modules = [
             ./users/bzm
-            ./configuration.nix
+            ./hosts/macbook
           ];
         };
 
@@ -55,7 +55,7 @@
           };
           modules = [
             ./users/bzm
-            ./configuration.nix
+            ./hosts/macbook
           ];
         };
 
