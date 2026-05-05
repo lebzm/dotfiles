@@ -46,7 +46,7 @@ with lib;
     accept-flake-config = true
     trusted-users = root bzm
   '';
-
+  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
   nix.package = pkgs.lixPackageSets.stable.lix;
   nixpkgs.hostPlatform = platform;
   nixpkgs.config.allowUnfree = true;
