@@ -162,6 +162,7 @@ with lib;
     fira-code
     jetbrains-mono
     iosevka
+    geist-mono
   ];
 
   system.activationScripts.postActivation.text = ''
