@@ -1,4 +1,3 @@
-uname := $(shell uname)
 whoami := $(shell whoami)
 hostname := $(shell hostname -s)
 
@@ -13,13 +12,6 @@ build:
 	@sudo darwin-rebuild switch --flake .#$(whoami)_$(hostname)
 gc:
 	@nix-collect-garbage -d
-
-# https://brew.sh/
-#
-# We still require homebrew for most of GUI apps.
-brew/install:
-	@sudo NONINTERACTIVE=1 curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
-	@echo "$$source_brew" >> ~/.zprofile
 
 # https://lix.systems
 #
