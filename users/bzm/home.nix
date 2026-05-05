@@ -1,10 +1,6 @@
 { pkgs, ... }:
 
 {
-  imports = [
-    ../../modules/home-manager
-  ];
-
   modules = {
     zed = {
       enable = true;

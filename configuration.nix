@@ -9,10 +9,6 @@
 with lib;
 
 {
-  imports = [
-    inputs.home-manager.darwinModules.home-manager
-  ];
-
   nixpkgs = {
     overlays = [
       inputs.brew-nix.overlays.default
@@ -22,18 +18,6 @@ with lib;
   environment.systemPackages = with pkgs; [
     git
     gnumake
-  ];
-
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-  home-manager.sharedModules = [
-    {
-      imports = [
-        ./modules/emacs
-      ];
-      xdg.enable = true;
-      home.stateVersion = "26.05";
-    }
   ];
 
   system.stateVersion = 6;
