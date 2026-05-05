@@ -29,7 +29,10 @@
             username = "billyzaelanimalik";
             platform = "aarch64-darwin";
           };
-          modules = [ ./configuration.nix ];
+          modules = [
+            ./users/billyzaelanimalik
+            ./configuration.nix
+          ];
         };
 
         bzm_amartha = nix-darwin.lib.darwinSystem {
@@ -38,7 +41,10 @@
             username = "bzm";
             platform = "aarch64-darwin";
           };
-          modules = [ ./configuration.nix ];
+          modules = [
+            ./users/bzm
+            ./configuration.nix
+          ];
         };
 
         bzm_quicksilver = nix-darwin.lib.darwinSystem {
@@ -47,7 +53,10 @@
             username = "bzm";
             platform = "aarch64-darwin";
           };
-          modules = [ ./configuration.nix ];
+          modules = [
+            ./users/bzm
+            ./configuration.nix
+          ];
         };
 
       };
