@@ -24,12 +24,12 @@ in
         programs.zed-editor = {
           enable = true;
           extensions = [
-            # theme
+            # --theme--
             "catppuccin"
             "catppuccin-icons"
-
-            # tools
+            # --tools--
             "make"
+            "editorconfig"
           ];
           mutableUserSettings = false;
           userSettings = {
