@@ -24,10 +24,9 @@ in
         programs.zed-editor = {
           enable = true;
           extensions = [
-            # --theme--
             "catppuccin"
             "catppuccin-icons"
-            # --tools--
+            "git-firefly"
             "make"
             "editorconfig"
           ];
