@@ -66,7 +66,7 @@ with lib;
   };
   system.keyboard = {
     enableKeyMapping = true;
-    remapCapsLockToControl = true;
+    remapCapsLockToEscape = true;
   };
   services.aerospace = {
     enable = true;
