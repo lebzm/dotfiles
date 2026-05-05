@@ -21,12 +21,8 @@ with lib;
   };
 
   environment.systemPackages = with pkgs; [
-    inputs.ctools.packages."${platform}".shadowify
     git
     gnumake
-    pkgs.potrace
-    pkgs.imagemagick
-    pkgs.backgroundremover
   ];
 
   home-manager.useGlobalPkgs = true;
