@@ -29,6 +29,10 @@ in
             "git-firefly"
             "make"
             "editorconfig"
+            "json"
+            "yaml"
+            "toml"
+            "xml"
           ];
           mutableUserSettings = false;
           userSettings = {
