@@ -78,6 +78,7 @@ in
           gofumpt
         ];
         programs.zed-editor = {
+          extensions = [ "go" ];
           userSettings = {
             lsp.gopls.initialization_options = {
               gofumpt = true;
