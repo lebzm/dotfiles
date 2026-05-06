@@ -46,6 +46,7 @@ in
             base_keymap = "VSCode";
             vim_mode = true;
             relative_line_numbers = "enabled";
+            auto_signature_help = true;
           };
           userKeymaps = [
             {
