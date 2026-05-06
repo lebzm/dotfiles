@@ -47,6 +47,14 @@ in
             vim_mode = true;
             relative_line_numbers = "enabled";
           };
+          userKeymaps = [
+            {
+              context = "vim_mode == insert";
+              bindings = {
+                "j j" = "vim::NormalBefore";
+              };
+            }
+          ];
         };
       }
 

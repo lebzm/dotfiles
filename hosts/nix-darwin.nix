@@ -55,7 +55,7 @@
 
   system.keyboard = {
     enableKeyMapping = true;
-    remapCapsLockToEscape = true;
+    remapCapsLockToControl = true;
   };
 
   system.activationScripts.postActivation.text = ''
