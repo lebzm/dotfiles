@@ -103,6 +103,7 @@ in
             "docker-compose"
           ];
         };
+        services.podman.enable = true;
       }
 
       # TODO: configure conf
