@@ -10,12 +10,7 @@ let
 in
 
 {
-  options.modules.zed = {
-    enable = lib.mkEnableOption "zed";
-    nix.enable = lib.mkEnableOption "nix";
-    go.enable = lib.mkEnableOption "go";
-    gleam.enable = lib.mkEnableOption "gleam";
-  };
+  options.modules.zed.enable = lib.mkEnableOption "zed";
 
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
@@ -24,15 +19,18 @@ in
         programs.zed-editor = {
           enable = true;
           extensions = [
+            "git-firefly"
+            "editorconfig"
+          ];
+        };
+      }
+
+      # settings
+      {
+        programs.zed-editor = {
+          extensions = [
             "catppuccin"
             "catppuccin-icons"
-            "git-firefly"
-            "make"
-            "editorconfig"
-            "json"
-            "yaml"
-            "toml"
-            "xml"
           ];
           mutableUserSettings = false;
           userSettings = {
@@ -48,6 +46,13 @@ in
             relative_line_numbers = "enabled";
             auto_signature_help = true;
           };
+        };
+      }
+
+      # keymaps
+      {
+        programs.zed-editor = {
+          mutableUserKeymaps = true; # TODO: disable mutable user keymaps once stable
           userKeymaps = [
             {
               context = "vim_mode == insert";
@@ -59,11 +64,8 @@ in
         };
       }
 
-      (lib.mkIf cfg.nix.enable {
-        home.packages = with pkgs; [
-          nixd
-          nixfmt
-        ];
+      # build.nix
+      {
         programs.zed-editor = {
           extensions = [ "nix" ];
           userSettings = {
@@ -77,37 +79,90 @@ in
             };
           };
         };
-      })
+        home.packages = with pkgs; [
+          nixd
+          nixfmt
+        ];
+      }
 
-      (lib.mkIf cfg.go.enable {
+      # build.Makefile
+      {
+        programs.zed-editor = {
+          extensions = [ "make" ];
+        };
+      }
+
+      # build.Dockerfile
+      # TODO: more Dockerfile configuration
+      {
+        programs.zed-editor = {
+          extensions = [
+            "dockerfile"
+            "docker-compose"
+          ];
+        };
+      }
+
+      # TODO: configure conf
+      # conf.json
+      # conf.toml
+      # conf.xml
+      # conf.yaml
+      {
+        programs.zed-editor = {
+          extensions = [
+            "json"
+            "toml"
+            "xml"
+            "yaml"
+          ];
+        };
+      }
+
+      # TODO: configure web
+      # web.html
+      # web.css
+      # web.js
+      {
+        programs.zed-editor = {
+          extensions = [
+            "html"
+            "css"
+            "js"
+          ];
+        };
+      }
+
+      # lang.go
+      {
+        programs.zed-editor = {
+          extensions = [ "go" ];
+          userSettings = {
+            lsp.gopls.initialization_options = {
+              gofumpt = true;
+            };
+          };
+        };
         home.packages = with pkgs; [
           go
           gopls
           delve
           gofumpt
         ];
-        programs.zed-editor = {
-          extensions = [ "go" ];
-          userSettings = {
-            lsp.gopls.initialization_options = {
-              gofumpt = true;
-              usePlaceholders = true;
-            };
-          };
-        };
-      })
+      }
 
-      (lib.mkIf cfg.gleam.enable {
+      # lang.gleam
+      {
+        programs.zed-editor = {
+          extensions = [ "gleam" ];
+        };
         home.packages = with pkgs; [
           gleam
           rebar3
           erlang
           bun
         ];
-        programs.zed-editor = {
-          extensions = [ "gleam" ];
-        };
-      })
+      }
 
     ]
   );

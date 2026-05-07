@@ -2,12 +2,7 @@
 
 {
   modules = {
-    zed = {
-      enable = true;
-      nix.enable = true;
-      go.enable = true;
-      gleam.enable = true;
-    };
+    zed.enable = true;
   };
 
   home.packages = with pkgs.brewCasks; [
