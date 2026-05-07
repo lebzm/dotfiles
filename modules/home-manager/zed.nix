@@ -104,6 +104,9 @@ in
           ];
         };
         services.podman.enable = true;
+        programs.zsh.shellAliases = {
+          docker = "podman";
+        };
       }
 
       # TODO: configure conf

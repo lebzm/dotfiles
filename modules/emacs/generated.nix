@@ -66,6 +66,7 @@
     # lua-ts-mode is already emacs built-in major mode
     epkgs.zig-mode
     epkgs.zig-ts-mode
+    epkgs.vue3-mode
     epkgs.org-modern
     (pkgs.emacsPackages.trivialBuild {
       pname = "org-modern-indent";

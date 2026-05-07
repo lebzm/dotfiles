@@ -753,7 +753,7 @@ Nerd Fonts all the way.
   (use-package faces
     :demand t
     :config
-    (set-face-attribute 'default nil :font "FiraCode Nerd Font"))
+    (set-face-attribute 'default nil :font "GeistMono Nerd Font"))
 #+end_src
 
 ** nerd-icons :font:
@@ -781,7 +781,7 @@ Support Nerd Fonts for the icons.
   (use-package ligature
     :hook (after-init . global-ligature-mode)
     :config
-    (ligature-set-ligatures 'prog-mode
+    (ligature-set-ligatures '(prog-mode markdown-mode)
                             '("|||>" "<|||" "<==>" "<!--" "####" "~~>" "***" "||=" "||>"
                               ":::" "::=" "=:=" "===" "==>" "=!=" "=>>" "=<<" "=/=" "!=="
                               "!!." ">=>" ">>=" ">>>" ">>-" ">->" "->>" "-->" "---" "-<<"
@@ -1154,7 +1154,10 @@ Fix text in compilation buffer.
     ("SPC 2" harpoon-go-to-2)
     ("SPC 3" harpoon-go-to-3)
     ("SPC 4" harpoon-go-to-4)
-    ("SPC 5" harpoon-go-to-5))
+    ("SPC 5" harpoon-go-to-5)
+    ("SPC 6" harpoon-go-to-6)
+    :custom
+    (harpoon-project-package 'project))
 #+end_src
 
 ** dired
@@ -1463,9 +1466,29 @@ the box.
   (use-package js
     :mode
     (rx ".js" eos)
-    (rx ".json" eos)
     :custom
     (js-indent-level 2))
+  (use-package json-ts-mode
+    :mode
+    (rx ".json" eos))
+#+end_src
+
+** typescript
+
+#+begin_src elisp
+  (use-package typescript-ts-mode
+    :mode
+    (rx ".ts" eos))
+#+end_src
+
+** css
+
+#+begin_src elisp
+  (use-package css-mode
+    :mode
+    (rx ".css" eos)
+    :custom
+    (css-indent-offset 2))
 #+end_src
 
 ** yaml
@@ -1475,6 +1498,14 @@ the box.
     :mode
     (rx ".yaml" eos)
     (rx ".yml" eos))
+#+end_src
+
+** dockerfile
+
+#+begin_src elisp
+  (use-package dockerfile-ts-mode
+    :mode
+    (rx "Dockerfile" eos))
 #+end_src
 
 ** guile :noob:
@@ -1532,6 +1563,17 @@ the box.
 
 #+begin_src elisp :tangle no :noweb-ref eglot-server-programs
   ((zig-mode zig-ts-mode) . ("zls"))
+#+end_src
+
+** vue :noob:
+
+#+begin_src nix :tangle no :noweb-ref epkgs
+  epkgs.vue3-mode
+#+end_src
+
+#+begin_src elisp
+  (use-package vue3-mode
+    :mode (rx ".vue" eos))
 #+end_src
 
 * TODO Org
