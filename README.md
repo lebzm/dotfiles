@@ -1,1 +1,1 @@
-# smoothconf
+# dotfiles
