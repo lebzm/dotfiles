@@ -12,6 +12,7 @@
     chatgpt
     discord
     godot
+    helium-browser
     obs
     (steam.overrideAttrs (oldAttrs: {
       src = pkgs.fetchurl {
