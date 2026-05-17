@@ -4,7 +4,6 @@ in
 
 {
   imports = [ ../home-manager.nix ];
-  system.primaryUser = username;
   users.users.${username} = {
     home = "/Users/${username}";
   };

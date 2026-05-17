@@ -22,40 +22,28 @@
     { nix-darwin, ... }@inputs:
     {
       darwinConfigurations = {
-
-        billyzaelanimalik_amartha = nix-darwin.lib.darwinSystem {
+        amartha = nix-darwin.lib.darwinSystem {
           specialArgs = {
             inherit inputs;
-            username = "billyzaelanimalik";
             platform = "aarch64-darwin";
+            primaryUser = "bzm";
           };
           modules = [
+            ./hosts/macbook
+            ./users/bzm
             ./users/billyzaelanimalik
-            ./hosts/macbook
           ];
         };
 
-        bzm_amartha = nix-darwin.lib.darwinSystem {
+        quicksilver = nix-darwin.lib.darwinSystem {
           specialArgs = {
             inherit inputs;
-            username = "bzm";
             platform = "aarch64-darwin";
+            primaryUser = "bzm";
           };
           modules = [
-            ./users/bzm
             ./hosts/macbook
-          ];
-        };
-
-        bzm_quicksilver = nix-darwin.lib.darwinSystem {
-          specialArgs = {
-            inherit inputs;
-            username = "bzm";
-            platform = "aarch64-darwin";
-          };
-          modules = [
             ./users/bzm
-            ./hosts/macbook
           ];
         };
 

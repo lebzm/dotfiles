@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   platform,
+  primaryUser,
   ...
 }:
 
@@ -62,6 +63,8 @@
     # Apply changes without logout/login cycle.
     /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
   '';
+
+  system.primaryUser = primaryUser;
 
   system.stateVersion = 6;
 }

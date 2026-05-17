@@ -1,4 +1,3 @@
-whoami := $(shell whoami)
 hostname := $(shell hostname -s)
 
 define source_brew
@@ -9,7 +8,7 @@ endef
 export source_brew
 
 build:
-	@sudo darwin-rebuild switch --flake .#$(whoami)_$(hostname)
+	@sudo darwin-rebuild switch --flake .#$(hostname)
 gc:
 	@nix-collect-garbage -d
 
@@ -27,6 +26,6 @@ nix/upgrade:
 #
 # A declarative system approach for macOS.
 nix-darwin/install:
-	@sudo nix run nix-darwin -- switch --flake .#$(whoami)_$(hostname)
+	@sudo nix run nix-darwin -- switch --flake .#$(hostname)
 nix-darwin/uninstall:
 	@sudo darwin-uninstaller
