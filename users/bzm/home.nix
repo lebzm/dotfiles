@@ -9,7 +9,6 @@
     affinity
     audacity
     blender
-    chatgpt
     discord
     godot
     helium-browser
