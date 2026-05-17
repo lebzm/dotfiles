@@ -1,6 +1,10 @@
 { pkgs, ... }:
 
 {
+  modules = {
+    zed.enable = true;
+  };
+
   home.packages = with pkgs.brewCasks; [
     chatgpt
     dbeaver-community
@@ -13,6 +17,8 @@
     # whatsapp # broken
     zen
   ];
+
+  programs.zsh.enable = true;
 
   programs.ssh = {
     enable = true;
