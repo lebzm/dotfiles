@@ -33,7 +33,7 @@
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    matchBlocks = {
+    settings = {
       "git.sr.ht" = {
         user = "git";
         hostname = "git.sr.ht";
