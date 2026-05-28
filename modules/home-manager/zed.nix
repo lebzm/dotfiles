@@ -170,6 +170,16 @@ in
         ];
       }
 
+      # lang.odin
+      {
+        programs.zed-editor = {
+          extensions = [ "odin" ];
+        };
+        home.packages = with pkgs; [
+          odin
+          ols
+        ];
+      }
     ]
   );
 }
