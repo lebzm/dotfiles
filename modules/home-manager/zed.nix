@@ -103,10 +103,14 @@ in
             "docker-compose"
           ];
         };
-        services.podman.enable = true;
+        services.podman = {
+          enable = true;
+          useDefaultMachine = true;
+        };
         programs.zsh.shellAliases = {
           docker = "podman";
         };
+        home.packages = with pkgs; [ podman-compose ];
       }
 
       # TODO: configure conf
