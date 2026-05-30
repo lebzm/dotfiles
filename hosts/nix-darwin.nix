@@ -22,13 +22,13 @@
   nix = {
     package = pkgs.lixPackageSets.latest.lix;
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+    settings.allowed-users = [ "@admin" ];
     extraOptions = ''
       experimental-features = nix-command flakes
       warn-dirty = false
       keep-outputs = true
       keep-derivations = true
       accept-flake-config = true
-      trusted-users = root bzm
     '';
   };
 
