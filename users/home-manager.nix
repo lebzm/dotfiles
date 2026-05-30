@@ -9,6 +9,7 @@
       imports = [
         ../modules/home-manager
         inputs.nixvim.homeModules.nixvim
+        inputs.lazyvim.homeManagerModules.default
       ];
       xdg.enable = true;
       home.stateVersion = "26.05";
