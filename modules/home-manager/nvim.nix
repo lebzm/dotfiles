@@ -30,11 +30,6 @@ in
                 "c"
               ];
             }
-            {
-              key = ";";
-              action = ":";
-              mode = [ "n" ];
-            }
           ];
         };
       }
@@ -47,6 +42,33 @@ in
             lualine.enable = true;
             noice.enable = true;
           };
+        };
+      }
+
+      # movement
+      {
+        programs.nixvim = {
+          plugins = {
+            flash = {
+              enable = true;
+              settings = {
+                modes.search.enabled = false;
+                modes.char.enabled = false;
+                prompt.enabled = false;
+              };
+            };
+          };
+          keymaps = [
+            {
+              key = ";";
+              action.__raw = ''function() require("flash").jump() end'';
+              mode = [
+                "n"
+                "o"
+                "x"
+              ];
+            }
+          ];
         };
       }
 
