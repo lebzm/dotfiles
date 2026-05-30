@@ -13,6 +13,13 @@
     zen
   ];
 
+  programs.neovim = {
+    enable = true;
+    plugins = with pkgs.vimPlugins; [
+      lazy-nvim
+    ];
+  };
+
   programs.zsh.enable = true;
 
   programs.ssh = {

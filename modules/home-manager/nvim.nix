@@ -72,6 +72,15 @@ in
         };
       }
 
+      # editor
+      {
+        programs.nixvim = {
+          plugins = {
+            fzf-lua.enable = true;
+          };
+        };
+      }
+
     ]
   );
 }
