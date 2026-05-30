@@ -6,7 +6,10 @@
   home-manager.useUserPackages = true;
   home-manager.sharedModules = [
     {
-      imports = [ ../modules/home-manager ];
+      imports = [
+        ../modules/home-manager
+        inputs.nixvim.homeModules.nixvim
+      ];
       xdg.enable = true;
       home.stateVersion = "26.05";
     }

@@ -3,6 +3,7 @@
 {
   modules = {
     zed.enable = true;
+    nvim.enable = true;
   };
 
   home.packages = with pkgs.brewCasks; [
@@ -26,6 +27,8 @@
         hash = "sha256-U1KJ6LWPWErizOq4XHoRBMnotvXmGuFB/wSmc31pGXU=";
       };
     }))
+
+    pkgs.ghostty-bin
   ];
 
   programs.zsh.enable = true;
