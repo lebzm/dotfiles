@@ -31,6 +31,7 @@
         hash = "sha256-U1KJ6LWPWErizOq4XHoRBMnotvXmGuFB/wSmc31pGXU=";
       };
     }))
+    zen
   ];
 
   programs.zsh.enable = true;

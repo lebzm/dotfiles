@@ -11,7 +11,6 @@
     gnumake
     home-manager
     ghostty-bin
-    brewCasks.zen
   ];
 
   fonts.packages = with pkgs.nerd-fonts; [
@@ -37,7 +36,6 @@
 
   nixpkgs = {
     hostPlatform = system;
-    overlays = [ inputs.brew-nix.overlays.default ];
     config.allowUnfree = true;
     config.allowBroken = true;
   };

@@ -3,11 +3,11 @@
     "brew-api": {
       "flake": false,
       "locked": {
-        "lastModified": 1778264952,
-        "narHash": "sha256-y2uzS9+LZWedsSjZF4nXv9Fc/JSlJlDIcnODVwml78E=",
+        "lastModified": 1780230499,
+        "narHash": "sha256-qj3OFECjf/oH6WTMnYY4XfAP6qN6FI9ZGW7o5lR2L2Q=",
         "owner": "BatteredBunny",
         "repo": "brew-api",
-        "rev": "f95f64db373f556a1b97e3d93cd653b4bbb76daa",
+        "rev": "f176fdf3829660adcbed676a9df3591d91d75a4c",
         "type": "github"
       },
       "original": {
@@ -18,7 +18,9 @@
     },
     "brew-nix": {
       "inputs": {
-        "brew-api": "brew-api",
+        "brew-api": [
+          "brew-api"
+        ],
         "nix-darwin": [
           "nix-darwin"
         ],
@@ -182,6 +184,7 @@
     },
     "root": {
       "inputs": {
+        "brew-api": "brew-api",
         "brew-nix": "brew-nix",
         "home-manager": "home-manager",
         "lazyvim": "lazyvim",
