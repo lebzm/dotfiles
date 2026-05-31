@@ -1,8 +1,7 @@
 {
   pkgs,
   inputs,
-  platform,
-  primaryUser,
+  system,
   ...
 }:
 
@@ -10,6 +9,9 @@
   environment.systemPackages = with pkgs; [
     git
     gnumake
+    home-manager
+    ghostty-bin
+    brewCasks.zen
   ];
 
   fonts.packages = with pkgs.nerd-fonts; [
@@ -23,6 +25,7 @@
     package = pkgs.lixPackageSets.latest.lix;
     nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
     settings.allowed-users = [ "@admin" ];
+    settings.trusted-users = [ "@admin" ];
     extraOptions = ''
       experimental-features = nix-command flakes
       warn-dirty = false
@@ -33,8 +36,8 @@
   };
 
   nixpkgs = {
+    hostPlatform = system;
     overlays = [ inputs.brew-nix.overlays.default ];
-    hostPlatform = platform;
     config.allowUnfree = true;
     config.allowBroken = true;
   };
@@ -64,7 +67,8 @@
     /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
   '';
 
-  system.primaryUser = primaryUser;
+  # TODO: remove this once nix-darwin deprecate them
+  system.primaryUser = "bzm";
 
   system.stateVersion = 6;
 }
