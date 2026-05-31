@@ -1,17 +1,11 @@
 hostname := $(shell hostname -s)
 whoami := $(shell whoami)
 
-define source_brew
-# Brew
-eval "$$(/opt/homebrew/bin/brew shellenv)"
-# End Brew
-endef
-export source_brew
-
 system:
 	@sudo darwin-rebuild switch --flake .#$(hostname)
 home:
 	@home-manager switch --flake .#$(whoami)
+build: system home
 gc:
 	@nix-collect-garbage -d
 
