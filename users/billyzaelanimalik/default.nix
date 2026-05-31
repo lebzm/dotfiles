@@ -1,11 +1,54 @@
-let
-  username = "billyzaelanimalik";
-in
+{ pkgs, ... }:
 
 {
   imports = [ ../home-manager.nix ];
-  users.users.${username} = {
-    home = "/Users/${username}";
+
+  home.username = "billyzaelanimalik";
+  home.homeDirectory = "/Users/billyzaelanimalik";
+
+  modules = {
+    zed.enable = true;
   };
-  home-manager.users.${username} = import ./home.nix;
+
+  home.packages = with pkgs.brewCasks; [
+    mongodb-compass
+    # openvpn-connect # broken
+    slack
+    # whatsapp # broken
+    zen
+  ];
+
+  programs.lazyvim.enable = true;
+
+  programs.zsh.enable = true;
+
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+    settings = {
+      "bitbucket.org" = {
+        user = "git";
+        hostname = "bitbucket.org";
+        identityFile = "~/.ssh/amartha";
+        identitiesOnly = true;
+        addKeysToAgent = "yes";
+      };
+    };
+  };
+
+  programs.git = {
+    enable = true;
+    ignores = [
+      ".DS_Store"
+    ];
+    settings = {
+      init.defaultBranch = "main";
+      pull.rebase = true;
+      push.default = "current";
+      user = {
+        email = "billy.malik@amartha.com";
+        name = "Billy Zaelani Malik";
+      };
+    };
+  };
 }
