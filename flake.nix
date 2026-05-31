@@ -44,18 +44,12 @@
         {
           darwinConfigurations = {
             amartha = nix-darwin.lib.darwinSystem {
-              specialArgs = {
-                inherit inputs system;
-                primaryUser = "bzm";
-              };
+              specialArgs = { inherit inputs system; };
               modules = [ ./hosts/macbook ];
             };
 
             quicksilver = nix-darwin.lib.darwinSystem {
-              specialArgs = {
-                inherit inputs system;
-                primaryUser = "bzm";
-              };
+              specialArgs = { inherit inputs system; };
               modules = [ ./hosts/macbook ];
             };
           };
