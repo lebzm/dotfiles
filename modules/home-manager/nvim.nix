@@ -87,8 +87,15 @@ in
       {
         programs.nixvim = {
           plugins = {
-            fzf-lua.enable = true;
+            snacks.enable = true;
           };
+          keymaps = [
+            {
+              key = "<leader>ff";
+              action.__raw = ''function() require("snacks").picker.files() end'';
+              mode = [ "n" ];
+            }
+          ];
         };
       }
 
