@@ -45,6 +45,7 @@
       init.defaultBranch = "main";
       pull.rebase = true;
       push.default = "current";
+      url."ssh://git@bitbucket.org/".insteadOf = "https://bitbucket.org/";
       user = {
         email = "billy.malik@amartha.com";
         name = "Billy Zaelani Malik";
