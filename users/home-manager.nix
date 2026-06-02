@@ -9,6 +9,7 @@
 
   nixpkgs.overlays = [
     inputs.brew-nix.overlays.default
+    inputs.llm-agents.overlays.default
   ];
 
   xdg.enable = true;

@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 
@@ -24,7 +25,7 @@ in
           keymaps = [
             {
               key = "jj";
-              action = "<Esc>";
+              action = "<esc>";
               mode = [
                 "i"
                 "c"
@@ -80,6 +81,27 @@ in
           };
         };
       }
+
+      # ai
+      (
+        let
+          pi-nvim = pkgs.vimUtils.buildVimPlugin {
+            name = "pi-nvim";
+            src = pkgs.fetchFromGitHub {
+              owner = "alex35mil";
+              repo = "pi.nvim";
+              rev = "main";
+              sha256 = "sha256-X+aW4G+jYKX1T/XPNlDMgRj0fxRQtoTzo/PuZ+z9zLI=";
+            };
+          };
+        in
+        {
+          home.packages = with pkgs.llm-agents; [ pi ];
+          programs.nixvim = {
+            extraPlugins = [ pi-nvim ];
+          };
+        }
+      )
 
     ]
   );
