@@ -99,6 +99,15 @@ in
         };
       }
 
+      # git
+      {
+        programs.nixvim = {
+          plugins = {
+            gitsigns.enable = true;
+          };
+        };
+      }
+
       # ai
       (
         let
