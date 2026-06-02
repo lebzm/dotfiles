@@ -20,7 +20,7 @@ in
           enable = true;
           defaultEditor = true;
           clipboard.register = "unnamedplus";
-          globals.leader = " ";
+          globals.mapleader = " ";
           keymaps = [
             {
               key = "jj";
