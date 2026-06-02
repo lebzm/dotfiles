@@ -4,7 +4,7 @@
       "settings": {
         "options": {
           "home-manager": {
-            "expr": "(builtins.getFlake (builtins.toString ./.)).darwinConfigurations.amartha.options.home-manager.users.type.getSubOptions []",
+            "expr": "(builtins.getFlake (builtins.toString ./.)).homeConfigurations.bzm.options",
           },
           "nix-darwin": {
             "expr": "(builtins.getFlake (builtins.toString ./.)).darwinConfigurations.amartha.options",
