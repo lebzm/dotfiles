@@ -7,6 +7,7 @@
 
 let
   cfg = config.modules.nvim;
+  treesitter = config.programs.nixvim.plugins.treesitter.package.builtGrammars;
 in
 
 {
@@ -176,6 +177,26 @@ in
               indent.enable = true;
               # folding.enable = true;
             };
+          };
+        };
+      }
+
+      # lang.nix
+      {
+        programs.nixvim = {
+          lsp.servers = {
+            nixd = {
+              enable = true;
+              config.settings.nixd = {
+                nixpkgs.expr = "import (builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs { }";
+                # options.home-manager.expr = "(builtins.getFlake (builtins.toString ./.)).homeConfigurations.bzm.options";
+                # options.nix-darwin.expr = "(builtins.getFlake (builtins.toString ./.)).darwinConfigurations.amartha.options";
+              };
+            };
+          };
+          plugins = {
+            conform-nvim.settings.formatters_by_ft.nix = [ "nixfmt" ];
+            treesitter.grammarPackages = with treesitter; [ nix ];
           };
         };
       }
