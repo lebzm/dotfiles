@@ -25,7 +25,10 @@ in
           vimAlias = true;
           clipboard.register = "unnamedplus";
           globals.mapleader = " ";
-          opts.signcolumn = "yes";
+          opts = {
+            signcolumn = "yes";
+            wrap = false;
+          };
           keymaps = [
             {
               key = "jj";
