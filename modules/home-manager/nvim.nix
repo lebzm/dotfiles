@@ -132,6 +132,54 @@ in
         }
       )
 
+      # lang
+      {
+        programs.nixvim = {
+          lsp = {
+            inlayHints.enable = true;
+            keymaps = [
+              {
+                key = "gd";
+                lspBufAction = "definition";
+              }
+              {
+                key = "gt";
+                lspBufAction = "type_definition";
+              }
+              {
+                key = "gr";
+                lspBufAction = "references";
+              }
+              {
+                key = "gi";
+                lspBufAction = "implementation";
+              }
+              {
+                key = "K";
+                lspBufAction = "hover";
+              }
+            ];
+          };
+          plugins = {
+            lspconfig.enable = true;
+            conform-nvim = {
+              enable = true;
+              autoInstall.enable = true;
+              settings.format_on_save = {
+                lsp_format = "fallback";
+                timeout_ms = 500;
+              };
+            };
+            treesitter = {
+              enable = true;
+              highlight.enable = true;
+              indent.enable = true;
+              # folding.enable = true;
+            };
+          };
+        };
+      }
+
     ]
   );
 }
