@@ -70,6 +70,7 @@ in
                 modes.search.enabled = false;
                 modes.char.enabled = false;
                 prompt.enabled = false;
+                label.uppercase = false;
               };
             };
           };
