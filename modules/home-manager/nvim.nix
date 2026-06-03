@@ -190,12 +190,20 @@ in
             {
               event = "FileType";
               pattern = "http";
-              callback.__raw = # lua
-                ''
-                  function()
-                    vim.keymap.set({ "n", "x" }, "<CR>", function() require("kulala").run() end, { buffer = true, desc = "Run kulala request" })
-                  end
-                '';
+              callback.__raw = ''
+                function()
+                  vim.keymap.set({ "n" }, "<cr>", function() require("kulala").run() end, { buffer = true, desc = "Run kulala request" })
+                end
+              '';
+            }
+            {
+              event = "FileType";
+              pattern = "http";
+              callback.__raw = ''
+                function()
+                  vim.keymap.set({ "n" }, "e", function() require("kulala").set_selected_env() end, { buffer = true, desc = "Select environment" })
+                end
+              '';
             }
           ];
           plugins = {
