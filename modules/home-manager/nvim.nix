@@ -28,6 +28,8 @@ in
           opts = {
             signcolumn = "yes";
             wrap = false;
+            tabstop = 4;
+            shiftwidth = 4;
           };
           keymaps = [
             {
