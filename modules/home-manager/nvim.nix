@@ -24,6 +24,7 @@ in
           vimAlias = true;
           clipboard.register = "unnamedplus";
           globals.mapleader = " ";
+          opts.signcolumn = "yes";
           keymaps = [
             {
               key = "jj";
