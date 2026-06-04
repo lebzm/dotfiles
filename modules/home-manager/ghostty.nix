@@ -20,6 +20,7 @@ in
         theme = "Catppuccin Mocha";
         background-opacity = 0.95;
         custom-shader = "shaders/cursor_smear.glsl";
+        unfocused-split-opacity = 1;
       };
     };
     home.file.".config/ghostty/shaders/cursor_smear.glsl".source = ./shaders/cursor_smear.glsl;
