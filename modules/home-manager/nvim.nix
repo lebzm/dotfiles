@@ -31,6 +31,8 @@ in
             tabstop = 4;
             shiftwidth = 4;
             fillchars.eob = " ";
+            ignorecase = true;
+            smartcase = true;
           };
           keymaps = [
             {
