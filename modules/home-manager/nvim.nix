@@ -134,6 +134,45 @@ in
         programs.nixvim = {
           plugins = {
             snacks.enable = true;
+            blink-cmp = {
+              enable = true;
+              settings = {
+                completion = {
+                  ghost_text.enabled = true;
+                  menu.auto_show = false;
+                  menu.border = "single";
+                  documentation.window.border = "single";
+                  documentation.auto_show = true;
+                };
+                keymap = {
+                  preset = "none";
+                  "<c-space>" = [
+                    "show"
+                    "hide"
+                  ];
+                  "<tab>" = [
+                    "select_and_accept"
+                    "fallback"
+                  ];
+                  "<c-n>" = [
+                    "select_next"
+                    "fallback_to_mappings"
+                  ];
+                  "<c-p>" = [
+                    "select_prev"
+                    "fallback_to_mappings"
+                  ];
+                  "<c-b>" = [
+                    "scroll_documentation_up"
+                    "fallback"
+                  ];
+                  "<c-f>" = [
+                    "scroll_documentation_down"
+                    "fallback"
+                  ];
+                };
+              };
+            };
           };
           keymaps = [
             {
