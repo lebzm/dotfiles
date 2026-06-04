@@ -8,6 +8,7 @@
 
   modules = {
     zed.enable = true;
+    ghostty.enable = true;
     nvim.enable = true;
   };
 

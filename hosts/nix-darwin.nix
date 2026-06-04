@@ -10,7 +10,6 @@
     git
     gnumake
     home-manager
-    ghostty-bin
   ];
 
   fonts.packages = with pkgs.nerd-fonts; [

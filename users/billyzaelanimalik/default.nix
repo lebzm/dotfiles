@@ -8,6 +8,7 @@
 
   modules = {
     zed.enable = true;
+    ghostty.enable = true;
   };
 
   home.packages = with pkgs.brewCasks; [
