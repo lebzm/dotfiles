@@ -21,6 +21,7 @@ in
 
       # general
       {
+        home.packages = with pkgs; [ nodejs ];
         programs.nixvim = {
           enable = true;
           defaultEditor = true;
