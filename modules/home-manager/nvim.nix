@@ -78,6 +78,8 @@ in
                       kind = [
                         "bufwrite"
                         "undo"
+                        "echomsg"
+                        "echoerr"
                       ];
                     };
                     view = "mini";
@@ -87,8 +89,6 @@ in
                       event = "msg_show";
                       kind = [
                         "echo"
-                        "echomsg"
-                        "echoerr"
                         "lua_print"
                         "lua_error"
                         "shell_out"
