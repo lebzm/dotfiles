@@ -51,15 +51,50 @@ in
           colorschemes.catppuccin.enable = true;
           plugins = {
             lualine.enable = true;
+            mini-icons.enable = true;
             noice = {
               enable = true;
-              settings.presets = {
-                bottom_search = true;
-                command_palette = true;
-                lsp_doc_border = true;
+              settings = {
+                presets = {
+                  bottom_search = true;
+                  command_palette = true;
+                  lsp_doc_border = true;
+                };
+                cmdline.format.filter.title = " Shell ";
+                routes = [
+                  {
+                    filter = {
+                      event = "msg_show";
+                      kind = [
+                        "bufwrite"
+                        "undo"
+                      ];
+                    };
+                    view = "mini";
+                  }
+                  {
+                    filter = {
+                      event = "msg_show";
+                      kind = [
+                        "echo"
+                        "echomsg"
+                        "echoerr"
+                        "lua_print"
+                        "lua_error"
+                        "shell_out"
+                        "shell_err"
+                        "shell_ret"
+                      ];
+                    };
+                    view = "split";
+                  }
+                ];
+                lsp.override = {
+                  "vim.lsp.util.convert_input_to_markdown_lines" = true;
+                  "vim.lsp.util.stylize_markdown" = true;
+                };
               };
             };
-            mini-icons.enable = true;
           };
         };
       }
