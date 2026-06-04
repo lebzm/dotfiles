@@ -58,7 +58,10 @@ in
           };
           plugins = {
             lualine.enable = true;
-            mini-icons.enable = true;
+            mini-icons = {
+              enable = true;
+              mockDevIcons = true;
+            };
             noice = {
               enable = true;
               settings = {
