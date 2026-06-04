@@ -30,6 +30,7 @@ in
             wrap = false;
             tabstop = 4;
             shiftwidth = 4;
+            fillchars.eob = " ";
           };
           keymaps = [
             {
