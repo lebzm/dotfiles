@@ -138,6 +138,7 @@ in
       {
         programs.nixvim = {
           plugins = {
+            mini-pairs.enable = true;
             snacks.enable = true;
             blink-cmp = {
               enable = true;
