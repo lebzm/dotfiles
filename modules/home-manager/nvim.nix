@@ -226,6 +226,9 @@ in
       # lang
       {
         programs.nixvim = {
+          diagnostic.settings = {
+            virtual_text.current_line = true;
+          };
           lsp = {
             inlayHints.enable = true;
             keymaps = [
@@ -248,6 +251,16 @@ in
               {
                 key = "K";
                 lspBufAction = "hover";
+              }
+              {
+                key = "[d";
+                action.__raw = "function() vim.diagnostic.jump({ count=-1 }) end";
+                options.desc = "Previous diagnostic";
+              }
+              {
+                key = "]d";
+                action.__raw = "function() vim.diagnostic.jump({ count=1 }) end";
+                options.desc = "Next diagnostic";
               }
             ];
           };
