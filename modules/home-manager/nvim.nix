@@ -50,7 +50,10 @@ in
       # ui
       {
         programs.nixvim = {
-          colorschemes.catppuccin.enable = true;
+          colorschemes.catppuccin = {
+            enable = true;
+            settings.flavour = "mocha";
+          };
           plugins = {
             lualine.enable = true;
             mini-icons.enable = true;
