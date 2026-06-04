@@ -18,6 +18,7 @@ in
       package = pkgs.ghostty-bin;
       settings = {
         theme = "Catppuccin Mocha";
+        background-opacity = 0.95;
         custom-shader = "shaders/cursor_smear.glsl";
       };
     };
