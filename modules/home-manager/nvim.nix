@@ -259,7 +259,7 @@ in
               enable = true;
               highlight.enable = true;
               indent.enable = true;
-              # folding.enable = true;
+              # folding.enable = true; # TODO: enable folding and other related folding config
             };
           };
         };
