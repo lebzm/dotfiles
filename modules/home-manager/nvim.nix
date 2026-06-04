@@ -11,7 +11,10 @@ let
 in
 
 {
-  options.modules.nvim.enable = lib.mkEnableOption "nvim";
+  options.modules.nvim = {
+    enable = lib.mkEnableOption "nvim";
+    dotfilesPath = lib.mkOption { type = lib.types.str; };
+  };
 
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
@@ -456,8 +459,8 @@ in
               enable = true;
               config.settings.nixd = {
                 nixpkgs.expr = "import (builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs { }";
-                # options.home-manager.expr = "(builtins.getFlake (builtins.toString ./.)).homeConfigurations.bzm.options";
-                # options.nix-darwin.expr = "(builtins.getFlake (builtins.toString ./.)).darwinConfigurations.amartha.options";
+                options.home-manager.expr = "(builtins.getFlake \"${cfg.dotfilesPath}/.config/dotfiles\").homeConfigurations.bzm.options";
+                options.nix-darwin.expr = "(builtins.getFlake \"${cfg.dotfilesPath}/.config/dotfiles\").darwinConfigurations.amartha.options";
               };
             };
           };

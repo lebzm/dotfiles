@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [ ../home-manager.nix ];
@@ -9,7 +9,10 @@
   modules = {
     zed.enable = true;
     ghostty.enable = true;
-    nvim.enable = true;
+    nvim = {
+      enable = true;
+      dotfilesPath = config.home.homeDirectory;
+    };
   };
 
   home.packages = with pkgs.brewCasks; [
