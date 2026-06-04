@@ -143,6 +143,16 @@ in
           plugins = {
             mini-pairs.enable = true;
             snacks.enable = true;
+            neogit = {
+              enable = true;
+              settings = {
+                kind = "vsplit";
+                commit_editor = {
+                  kind = "floating";
+                  spell_check = false;
+                };
+              };
+            };
             blink-cmp = {
               enable = true;
               settings = {
@@ -187,6 +197,11 @@ in
             {
               key = "<leader>ff";
               action.__raw = ''function() require("snacks").picker.files() end'';
+              mode = [ "n" ];
+            }
+            {
+              key = "<leader>gg";
+              action.__raw = ''function() require("neogit").open() end'';
               mode = [ "n" ];
             }
           ];
