@@ -41,7 +41,7 @@ in
           keymaps = [
             {
               key = "jj";
-              action = "<esc>";
+              action = "<Esc>";
               mode = [
                 "i"
                 "c"
@@ -49,7 +49,7 @@ in
             }
             {
               key = "jj";
-              action = "<c-\\><c-n>";
+              action = "<C-\\><C-n>";
               mode = [ "t" ];
             }
             {
@@ -205,27 +205,27 @@ in
                 };
                 keymap = {
                   preset = "none";
-                  "<c-space>" = [
+                  "<C-Space>" = [
                     "show"
                     "hide"
                   ];
-                  "<tab>" = [
+                  "<Tab>" = [
                     "select_and_accept"
                     "fallback"
                   ];
-                  "<c-n>" = [
+                  "<C-n>" = [
                     "select_next"
                     "fallback_to_mappings"
                   ];
-                  "<c-p>" = [
+                  "<C-p>" = [
                     "select_prev"
                     "fallback_to_mappings"
                   ];
-                  "<c-b>" = [
+                  "<C-b>" = [
                     "scroll_documentation_up"
                     "fallback"
                   ];
-                  "<c-f>" = [
+                  "<C-f>" = [
                     "scroll_documentation_down"
                     "fallback"
                   ];
@@ -235,7 +235,7 @@ in
           };
           keymaps = [
             {
-              key = "<leader>ff";
+              key = "<Leader>ff";
               action.__raw = ''function() require("snacks").picker.files() end'';
               mode = [
                 "n"
@@ -243,7 +243,7 @@ in
               ];
             }
             {
-              key = "<leader>tt";
+              key = "<Leader>tt";
               action.__raw = ''function() require("snacks").terminal() end'';
               mode = [
                 "n"
@@ -251,7 +251,7 @@ in
               ];
             }
             {
-              key = "<leader>gg";
+              key = "<Leader>gg";
               action.__raw = ''function() require("neogit").open() end'';
               mode = [
                 "n"
@@ -279,7 +279,7 @@ in
           keymaps = [
             # general
             {
-              key = "<leader><tab>";
+              key = "<Leader><tab>";
               action.__raw = ''function() require("opencode").command("agent.cycle") end'';
               mode = [
                 "n"
@@ -287,7 +287,7 @@ in
               ];
             }
             {
-              key = "<leader>oq";
+              key = "<Leader>oq";
               action.__raw = ''
                 -- require to fire the command twice due to confirmation
                 function()
@@ -300,26 +300,26 @@ in
               ];
             }
             {
-              key = "<leader>os";
+              key = "<Leader>os";
               action.__raw = ''function() require("opencode").select() end'';
               mode = [ "n" ];
             }
 
             # ask
             {
-              key = "<leader>oa";
+              key = "<Leader>oa";
               action.__raw = ''function() require("opencode").ask() end'';
               mode = [ "n" ];
             }
             {
-              key = "<leader>oa";
+              key = "<Leader>oa";
               action.__raw = ''function() require("opencode").ask("@this: ") end'';
               mode = [ "x" ];
             }
 
             # explain/review
             {
-              key = "<leader>od";
+              key = "<Leader>od";
               action.__raw = ''function() require("opencode").prompt("Explain @diagnostics") end'';
               mode = [
                 "n"
@@ -327,7 +327,7 @@ in
               ];
             }
             {
-              key = "<leader>oe";
+              key = "<Leader>oe";
               action.__raw = ''function() require("opencode").prompt("Explain @this and its context") end'';
               mode = [
                 "n"
@@ -335,7 +335,7 @@ in
               ];
             }
             {
-              key = "<leader>or";
+              key = "<Leader>or";
               action.__raw = ''function() require("opencode").prompt("Review @this for correctness and readability") end'';
               mode = [
                 "n"
@@ -345,7 +345,7 @@ in
 
             # edit
             {
-              key = "<leader>of";
+              key = "<Leader>of";
               action.__raw = ''function() require("opencode").prompt("Fix @diagnostics") end'';
               mode = [
                 "n"
@@ -353,7 +353,7 @@ in
               ];
             }
             {
-              key = "<leader>oi";
+              key = "<Leader>oi";
               action.__raw = ''function() require("opencode").prompt("Implement @this") end'';
               mode = [
                 "n"
@@ -361,7 +361,7 @@ in
               ];
             }
             {
-              key = "<leader>oo";
+              key = "<Leader>oo";
               action.__raw = ''function() require("opencode").prompt("Optimize @this for performance and readability") end'';
               mode = [
                 "n"
@@ -369,7 +369,7 @@ in
               ];
             }
             {
-              key = "<leader>ot";
+              key = "<Leader>ot";
               action.__raw = ''function() require("opencode").prompt("Add tests for @this") end'';
               mode = [
                 "n"
@@ -377,7 +377,7 @@ in
               ];
             }
             {
-              key = "<leader>oc";
+              key = "<Leader>oc";
               action.__raw = ''function() require("opencode").prompt("Add comments documenting @this") end'';
               mode = [
                 "n"
@@ -402,7 +402,7 @@ in
           keymaps = [
             # general
             {
-              key = "<leader>pq";
+              key = "<Leader>pq";
               action.__raw = ''function() require("pi").cancel() end'';
               mode = [
                 "n"
@@ -412,12 +412,12 @@ in
 
             # ask
             {
-              key = "<leader>pa";
+              key = "<Leader>pa";
               action.__raw = ''function() require("pi").prompt_with_buffer() end'';
               mode = [ "n" ];
             }
             {
-              key = "<leader>pa";
+              key = "<Leader>pa";
               action.__raw = ''function() require("pi").prompt_with_selection() end'';
               mode = [ "x" ];
             }
@@ -495,7 +495,7 @@ in
               pattern = "http";
               callback.__raw = ''
                 function()
-                  vim.keymap.set({ "n" }, "<cr>", function() require("kulala").run() end, { buffer = true, desc = "Run kulala request" })
+                  vim.keymap.set({ "n" }, "<CR>", function() require("kulala").run() end, { buffer = true, desc = "Run kulala request" })
                 end
               '';
             }
