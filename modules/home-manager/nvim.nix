@@ -176,6 +176,11 @@ in
               settings = {
                 input.enable = true;
                 picker.enable = true;
+                terminal = {
+                  start_insert = false;
+                  auto_insert = false;
+                  auto_close = true;
+                };
               };
             };
             neogit = {
@@ -232,6 +237,14 @@ in
             {
               key = "<leader>ff";
               action.__raw = ''function() require("snacks").picker.files() end'';
+              mode = [
+                "n"
+                "x"
+              ];
+            }
+            {
+              key = "<leader>tt";
+              action.__raw = ''function() require("snacks").terminal() end'';
               mode = [
                 "n"
                 "x"
