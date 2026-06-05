@@ -21,7 +21,10 @@ in
 
       # general
       {
-        home.packages = with pkgs; [ nodejs ];
+        home.packages = with pkgs; [
+          nodejs
+          prettier
+        ];
         programs.nixvim = {
           enable = true;
           defaultEditor = true;
