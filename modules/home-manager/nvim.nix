@@ -47,6 +47,31 @@ in
                 "c"
               ];
             }
+            {
+              key = "jj";
+              action = "<c-\\><c-n>";
+              mode = [ "t" ];
+            }
+            {
+              key = "<C-h>";
+              action = "<C-w>h";
+              mode = [ "n" "x" ];
+            }
+            {
+              key = "<C-j>";
+              action = "<C-w>j";
+              mode = [ "n" "x" ];
+            }
+            {
+              key = "<C-k>";
+              action = "<C-w>k";
+              mode = [ "n" "x" ];
+            }
+            {
+              key = "<C-l>";
+              action = "<C-w>l";
+              mode = [ "n" "x" ];
+            }
           ];
         };
       }
