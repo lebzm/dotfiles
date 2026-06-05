@@ -207,12 +207,18 @@ in
             {
               key = "<leader>ff";
               action.__raw = ''function() require("snacks").picker.files() end'';
-              mode = [ "n" ];
+              mode = [
+                "n"
+                "x"
+              ];
             }
             {
               key = "<leader>gg";
               action.__raw = ''function() require("neogit").open() end'';
-              mode = [ "n" ];
+              mode = [
+                "n"
+                "x"
+              ];
             }
           ];
         };
@@ -227,26 +233,159 @@ in
         };
       }
 
-      # ai
-      (
-        let
-          pi-nvim = pkgs.vimUtils.buildVimPlugin {
-            name = "pi-nvim";
-            src = pkgs.fetchFromGitHub {
-              owner = "alex35mil";
-              repo = "pi.nvim";
-              rev = "main";
-              sha256 = "sha256-X+aW4G+jYKX1T/XPNlDMgRj0fxRQtoTzo/PuZ+z9zLI=";
-            };
-          };
-        in
-        {
-          home.packages = with pkgs.llm-agents; [ pi ];
-          programs.nixvim = {
-            extraPlugins = [ pi-nvim ];
-          };
-        }
-      )
+      # ai.opencode for work
+      {
+        home.packages = with pkgs.llm-agents; [ opencode ];
+        programs.nixvim = {
+          plugins.opencode.enable = true;
+          keymaps = [
+            # general
+            {
+              key = "<leader><tab>";
+              action.__raw = ''function() require("opencode").command("agent.cycle") end'';
+              mode = [
+                "n"
+                "x"
+              ];
+            }
+            {
+              key = "<leader>oq";
+              action.__raw = ''
+                -- require to fire the command twice due to confirmation
+                function()
+                 require("opencode").command("session.interrupt")
+                 require("opencode").command("session.interrupt")
+                end'';
+              mode = [
+                "n"
+                "x"
+              ];
+            }
+            {
+              key = "<leader>os";
+              action.__raw = ''function() require("opencode").select() end'';
+              mode = [ "n" ];
+            }
+
+            # ask
+            {
+              key = "<leader>oa";
+              action.__raw = ''function() require("opencode").ask() end'';
+              mode = [ "n" ];
+            }
+            {
+              key = "<leader>oa";
+              action.__raw = ''function() require("opencode").ask("@this: ") end'';
+              mode = [ "x" ];
+            }
+
+            # explain/review
+            {
+              key = "<leader>od";
+              action.__raw = ''function() require("opencode").prompt("Explain @diagnostics") end'';
+              mode = [
+                "n"
+                "x"
+              ];
+            }
+            {
+              key = "<leader>oe";
+              action.__raw = ''function() require("opencode").prompt("Explain @this and its context") end'';
+              mode = [
+                "n"
+                "x"
+              ];
+            }
+            {
+              key = "<leader>or";
+              action.__raw = ''function() require("opencode").prompt("Review @this for correctness and readability") end'';
+              mode = [
+                "n"
+                "x"
+              ];
+            }
+
+            # edit
+            {
+              key = "<leader>of";
+              action.__raw = ''function() require("opencode").prompt("Fix @diagnostics") end'';
+              mode = [
+                "n"
+                "x"
+              ];
+            }
+            {
+              key = "<leader>oi";
+              action.__raw = ''function() require("opencode").prompt("Implement @this") end'';
+              mode = [
+                "n"
+                "x"
+              ];
+            }
+            {
+              key = "<leader>oo";
+              action.__raw = ''function() require("opencode").prompt("Optimize @this for performance and readability") end'';
+              mode = [
+                "n"
+                "x"
+              ];
+            }
+            {
+              key = "<leader>ot";
+              action.__raw = ''function() require("opencode").prompt("Add tests for @this") end'';
+              mode = [
+                "n"
+                "x"
+              ];
+            }
+            {
+              key = "<leader>oc";
+              action.__raw = ''function() require("opencode").prompt("Add comments documenting @this") end'';
+              mode = [
+                "n"
+                "x"
+              ];
+            }
+          ];
+        };
+      }
+
+      # ai.pi for hacking
+      {
+        home.packages = with pkgs.llm-agents; [ pi ];
+        programs.nixvim = {
+          extraPlugins = with pkgs.vimPlugins; [ pi-nvim ];
+          extraConfigLua = ''
+            require("pi").setup({
+              provider = "opencode-go",
+              model = "kimi-k2.5";
+            })
+          '';
+          keymaps = [
+            # general
+            {
+              key = "<leader>pq";
+              action.__raw = ''function() require("pi").cancel() end'';
+              mode = [
+                "n"
+                "x"
+              ];
+            }
+
+            # ask
+            {
+              key = "<leader>pa";
+              action.__raw = ''function() require("pi").prompt_with_buffer() end'';
+              mode = [ "n" ];
+            }
+            {
+              key = "<leader>pa";
+              action.__raw = ''function() require("pi").prompt_with_selection() end'';
+              mode = [ "x" ];
+            }
+          ];
+        };
+      }
 
       # lang
       {
