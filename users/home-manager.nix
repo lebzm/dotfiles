@@ -4,7 +4,6 @@
   imports = [
     ../modules/home-manager
     inputs.nixvim.homeModules.nixvim
-    inputs.lazyvim.homeManagerModules.default
   ];
 
   nixpkgs.overlays = [
