@@ -146,7 +146,13 @@ in
         programs.nixvim = {
           plugins = {
             mini-pairs.enable = true;
-            snacks.enable = true;
+            snacks = {
+              enable = true;
+              settings = {
+                input.enable = true;
+                picker.enable = true;
+              };
+            };
             neogit = {
               enable = true;
               settings = {
