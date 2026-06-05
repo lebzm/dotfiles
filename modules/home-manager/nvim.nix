@@ -185,6 +185,10 @@ in
 
       # editor
       {
+        home.packages = with pkgs; [
+          ripgrep
+          fd
+        ];
         programs.nixvim = {
           plugins = {
             mini-pairs.enable = true;
@@ -254,6 +258,70 @@ in
             {
               key = "<Leader>ff";
               action.__raw = ''function() require("snacks").picker.files() end'';
+              mode = [
+                "n"
+                "x"
+              ];
+            }
+            {
+              key = "<Leader>fb";
+              action.__raw = ''function() require("snacks").picker.buffers() end'';
+              mode = [
+                "n"
+                "x"
+              ];
+            }
+            {
+              key = "<Leader>fp";
+              action.__raw = ''function() require("snacks").picker.projects() end'';
+              mode = [
+                "n"
+                "x"
+              ];
+            }
+            {
+              key = "<Leader>fg";
+              action.__raw = ''function() require("snacks").picker.grep() end'';
+              mode = [
+                "n"
+                "x"
+              ];
+            }
+            {
+              key = "<Leader>fh";
+              action.__raw = ''function() require("snacks").picker.help() end'';
+              mode = [
+                "n"
+                "x"
+              ];
+            }
+            {
+              key = "<Leader>fk";
+              action.__raw = ''function() require("snacks").picker.keymaps() end'';
+              mode = [
+                "n"
+                "x"
+              ];
+            }
+            {
+              key = "<Leader>fe";
+              action.__raw = ''function() require("snacks").explorer() end'';
+              mode = [
+                "n"
+                "x"
+              ];
+            }
+            {
+              key = "<Leader>ss";
+              action.__raw = ''function() require("snacks").picker.lsp_symbols() end'';
+              mode = [
+                "n"
+                "x"
+              ];
+            }
+            {
+              key = "<Leader>sS";
+              action.__raw = ''function() require("snacks").picker.lsp_workspace_symbols() end'';
               mode = [
                 "n"
                 "x"
@@ -453,19 +521,23 @@ in
             keymaps = [
               {
                 key = "gd";
-                lspBufAction = "definition";
-              }
-              {
-                key = "gt";
-                lspBufAction = "type_definition";
+                action.__raw = ''function() require("snacks").picker.lsp_definitions() end'';
               }
               {
                 key = "gr";
-                lspBufAction = "references";
+                action.__raw = ''function() require("snacks").picker.lsp_references() end'';
               }
               {
                 key = "gi";
-                lspBufAction = "implementation";
+                action.__raw = ''function() require("snacks").picker.lsp_implementations() end'';
+              }
+              {
+                key = "gt";
+                action.__raw = ''function() require("snacks").picker.lsp_type_definitions() end'';
+              }
+              {
+                key = "gD";
+                action.__raw = ''function() require("snacks").picker.lsp_declarations() end'';
               }
               {
                 key = "K";
@@ -497,6 +569,7 @@ in
               enable = true;
               highlight.enable = true;
               indent.enable = true;
+              grammarPackages = with treesitter; [ regex ];
               # folding.enable = true; # TODO: enable folding and other related folding config
             };
           };
