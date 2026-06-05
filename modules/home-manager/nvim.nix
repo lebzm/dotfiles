@@ -72,6 +72,11 @@ in
               action = "<C-w>l";
               mode = [ "n" "x" ];
             }
+            {
+              key = "<Esc>";
+              action = "<Cmd>nohlsearch<CR>";
+              mode = [ "n" ];
+            }
           ];
         };
       }
