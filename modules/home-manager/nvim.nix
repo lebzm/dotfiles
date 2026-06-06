@@ -597,7 +597,28 @@ in
               pattern = "hurl";
               callback.__raw = ''
                 function()
-                  vim.keymap.set({ "n" }, "<Leader>rl", "<Cmd>HurlShowLastResponse<CR>", { buffer = true, desc = "Show last response" })
+                  vim.keymap.set({ "n" }, "<Leader>rl", "<Cmd>HurlShowLastResponse<CR>", { buffer = true, desc = "Show last hurl response" })
+                end
+              '';
+            }
+            {
+              event = "FileType";
+              pattern = "hurl";
+              callback.__raw = ''
+                function()
+                  vim.keymap.set({ "n" }, "<Leader>re", function()
+                    require("snacks").picker.files({
+                      title = "Select Hurl Env File",
+                      args = { "--glob", "*.env" },
+                      ignored = true,
+                      confirm = function(picker, item)
+                        picker:close()
+                        if item then
+                          vim.cmd("HurlSetEnvFile " .. item.file)
+                        end
+                      end,
+                    })
+                  end, { buffer = true, desc = "Set hurl env file" })
                 end
               '';
             }
