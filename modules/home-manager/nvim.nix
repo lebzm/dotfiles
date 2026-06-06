@@ -7,7 +7,380 @@
 
 let
   cfg = config.modules.nvim;
-  treesitter = config.programs.nixvim.plugins.treesitter.package.builtGrammars;
+  treesitterGrammars = config.programs.nixvim.plugins.treesitter.package.builtGrammars;
+
+  normal = [ "n" ];
+  insert = [ "i" ];
+  command = [ "c" ];
+  visual = [ "x" ];
+  operator = [ "o" ];
+  terminal = [ "t" ];
+
+  nixvim = {
+    home.packages = with pkgs; [
+      nodejs
+      prettier
+    ];
+    programs.nixvim = {
+      enable = true;
+      defaultEditor = true;
+      viAlias = true;
+      vimAlias = true;
+      clipboard.register = "unnamedplus";
+      globals.mapleader = " ";
+      opts = {
+        signcolumn = "yes";
+        wrap = false;
+        tabstop = 4;
+        shiftwidth = 4;
+        fillchars.eob = " ";
+        ignorecase = true;
+        smartcase = true;
+      };
+      keymaps = [
+        {
+          key = "jj";
+          action = "<Esc>";
+          mode = insert ++ command;
+        }
+        {
+          key = "jj";
+          action = "<C-\\><C-n>";
+          mode = terminal;
+        }
+      ];
+    };
+  };
+
+  motion = {
+    programs.nixvim = {
+      plugins.flash = {
+        enable = true;
+        settings = {
+          modes.search.enabled = false;
+          modes.char.enabled = false;
+          prompt.enabled = false;
+          label.uppercase = false;
+        };
+      };
+      keymaps = [
+        {
+          key = "s";
+          action.__raw = ''function() require("flash").jump() end'';
+          mode = normal ++ visual ++ operator;
+        }
+        {
+          key = "gh";
+          action = "<C-w>h";
+          mode = normal ++ visual;
+        }
+        {
+          key = "gj";
+          action = "<C-w>j";
+          mode = normal ++ visual;
+        }
+        {
+          key = "gk";
+          action = "<C-w>k";
+          mode = normal ++ visual;
+        }
+        {
+          key = "gl";
+          action = "<C-w>l";
+          mode = normal ++ visual;
+        }
+      ];
+    };
+  };
+
+  completion = {
+    programs.nixvim = {
+      plugins.blink-cmp = {
+        enable = true;
+        settings = {
+          completion = {
+            ghost_text.enabled = true;
+            menu.auto_show = false;
+            menu.border = "single";
+            documentation.window.border = "single";
+            documentation.auto_show = true;
+          };
+          keymap = {
+            preset = "none";
+            "<C-Space>" = [
+              "show"
+              "hide"
+            ];
+            "<Tab>" = [
+              "select_and_accept"
+              "fallback"
+            ];
+            "<C-n>" = [
+              "select_next"
+              "fallback_to_mappings"
+            ];
+            "<C-p>" = [
+              "select_prev"
+              "fallback_to_mappings"
+            ];
+            "<C-b>" = [
+              "scroll_documentation_up"
+              "fallback"
+            ];
+            "<C-f>" = [
+              "scroll_documentation_down"
+              "fallback"
+            ];
+          };
+        };
+      };
+    };
+  };
+
+  ui_colorscheme = {
+    programs.nixvim = {
+      colorschemes.catppuccin = {
+        enable = true;
+        settings = {
+          flavour = "mocha";
+          transparent_background = true;
+          float.transparent = true;
+        };
+      };
+    };
+  };
+
+  ui_icons = {
+    programs.nixvim = {
+      plugins.mini-icons = {
+        enable = true;
+        mockDevIcons = true;
+      };
+    };
+  };
+
+  ui_statusline = {
+    programs.nixvim = {
+      plugins.lualine.enable = true;
+    };
+  };
+
+  noice = {
+    programs.nixvim = {
+      plugins.noice = {
+        enable = true;
+        settings = {
+          presets.bottom_search = true;
+          presets.command_palette = true;
+          presets.lsp_doc_border = true;
+          cmdline.format.filter.title = " Shell ";
+          routes = [
+            {
+              filter = {
+                event = "msg_show";
+                kind = [
+                  "bufwrite"
+                  "undo"
+                  "echomsg"
+                  "echoerr"
+                ];
+              };
+              view = "mini";
+            }
+            {
+              filter = {
+                event = "msg_show";
+                kind = [
+                  "echo"
+                  "lua_print"
+                  "lua_error"
+                  "shell_out"
+                  "shell_err"
+                  "shell_ret"
+                ];
+              };
+              view = "split";
+            }
+          ];
+          lsp.override = {
+            "vim.lsp.util.convert_input_to_markdown_lines" = true;
+            "vim.lsp.util.stylize_markdown" = true;
+          };
+        };
+      };
+    };
+  };
+
+  git = {
+    programs.nixvim = {
+      plugins.gitsigns.enable = true;
+      plugins.neogit = {
+        enable = true;
+        settings = {
+          kind = "vsplit";
+          commit_editor.kind = "floating";
+          commit_editor.spell_check = false;
+        };
+      };
+
+      keymaps = [
+        {
+          key = "<Leader>gg";
+          action.__raw = ''function() require("neogit").open() end'';
+          mode = normal ++ visual;
+        }
+      ];
+    };
+  };
+
+  dep_treesitter = {
+    programs.nixvim = {
+      plugins.treesitter = {
+        enable = true;
+        highlight.enable = true;
+        indent.enable = true;
+        grammarPackages = with treesitterGrammars; [ regex ];
+        # folding.enable = true; # TODO: enable folding and other related folding config
+      };
+    };
+  };
+
+  dep_format = {
+    programs.nixvim = {
+      plugins.conform-nvim = {
+        enable = true;
+        autoInstall.enable = true;
+        settings.format_on_save = {
+          lsp_format = "fallback";
+          timeout_ms = 500;
+        };
+      };
+    };
+  };
+
+  dep_lsp = {
+    programs.nixvim = {
+      plugins.lspconfig.enable = true;
+      diagnostic.settings.virtual_text.current_line = true;
+      lsp.inlayHints.enable = true;
+      lsp.keymaps = [
+        {
+          key = "gd";
+          action.__raw = ''function() require("snacks").picker.lsp_definitions() end'';
+        }
+        {
+          key = "gr";
+          action.__raw = ''function() require("snacks").picker.lsp_references() end'';
+        }
+        {
+          key = "gi";
+          action.__raw = ''function() require("snacks").picker.lsp_implementations() end'';
+        }
+        {
+          key = "gt";
+          action.__raw = ''function() require("snacks").picker.lsp_type_definitions() end'';
+        }
+        {
+          key = "gD";
+          action.__raw = ''function() require("snacks").picker.lsp_declarations() end'';
+        }
+        {
+          key = "K";
+          lspBufAction = "hover";
+        }
+        {
+          key = "[d";
+          action.__raw = "function() vim.diagnostic.jump({ count=-1 }) end";
+        }
+        {
+          key = "]d";
+          action.__raw = "function() vim.diagnostic.jump({ count=1 }) end";
+        }
+        {
+          key = "<Leader>ss";
+          action.__raw = ''function() require("snacks").picker.lsp_symbols() end'';
+        }
+        {
+          key = "<Leader>SS";
+          action.__raw = ''function() require("snacks").picker.lsp_workspace_symbols() end'';
+        }
+      ];
+    };
+  };
+
+  lang_nix = {
+    programs.nixvim = {
+      plugins.conform-nvim.settings.formatters_by_ft.nix = [ "nixfmt" ];
+      plugins.treesitter.grammarPackages = with treesitterGrammars; [ nix ];
+      lsp.servers.nixd = {
+        enable = true;
+        config.settings.nixd = {
+          nixpkgs.expr = "import (builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs { }";
+          options.home-manager.expr = "(builtins.getFlake \"${cfg.dotfilesPath}/.config/dotfiles\").homeConfigurations.bzm.options";
+          options.nix-darwin.expr = "(builtins.getFlake \"${cfg.dotfilesPath}/.config/dotfiles\").darwinConfigurations.amartha.options";
+        };
+      };
+    };
+  };
+
+  lang_go = {
+    programs.nixvim = {
+      plugins.conform-nvim.settings.formatters_by_ft.go = [ "gofumpt" ];
+      plugins.treesitter.grammarPackages = with treesitterGrammars; [ go ];
+      lsp.servers.gopls.enable = true;
+    };
+  };
+
+  tool_hurl = {
+    programs.nixvim = {
+      plugins.hurl.enable = true;
+      plugins.render-markdown.enable = true; # TODO: this is optional, might move to a dedicated section
+      plugins.conform-nvim.settings.formatters_by_ft.hurl = [ "hurlfmt" ];
+      plugins.treesitter.grammarPackages = with treesitterGrammars; [ hurl ];
+      autoCmd = [
+        {
+          event = "FileType";
+          pattern = "hurl";
+          callback.__raw = ''
+            function()
+              vim.keymap.set({ "n" }, "<CR>", "<Cmd>HurlRunnerAt<CR>", { buffer = true, desc = "Run hurl request" })
+            end
+          '';
+        }
+        {
+          event = "FileType";
+          pattern = "hurl";
+          callback.__raw = ''
+            function()
+              vim.keymap.set({ "n" }, "<Leader>rl", "<Cmd>HurlShowLastResponse<CR>", { buffer = true, desc = "Show last hurl response" })
+            end
+          '';
+        }
+        {
+          event = "FileType";
+          pattern = "hurl";
+          callback.__raw = ''
+            function()
+              vim.keymap.set({ "n" }, "<Leader>re", function()
+                require("snacks").picker.files({
+                  title = "Select Hurl Env File",
+                  args = { "--glob", "*.env" },
+                  ignored = true,
+                  confirm = function(picker, item)
+                    picker:close()
+                    if item then
+                      vim.cmd("HurlSetEnvFile " .. item.file)
+                    end
+                  end,
+                })
+              end, { buffer = true, desc = "Set hurl env file" })
+            end
+          '';
+        }
+      ];
+    };
+  };
+
 in
 
 {
@@ -18,168 +391,27 @@ in
 
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
+      nixvim
 
-      # general
-      {
-        home.packages = with pkgs; [
-          nodejs
-          prettier
-        ];
-        programs.nixvim = {
-          enable = true;
-          defaultEditor = true;
-          viAlias = true;
-          vimAlias = true;
-          clipboard.register = "unnamedplus";
-          globals.mapleader = " ";
-          opts = {
-            signcolumn = "yes";
-            wrap = false;
-            tabstop = 4;
-            shiftwidth = 4;
-            fillchars.eob = " ";
-            ignorecase = true;
-            smartcase = true;
-          };
-          keymaps = [
-            {
-              key = "jj";
-              action = "<Esc>";
-              mode = [
-                "i"
-                "c"
-              ];
-            }
-            {
-              key = "jj";
-              action = "<C-\\><C-n>";
-              mode = [ "t" ];
-            }
-            {
-              key = "gh";
-              action = "<C-w>h";
-              mode = [
-                "n"
-                "x"
-              ];
-            }
-            {
-              key = "gj";
-              action = "<C-w>j";
-              mode = [
-                "n"
-                "x"
-              ];
-            }
-            {
-              key = "gk";
-              action = "<C-w>k";
-              mode = [
-                "n"
-                "x"
-              ];
-            }
-            {
-              key = "gl";
-              action = "<C-w>l";
-              mode = [
-                "n"
-                "x"
-              ];
-            }
-          ];
-        };
-      }
+      motion
+      completion
 
-      # ui
-      {
-        programs.nixvim = {
-          colorschemes.catppuccin = {
-            enable = true;
-            settings.flavour = "mocha";
-            settings.transparent_background = true;
-            settings.float.transparent = true;
-          };
-          plugins = {
-            lualine.enable = true;
-            mini-icons = {
-              enable = true;
-              mockDevIcons = true;
-            };
-            noice = {
-              enable = true;
-              settings = {
-                presets = {
-                  bottom_search = true;
-                  command_palette = true;
-                  lsp_doc_border = true;
-                };
-                cmdline.format.filter.title = " Shell ";
-                routes = [
-                  {
-                    filter = {
-                      event = "msg_show";
-                      kind = [
-                        "bufwrite"
-                        "undo"
-                        "echomsg"
-                        "echoerr"
-                      ];
-                    };
-                    view = "mini";
-                  }
-                  {
-                    filter = {
-                      event = "msg_show";
-                      kind = [
-                        "echo"
-                        "lua_print"
-                        "lua_error"
-                        "shell_out"
-                        "shell_err"
-                        "shell_ret"
-                      ];
-                    };
-                    view = "split";
-                  }
-                ];
-                lsp.override = {
-                  "vim.lsp.util.convert_input_to_markdown_lines" = true;
-                  "vim.lsp.util.stylize_markdown" = true;
-                };
-              };
-            };
-          };
-        };
-      }
+      ui_colorscheme
+      ui_icons
+      ui_statusline
 
-      # movement
-      {
-        programs.nixvim = {
-          plugins = {
-            flash = {
-              enable = true;
-              settings = {
-                modes.search.enabled = false;
-                modes.char.enabled = false;
-                prompt.enabled = false;
-                label.uppercase = false;
-              };
-            };
-          };
-          keymaps = [
-            {
-              key = "s";
-              action.__raw = ''function() require("flash").jump() end'';
-              mode = [
-                "n"
-                "o"
-                "x"
-              ];
-            }
-          ];
-        };
-      }
+      noice
+
+      git
+
+      dep_treesitter
+      dep_format
+      dep_lsp
+
+      lang_nix
+      lang_go
+
+      tool_hurl
 
       # editor
       {
@@ -195,59 +427,11 @@ in
               settings = {
                 input.enable = true;
                 picker.enable = true;
+                explorer.enable = true;
                 terminal = {
                   start_insert = false;
                   auto_insert = false;
                   auto_close = true;
-                };
-              };
-            };
-            neogit = {
-              enable = true;
-              settings = {
-                kind = "vsplit";
-                commit_editor = {
-                  kind = "floating";
-                  spell_check = false;
-                };
-              };
-            };
-            blink-cmp = {
-              enable = true;
-              settings = {
-                completion = {
-                  ghost_text.enabled = true;
-                  menu.auto_show = false;
-                  menu.border = "single";
-                  documentation.window.border = "single";
-                  documentation.auto_show = true;
-                };
-                keymap = {
-                  preset = "none";
-                  "<C-Space>" = [
-                    "show"
-                    "hide"
-                  ];
-                  "<Tab>" = [
-                    "select_and_accept"
-                    "fallback"
-                  ];
-                  "<C-n>" = [
-                    "select_next"
-                    "fallback_to_mappings"
-                  ];
-                  "<C-p>" = [
-                    "select_prev"
-                    "fallback_to_mappings"
-                  ];
-                  "<C-b>" = [
-                    "scroll_documentation_up"
-                    "fallback"
-                  ];
-                  "<C-f>" = [
-                    "scroll_documentation_down"
-                    "fallback"
-                  ];
                 };
               };
             };
@@ -310,22 +494,6 @@ in
               ];
             }
             {
-              key = "<Leader>ss";
-              action.__raw = ''function() require("snacks").picker.lsp_symbols() end'';
-              mode = [
-                "n"
-                "x"
-              ];
-            }
-            {
-              key = "<Leader>sS";
-              action.__raw = ''function() require("snacks").picker.lsp_workspace_symbols() end'';
-              mode = [
-                "n"
-                "x"
-              ];
-            }
-            {
               key = "<Leader>tt";
               action.__raw = ''function() require("snacks").terminal() end'';
               mode = [
@@ -333,24 +501,7 @@ in
                 "x"
               ];
             }
-            {
-              key = "<Leader>gg";
-              action.__raw = ''function() require("neogit").open() end'';
-              mode = [
-                "n"
-                "x"
-              ];
-            }
           ];
-        };
-      }
-
-      # git
-      {
-        programs.nixvim = {
-          plugins = {
-            gitsigns.enable = true;
-          };
         };
       }
 
@@ -505,157 +656,6 @@ in
               mode = [ "x" ];
             }
           ];
-        };
-      }
-
-      # lang
-      {
-        programs.nixvim = {
-          diagnostic.settings = {
-            virtual_text.current_line = true;
-          };
-          lsp = {
-            inlayHints.enable = true;
-            keymaps = [
-              {
-                key = "gd";
-                action.__raw = ''function() require("snacks").picker.lsp_definitions() end'';
-              }
-              {
-                key = "gr";
-                action.__raw = ''function() require("snacks").picker.lsp_references() end'';
-              }
-              {
-                key = "gi";
-                action.__raw = ''function() require("snacks").picker.lsp_implementations() end'';
-              }
-              {
-                key = "gt";
-                action.__raw = ''function() require("snacks").picker.lsp_type_definitions() end'';
-              }
-              {
-                key = "gD";
-                action.__raw = ''function() require("snacks").picker.lsp_declarations() end'';
-              }
-              {
-                key = "K";
-                lspBufAction = "hover";
-              }
-              {
-                key = "[d";
-                action.__raw = "function() vim.diagnostic.jump({ count=-1 }) end";
-                options.desc = "Previous diagnostic";
-              }
-              {
-                key = "]d";
-                action.__raw = "function() vim.diagnostic.jump({ count=1 }) end";
-                options.desc = "Next diagnostic";
-              }
-            ];
-          };
-          plugins = {
-            lspconfig.enable = true;
-            conform-nvim = {
-              enable = true;
-              autoInstall.enable = true;
-              settings.format_on_save = {
-                lsp_format = "fallback";
-                timeout_ms = 500;
-              };
-            };
-            treesitter = {
-              enable = true;
-              highlight.enable = true;
-              indent.enable = true;
-              grammarPackages = with treesitter; [ regex ];
-              # folding.enable = true; # TODO: enable folding and other related folding config
-            };
-          };
-        };
-      }
-
-      # lang.http
-      {
-        programs.nixvim = {
-          plugins = {
-            hurl.enable = true;
-            render-markdown.enable = true;
-            treesitter.grammarPackages = with treesitter; [ hurl ];
-          };
-          autoCmd = [
-            {
-              event = "FileType";
-              pattern = "hurl";
-              callback.__raw = ''
-                function()
-                  vim.keymap.set({ "n" }, "<CR>", "<Cmd>HurlRunnerAt<CR>", { buffer = true, desc = "Run hurl request" })
-                end
-              '';
-            }
-            {
-              event = "FileType";
-              pattern = "hurl";
-              callback.__raw = ''
-                function()
-                  vim.keymap.set({ "n" }, "<Leader>rl", "<Cmd>HurlShowLastResponse<CR>", { buffer = true, desc = "Show last hurl response" })
-                end
-              '';
-            }
-            {
-              event = "FileType";
-              pattern = "hurl";
-              callback.__raw = ''
-                function()
-                  vim.keymap.set({ "n" }, "<Leader>re", function()
-                    require("snacks").picker.files({
-                      title = "Select Hurl Env File",
-                      args = { "--glob", "*.env" },
-                      ignored = true,
-                      confirm = function(picker, item)
-                        picker:close()
-                        if item then
-                          vim.cmd("HurlSetEnvFile " .. item.file)
-                        end
-                      end,
-                    })
-                  end, { buffer = true, desc = "Set hurl env file" })
-                end
-              '';
-            }
-          ];
-        };
-      }
-
-      # lang.nix
-      {
-        programs.nixvim = {
-          lsp.servers = {
-            nixd = {
-              enable = true;
-              config.settings.nixd = {
-                nixpkgs.expr = "import (builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs { }";
-                options.home-manager.expr = "(builtins.getFlake \"${cfg.dotfilesPath}/.config/dotfiles\").homeConfigurations.bzm.options";
-                options.nix-darwin.expr = "(builtins.getFlake \"${cfg.dotfilesPath}/.config/dotfiles\").darwinConfigurations.amartha.options";
-              };
-            };
-          };
-          plugins = {
-            conform-nvim.settings.formatters_by_ft.nix = [ "nixfmt" ];
-            treesitter.grammarPackages = with treesitter; [ nix ];
-          };
-        };
-      }
-
-      # lang.go
-      {
-        programs.nixvim = {
-          lsp.servers = {
-            gopls.enable = true;
-          };
-          plugins = {
-            conform-nvim.settings.formatters_by_ft.go = [ "gofumpt" ];
-            treesitter.grammarPackages = with treesitter; [ go ];
-          };
         };
       }
 
