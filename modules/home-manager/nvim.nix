@@ -577,26 +577,37 @@ in
       # lang.http
       {
         programs.nixvim = {
+          plugins = {
+            hurl.enable = true;
+            render-markdown.enable = true;
+            treesitter.grammarPackages = with treesitter; [ hurl ];
+          };
           autoCmd = [
             {
               event = "FileType";
-              pattern = "http";
+              pattern = "hurl";
               callback.__raw = ''
                 function()
-                  vim.keymap.set({ "n" }, "<CR>", function() require("kulala").run() end, { buffer = true, desc = "Run kulala request" })
+                  vim.keymap.set({ "n" }, "<CR>", "<Cmd>HurlRunnerAt<CR>", { buffer = true, desc = "Run hurl request" })
                 end
               '';
             }
             {
               event = "FileType";
-              pattern = "http";
+              pattern = "hurl";
               callback.__raw = ''
                 function()
-                  vim.keymap.set({ "n" }, "e", function() require("kulala").set_selected_env() end, { buffer = true, desc = "Select environment" })
+                  vim.keymap.set({ "n" }, "<Leader>rl", "<Cmd>HurlShowLastResponse<CR>", { buffer = true, desc = "Show last response" })
                 end
               '';
             }
           ];
+        };
+      }
+
+      # lang.http/websocket
+      {
+        programs.nixvim = {
           plugins = {
             kulala = {
               enable = true;
@@ -720,6 +731,26 @@ in
               };
             };
           };
+          autoCmd = [
+            {
+              event = "FileType";
+              pattern = "http";
+              callback.__raw = ''
+                function()
+                  vim.keymap.set({ "n" }, "<CR>", function() require("kulala").run() end, { buffer = true, desc = "Run kulala request" })
+                end
+              '';
+            }
+            {
+              event = "FileType";
+              pattern = "http";
+              callback.__raw = ''
+                function()
+                  vim.keymap.set({ "n" }, "e", function() require("kulala").set_selected_env() end, { buffer = true, desc = "Select environment" })
+                end
+              '';
+            }
+          ];
         };
       }
 
