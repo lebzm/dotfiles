@@ -169,7 +169,7 @@ in
           };
           keymaps = [
             {
-              key = ";";
+              key = "s";
               action.__raw = ''function() require("flash").jump() end'';
               mode = [
                 "n"
