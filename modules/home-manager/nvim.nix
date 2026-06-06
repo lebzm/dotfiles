@@ -362,7 +362,7 @@ in
           keymaps = [
             # general
             {
-              key = "<Leader><tab>";
+              key = "<Tab>";
               action.__raw = ''function() require("opencode").command("agent.cycle") end'';
               mode = [
                 "n"
