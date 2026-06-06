@@ -56,7 +56,7 @@ in
               mode = [ "t" ];
             }
             {
-              key = "<C-h>";
+              key = "gh";
               action = "<C-w>h";
               mode = [
                 "n"
@@ -64,7 +64,7 @@ in
               ];
             }
             {
-              key = "<C-j>";
+              key = "gj";
               action = "<C-w>j";
               mode = [
                 "n"
@@ -72,7 +72,7 @@ in
               ];
             }
             {
-              key = "<C-k>";
+              key = "gk";
               action = "<C-w>k";
               mode = [
                 "n"
@@ -80,17 +80,12 @@ in
               ];
             }
             {
-              key = "<C-l>";
+              key = "gl";
               action = "<C-w>l";
               mode = [
                 "n"
                 "x"
               ];
-            }
-            {
-              key = "<Esc>";
-              action = "<Cmd>nohlsearch<CR>";
-              mode = [ "n" ];
             }
           ];
         };
