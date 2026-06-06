@@ -70,6 +70,11 @@ let
           mode = normal ++ visual ++ operator;
         }
         {
+          key = "S";
+          action.__raw = ''function() require("flash").treesitter() end'';
+          mode = normal ++ visual ++ operator;
+        }
+        {
           key = "gh";
           action = "<C-w>h";
           mode = normal ++ visual;
@@ -222,7 +227,6 @@ let
           commit_editor.spell_check = false;
         };
       };
-
       keymaps = [
         {
           key = "<Leader>gg";
@@ -263,46 +267,84 @@ let
       plugins.lspconfig.enable = true;
       diagnostic.settings.virtual_text.current_line = true;
       lsp.inlayHints.enable = true;
+      autoCmd = [
+        {
+          event = "LspAttach";
+          callback.__raw = ''
+            -- prefer 2 combination instead of 3 for lsp
+            -- remove default vim.lsp mapping
+            function()
+              pcall(vim.keymap.del, "n", "grn")
+              pcall(vim.keymap.del, "n", "grr")
+              pcall(vim.keymap.del, {"n", "x"}, "gra")
+              pcall(vim.keymap.del, "n", "gri")
+              pcall(vim.keymap.del, "n", "g0")
+              pcall(vim.keymap.del, "n", "grt")
+              pcall(vim.keymap.del, "n", "grx")
+            end
+          '';
+        }
+      ];
       lsp.keymaps = [
         {
           key = "gd";
           action.__raw = ''function() require("snacks").picker.lsp_definitions() end'';
-        }
-        {
-          key = "gr";
-          action.__raw = ''function() require("snacks").picker.lsp_references() end'';
-        }
-        {
-          key = "gi";
-          action.__raw = ''function() require("snacks").picker.lsp_implementations() end'';
-        }
-        {
-          key = "gt";
-          action.__raw = ''function() require("snacks").picker.lsp_type_definitions() end'';
+          mode = normal;
         }
         {
           key = "gD";
           action.__raw = ''function() require("snacks").picker.lsp_declarations() end'';
+          mode = normal;
+        }
+        {
+          key = "gt";
+          action.__raw = ''function() require("snacks").picker.lsp_type_definitions() end'';
+          mode = normal;
+        }
+        {
+          key = "gr";
+          action.__raw = ''function() require("snacks").picker.lsp_references() end'';
+          mode = normal;
+        }
+        {
+          key = "gi";
+          action.__raw = ''function() require("snacks").picker.lsp_implementations() end'';
+          mode = normal;
+        }
+        {
+          key = "go";
+          action.__raw = ''function() require("snacks").picker.lsp_symbols() end'';
+          mode = normal;
+        }
+        {
+          key = "gO";
+          action.__raw = ''function() require("snacks").picker.lsp_workspace_symbols() end'';
+          mode = normal;
+        }
+        {
+          key = "g.";
+          lspBufAction = "code_action";
+          mode = normal;
+        }
+        {
+          key = "R";
+          lspBufAction = "rename";
+          mode = normal;
         }
         {
           key = "K";
           lspBufAction = "hover";
+          mode = normal;
         }
         {
           key = "[d";
           action.__raw = "function() vim.diagnostic.jump({ count=-1 }) end";
+          mode = normal;
         }
         {
           key = "]d";
           action.__raw = "function() vim.diagnostic.jump({ count=1 }) end";
-        }
-        {
-          key = "<Leader>ss";
-          action.__raw = ''function() require("snacks").picker.lsp_symbols() end'';
-        }
-        {
-          key = "<Leader>SS";
-          action.__raw = ''function() require("snacks").picker.lsp_workspace_symbols() end'';
+          mode = normal;
         }
       ];
     };
@@ -387,7 +429,7 @@ let
       plugins.opencode.enable = true;
       keymaps = [
         {
-          key = "<Tab>";
+          key = "<Leader><Tab>";
           action.__raw = ''function() require("opencode").command("agent.cycle") end'';
           mode = normal ++ visual;
         }
@@ -407,12 +449,12 @@ let
           mode = normal ++ visual;
         }
         {
-          key = "<Leader>oa";
+          key = "<Leader>a";
           action.__raw = ''function() require("opencode").ask() end'';
           mode = normal;
         }
         {
-          key = "<Leader>oa";
+          key = "<Leader>a";
           action.__raw = ''function() require("opencode").ask("@this: ") end'';
           mode = visual;
         }
@@ -430,23 +472,6 @@ let
           model = "kimi-k2.5";
         })
       '';
-      keymaps = [
-        {
-          key = "<Leader>pq";
-          action.__raw = ''function() require("pi").cancel() end'';
-          mode = normal ++ visual;
-        }
-        {
-          key = "<Leader>pa";
-          action.__raw = ''function() require("pi").prompt_with_buffer() end'';
-          mode = normal;
-        }
-        {
-          key = "<Leader>pa";
-          action.__raw = ''function() require("pi").prompt_with_selection() end'';
-          mode = visual;
-        }
-      ];
     };
   };
 
@@ -512,66 +537,52 @@ in
             {
               key = "<Leader>ff";
               action.__raw = ''function() require("snacks").picker.files() end'';
-              mode = [
-                "n"
-                "x"
-              ];
+              mode = normal ++ visual;
             }
             {
               key = "<Leader>fb";
               action.__raw = ''function() require("snacks").picker.buffers() end'';
-              mode = [
-                "n"
-                "x"
-              ];
+              mode = normal ++ visual;
             }
             {
               key = "<Leader>fp";
               action.__raw = ''function() require("snacks").picker.projects() end'';
-              mode = [
-                "n"
-                "x"
-              ];
+              mode = normal ++ visual;
             }
             {
               key = "<Leader>fg";
               action.__raw = ''function() require("snacks").picker.grep() end'';
-              mode = [
-                "n"
-                "x"
-              ];
+              mode = normal ++ visual;
             }
             {
               key = "<Leader>fh";
               action.__raw = ''function() require("snacks").picker.help() end'';
-              mode = [
-                "n"
-                "x"
-              ];
+              mode = normal ++ visual;
             }
             {
               key = "<Leader>fk";
               action.__raw = ''function() require("snacks").picker.keymaps() end'';
-              mode = [
-                "n"
-                "x"
-              ];
+              mode = normal ++ visual;
             }
             {
-              key = "<Leader>fe";
+              key = "<Leader>e";
               action.__raw = ''function() require("snacks").explorer() end'';
-              mode = [
-                "n"
-                "x"
-              ];
+              mode = normal ++ visual;
             }
             {
-              key = "<Leader>tt";
+              key = "<Leader>t";
               action.__raw = ''function() require("snacks").terminal() end'';
-              mode = [
-                "n"
-                "x"
-              ];
+              mode = normal ++ visual;
+            }
+            {
+              key = "<Leader>w";
+              action = "<Cmd>w<CR>";
+              mode = normal;
+            }
+            {
+              key = "<Leader>x";
+              action = "<Cmd>bd<CR>";
+              mode = normal;
             }
           ];
         };
