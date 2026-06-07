@@ -526,22 +526,12 @@ let
         {
           key = "<Leader><Tab>";
           action.__raw = ''function() require("opencode").command("agent.cycle") end'';
-          mode = normal ++ visual;
+          mode = normal;
         }
         {
-          key = "<Leader>oq";
-          action.__raw = ''
-            -- require to fire the command twice due to confirmation
-            function()
-              require("opencode").command("session.interrupt")
-              require("opencode").command("session.interrupt")
-            end'';
-          mode = normal ++ visual;
-        }
-        {
-          key = "<Leader>os";
+          key = "<Leader>o";
           action.__raw = ''function() require("opencode").select() end'';
-          mode = normal ++ visual;
+          mode = normal;
         }
         {
           key = "<Leader>a";
