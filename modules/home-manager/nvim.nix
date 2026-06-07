@@ -405,32 +405,32 @@ let
       plugins.snacks.settings.picker.enable = true;
       keymaps = [
         {
-          key = "<Leader>ff";
+          key = "<Leader>f";
           action.__raw = ''function() require("snacks").picker.files() end'';
           mode = normal ++ visual;
         }
         {
-          key = "<Leader>fb";
+          key = "<Leader>b";
           action.__raw = ''function() require("snacks").picker.buffers() end'';
           mode = normal ++ visual;
         }
         {
-          key = "<Leader>fp";
+          key = "<Leader>p";
           action.__raw = ''function() require("snacks").picker.projects() end'';
           mode = normal ++ visual;
         }
         {
-          key = "<Leader>fg";
+          key = "<Leader>/";
           action.__raw = ''function() require("snacks").picker.grep() end'';
           mode = normal ++ visual;
         }
         {
-          key = "<Leader>fh";
+          key = "?h";
           action.__raw = ''function() require("snacks").picker.help() end'';
           mode = normal ++ visual;
         }
         {
-          key = "<Leader>fk";
+          key = "?k";
           action.__raw = ''function() require("snacks").picker.keymaps() end'';
           mode = normal ++ visual;
         }
