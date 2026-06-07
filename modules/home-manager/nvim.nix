@@ -106,8 +106,11 @@ let
                 kind = [
                   "bufwrite"
                   "undo"
+                  "echo"
                   "echomsg"
                   "echoerr"
+                  "lua_print"
+                  "lua_error"
                 ];
               };
               view = "mini";
@@ -116,9 +119,6 @@ let
               filter = {
                 event = "msg_show";
                 kind = [
-                  "echo"
-                  "lua_print"
-                  "lua_error"
                   "shell_out"
                   "shell_err"
                   "shell_ret"
