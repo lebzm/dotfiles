@@ -287,6 +287,84 @@ let
     };
   };
 
+  dep_test = {
+    programs.nixvim = {
+      plugins.neotest = {
+        enable = true;
+        settings.floating.border = border_style;
+      };
+      autoCmd = [
+        {
+          event = "FileType";
+          pattern = "neotest-output";
+          callback.__raw = ''
+            function()
+              vim.keymap.set("n", "q", "<Cmd>q<CR>", { buffer = true, silent = true })
+            end
+          '';
+        }
+        {
+          event = "FileType";
+          pattern = "neotest-summary";
+          callback.__raw = ''
+            function()
+              vim.keymap.set("n", "q", "<Cmd>q<CR>", { buffer = true, silent = true })
+            end
+          '';
+        }
+      ];
+      keymaps = [
+        {
+          key = "<leader>t.";
+          action.__raw = ''function() require("neotest").run.run() end'';
+          mode = normal;
+        }
+        {
+          key = "<leader>tf";
+          action.__raw = ''function() require("neotest").run.run(vim.fn.expand("%")) end'';
+          mode = normal;
+        }
+        {
+          key = "<leader>tm";
+          action.__raw = ''function() require("neotest").run.run(vim.fn.expand("%:p:h")) end'';
+          mode = normal;
+        }
+        {
+          key = "<leader>tp";
+          action.__raw = ''function() require("neotest").run.run(vim.fn.getcwd()) end'';
+          mode = normal;
+        }
+        {
+          key = "<leader>tl";
+          action.__raw = ''function() require("neotest").run.run_last() end'';
+          mode = normal;
+        }
+        {
+          key = "<leader>tt";
+          action.__raw = ''function() require("neotest").summary.toggle() end'';
+          mode = normal;
+        }
+        {
+          key = "T";
+          action.__raw = ''
+            function()
+              require("neotest").output.open({
+                enter = false,
+                auto_close = true,
+              })
+            end
+          '';
+          mode = normal;
+        }
+        {
+          key = "<leader>ts";
+          action.__raw = ''function() require("neotest").run.stop() end'';
+          mode = normal;
+        }
+      ];
+    };
+  };
+
   dep_lsp = {
     programs.nixvim = {
       plugins.lspconfig.enable = true;
@@ -375,84 +453,6 @@ let
     };
   };
 
-  dep_test = {
-    programs.nixvim = {
-      plugins.neotest = {
-        enable = true;
-        settings.floating.border = border_style;
-      };
-      autoCmd = [
-        {
-          event = "FileType";
-          pattern = "neotest-output";
-          callback.__raw = ''
-            function()
-              vim.keymap.set("n", "q", "<Cmd>q<CR>", { buffer = true, silent = true })
-            end
-          '';
-        }
-        {
-          event = "FileType";
-          pattern = "neotest-summary";
-          callback.__raw = ''
-            function()
-              vim.keymap.set("n", "q", "<Cmd>q<CR>", { buffer = true, silent = true })
-            end
-          '';
-        }
-      ];
-      keymaps = [
-        {
-          key = "<leader>t.";
-          action.__raw = ''function() require("neotest").run.run() end'';
-          mode = normal;
-        }
-        {
-          key = "<leader>tf";
-          action.__raw = ''function() require("neotest").run.run(vim.fn.expand("%")) end'';
-          mode = normal;
-        }
-        {
-          key = "<leader>tm";
-          action.__raw = ''function() require("neotest").run.run(vim.fn.expand("%:p:h")) end'';
-          mode = normal;
-        }
-        {
-          key = "<leader>tp";
-          action.__raw = ''function() require("neotest").run.run(vim.fn.getcwd()) end'';
-          mode = normal;
-        }
-        {
-          key = "<leader>tl";
-          action.__raw = ''function() require("neotest").run.run_last() end'';
-          mode = normal;
-        }
-        {
-          key = "<leader>tt";
-          action.__raw = ''function() require("neotest").summary.toggle() end'';
-          mode = normal;
-        }
-        {
-          key = "T";
-          action.__raw = ''
-            function()
-              require("neotest").output.open({
-                enter = false,
-                auto_close = true,
-              })
-            end
-          '';
-          mode = normal;
-        }
-        {
-          key = "<leader>ts";
-          action.__raw = ''function() require("neotest").run.stop() end'';
-          mode = normal;
-        }
-      ];
-    };
-  };
-
   lang_nix = {
     programs.nixvim = {
       plugins.conform-nvim.settings.formatters_by_ft.nix = [ "nixfmt" ];
@@ -472,8 +472,8 @@ let
     programs.nixvim = {
       plugins.conform-nvim.settings.formatters_by_ft.go = [ "gofumpt" ];
       plugins.treesitter.grammarPackages = with treesitterGrammars; [ go ];
-      lsp.servers.gopls.enable = true;
       plugins.neotest.adapters.golang.enable = true;
+      lsp.servers.gopls.enable = true;
     };
   };
 
@@ -667,8 +667,8 @@ in
 
       dep_treesitter
       dep_format
-      dep_lsp
       dep_test
+      dep_lsp
 
       lang_nix
       lang_go
