@@ -48,7 +48,98 @@ let
           action = "<C-\\><C-n>";
           mode = terminal;
         }
+        {
+          key = "<Leader>w";
+          action = "<Cmd>w<CR>";
+          mode = normal;
+        }
+        {
+          key = "<Leader>x";
+          action = "<Cmd>bd<CR>";
+          mode = normal;
+        }
       ];
+    };
+  };
+
+  ui_colorscheme = {
+    programs.nixvim = {
+      colorschemes.catppuccin = {
+        enable = true;
+        settings = {
+          flavour = "mocha";
+          transparent_background = true;
+          float.transparent = true;
+        };
+      };
+    };
+  };
+
+  ui_icons = {
+    programs.nixvim = {
+      plugins.mini-icons = {
+        enable = true;
+        mockDevIcons = true;
+      };
+    };
+  };
+
+  ui_statusline = {
+    programs.nixvim = {
+      plugins.lualine.enable = true;
+    };
+  };
+
+  ui_noice = {
+    programs.nixvim = {
+      plugins.noice = {
+        enable = true;
+        settings = {
+          presets.bottom_search = true;
+          presets.command_palette = true;
+          presets.lsp_doc_border = true;
+          cmdline.format.filter.title = " Shell ";
+          routes = [
+            {
+              filter = {
+                event = "msg_show";
+                kind = [
+                  "bufwrite"
+                  "undo"
+                  "echomsg"
+                  "echoerr"
+                ];
+              };
+              view = "mini";
+            }
+            {
+              filter = {
+                event = "msg_show";
+                kind = [
+                  "echo"
+                  "lua_print"
+                  "lua_error"
+                  "shell_out"
+                  "shell_err"
+                  "shell_ret"
+                ];
+              };
+              view = "split";
+            }
+          ];
+          lsp.override = {
+            "vim.lsp.util.convert_input_to_markdown_lines" = true;
+            "vim.lsp.util.stylize_markdown" = true;
+          };
+        };
+      };
+    };
+  };
+
+  ui_snacks = {
+    programs.nixvim.plugins.snacks = {
+      enable = true;
+      settings.input.enable = true;
     };
   };
 
@@ -142,77 +233,9 @@ let
     };
   };
 
-  ui_colorscheme = {
+  autopairs = {
     programs.nixvim = {
-      colorschemes.catppuccin = {
-        enable = true;
-        settings = {
-          flavour = "mocha";
-          transparent_background = true;
-          float.transparent = true;
-        };
-      };
-    };
-  };
-
-  ui_icons = {
-    programs.nixvim = {
-      plugins.mini-icons = {
-        enable = true;
-        mockDevIcons = true;
-      };
-    };
-  };
-
-  ui_statusline = {
-    programs.nixvim = {
-      plugins.lualine.enable = true;
-    };
-  };
-
-  noice = {
-    programs.nixvim = {
-      plugins.noice = {
-        enable = true;
-        settings = {
-          presets.bottom_search = true;
-          presets.command_palette = true;
-          presets.lsp_doc_border = true;
-          cmdline.format.filter.title = " Shell ";
-          routes = [
-            {
-              filter = {
-                event = "msg_show";
-                kind = [
-                  "bufwrite"
-                  "undo"
-                  "echomsg"
-                  "echoerr"
-                ];
-              };
-              view = "mini";
-            }
-            {
-              filter = {
-                event = "msg_show";
-                kind = [
-                  "echo"
-                  "lua_print"
-                  "lua_error"
-                  "shell_out"
-                  "shell_err"
-                  "shell_ret"
-                ];
-              };
-              view = "split";
-            }
-          ];
-          lsp.override = {
-            "vim.lsp.util.convert_input_to_markdown_lines" = true;
-            "vim.lsp.util.stylize_markdown" = true;
-          };
-        };
-      };
+      plugins.mini-pairs.enable = true;
     };
   };
 
@@ -373,6 +396,78 @@ let
     };
   };
 
+  tool_picker = {
+    home.packages = with pkgs; [
+      ripgrep
+      fd
+    ];
+    programs.nixvim = {
+      plugins.snacks.settings.picker.enable = true;
+      keymaps = [
+        {
+          key = "<Leader>ff";
+          action.__raw = ''function() require("snacks").picker.files() end'';
+          mode = normal ++ visual;
+        }
+        {
+          key = "<Leader>fb";
+          action.__raw = ''function() require("snacks").picker.buffers() end'';
+          mode = normal ++ visual;
+        }
+        {
+          key = "<Leader>fp";
+          action.__raw = ''function() require("snacks").picker.projects() end'';
+          mode = normal ++ visual;
+        }
+        {
+          key = "<Leader>fg";
+          action.__raw = ''function() require("snacks").picker.grep() end'';
+          mode = normal ++ visual;
+        }
+        {
+          key = "<Leader>fh";
+          action.__raw = ''function() require("snacks").picker.help() end'';
+          mode = normal ++ visual;
+        }
+        {
+          key = "<Leader>fk";
+          action.__raw = ''function() require("snacks").picker.keymaps() end'';
+          mode = normal ++ visual;
+        }
+      ];
+    };
+  };
+
+  tool_explorer = {
+    programs.nixvim = {
+      plugins.snacks.settings.explorer.enable = true;
+      keymaps = [
+        {
+          key = "<Leader>e";
+          action.__raw = ''function() require("snacks").explorer() end'';
+          mode = normal ++ visual;
+        }
+      ];
+    };
+  };
+
+  tool_terminal = {
+    programs.nixvim = {
+      plugins.snacks.settings.terminal = {
+        start_insert = false;
+        auto_insert = false;
+        auto_close = true;
+      };
+      keymaps = [
+        {
+          key = "<Leader>t";
+          action.__raw = ''function() require("snacks").terminal() end'';
+          mode = normal ++ visual;
+        }
+      ];
+    };
+  };
+
   tool_hurl = {
     programs.nixvim = {
       plugins.hurl.enable = true;
@@ -487,14 +582,15 @@ in
     lib.mkMerge [
       nixvim
 
-      motion
-      completion
-
       ui_colorscheme
       ui_icons
       ui_statusline
+      ui_noice
+      ui_snacks
 
-      noice
+      motion
+      completion
+      autopairs
 
       git
 
@@ -505,89 +601,13 @@ in
       lang_nix
       lang_go
 
+      tool_picker
+      tool_explorer
+      tool_terminal
       tool_hurl
 
       ai_opencode
       ai_pi
-
-      # editor
-      {
-        home.packages = with pkgs; [
-          ripgrep
-          fd
-        ];
-        programs.nixvim = {
-          plugins = {
-            mini-pairs.enable = true;
-            snacks = {
-              enable = true;
-              settings = {
-                input.enable = true;
-                picker.enable = true;
-                explorer.enable = true;
-                terminal = {
-                  start_insert = false;
-                  auto_insert = false;
-                  auto_close = true;
-                };
-              };
-            };
-          };
-          keymaps = [
-            {
-              key = "<Leader>ff";
-              action.__raw = ''function() require("snacks").picker.files() end'';
-              mode = normal ++ visual;
-            }
-            {
-              key = "<Leader>fb";
-              action.__raw = ''function() require("snacks").picker.buffers() end'';
-              mode = normal ++ visual;
-            }
-            {
-              key = "<Leader>fp";
-              action.__raw = ''function() require("snacks").picker.projects() end'';
-              mode = normal ++ visual;
-            }
-            {
-              key = "<Leader>fg";
-              action.__raw = ''function() require("snacks").picker.grep() end'';
-              mode = normal ++ visual;
-            }
-            {
-              key = "<Leader>fh";
-              action.__raw = ''function() require("snacks").picker.help() end'';
-              mode = normal ++ visual;
-            }
-            {
-              key = "<Leader>fk";
-              action.__raw = ''function() require("snacks").picker.keymaps() end'';
-              mode = normal ++ visual;
-            }
-            {
-              key = "<Leader>e";
-              action.__raw = ''function() require("snacks").explorer() end'';
-              mode = normal ++ visual;
-            }
-            {
-              key = "<Leader>t";
-              action.__raw = ''function() require("snacks").terminal() end'';
-              mode = normal ++ visual;
-            }
-            {
-              key = "<Leader>w";
-              action = "<Cmd>w<CR>";
-              mode = normal;
-            }
-            {
-              key = "<Leader>x";
-              action = "<Cmd>bd<CR>";
-              mode = normal;
-            }
-          ];
-        };
-      }
-
     ]
   );
 }
