@@ -381,6 +381,26 @@ let
         enable = true;
         settings.floating.border = border_style;
       };
+      autoCmd = [
+        {
+          event = "FileType";
+          pattern = "neotest-output";
+          callback.__raw = ''
+            function()
+              vim.keymap.set("n", "q", "<Cmd>q<CR>", { buffer = true, silent = true })
+            end
+          '';
+        }
+        {
+          event = "FileType";
+          pattern = "neotest-summary";
+          callback.__raw = ''
+            function()
+              vim.keymap.set("n", "q", "<Cmd>q<CR>", { buffer = true, silent = true })
+            end
+          '';
+        }
+      ];
       keymaps = [
         {
           key = "<leader>t.";
@@ -413,7 +433,7 @@ let
           mode = normal;
         }
         {
-          key = "<leader>to";
+          key = "T";
           action.__raw = ''
             function()
               require("neotest").output.open({
