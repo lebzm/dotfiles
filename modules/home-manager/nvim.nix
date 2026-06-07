@@ -454,13 +454,13 @@ let
   tool_terminal = {
     programs.nixvim = {
       plugins.snacks.settings.terminal = {
-        start_insert = false;
+        start_insert = true;
         auto_insert = false;
         auto_close = true;
       };
       keymaps = [
         {
-          key = "<Leader>t";
+          key = "<S-CR>";
           action.__raw = ''function() require("snacks").terminal() end'';
           mode = normal ++ visual;
         }
