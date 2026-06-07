@@ -342,7 +342,7 @@ let
           mode = normal;
         }
         {
-          key = "gO";
+          key = "gp";
           action.__raw = ''function() require("snacks").picker.lsp_workspace_symbols() end'';
           mode = normal;
         }
