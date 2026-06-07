@@ -16,6 +16,8 @@ let
   operator = [ "o" ];
   terminal = [ "t" ];
 
+  border_style = "rounded";
+
   nixvim = {
     home.packages = with pkgs; [
       nodejs
@@ -197,8 +199,8 @@ let
           completion = {
             ghost_text.enabled = true;
             menu.auto_show = false;
-            menu.border = "single";
-            documentation.window.border = "single";
+            menu.border = border_style;
+            documentation.window.border = border_style;
             documentation.auto_show = true;
           };
           keymap = {
