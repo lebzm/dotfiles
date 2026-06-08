@@ -293,6 +293,11 @@ let
         enable = true;
         settings.floating.border = border_style;
       };
+      plugins.coverage = {
+        enable = true;
+        settings.auto_reload = true;
+        settings.commands = false;
+      };
       autoCmd = [
         {
           event = "FileType";
@@ -359,6 +364,16 @@ let
         {
           key = "<leader>ts";
           action.__raw = ''function() require("neotest").run.stop() end'';
+          mode = normal;
+        }
+        {
+          key = "<leader>ch";
+          action.__raw = ''function() require("coverage").toggle() end'';
+          mode = normal;
+        }
+        {
+          key = "<leader>cc";
+          action.__raw = ''function() require("coverage").summary() end'';
           mode = normal;
         }
       ];
@@ -472,7 +487,23 @@ let
     programs.nixvim = {
       plugins.conform-nvim.settings.formatters_by_ft.go = [ "gofumpt" ];
       plugins.treesitter.grammarPackages = with treesitterGrammars; [ go ];
-      plugins.neotest.adapters.golang.enable = true;
+      plugins.neotest.adapters.golang = {
+        enable = true;
+        settings.go_test_args = {
+          __raw = ''
+            function()
+              return { "-coverprofile=" .. vim.fn.getcwd() .. "/coverage.out" }
+            end
+          '';
+        };
+      };
+      autoCmd = [
+        {
+          event = "FileType";
+          pattern = "go";
+          callback.__raw = ''function() require("coverage").load(true) end '';
+        }
+      ];
       lsp.servers.gopls.enable = true;
     };
   };
