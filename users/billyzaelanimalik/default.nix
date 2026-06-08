@@ -36,6 +36,13 @@
         identitiesOnly = true;
         addKeysToAgent = "yes";
       };
+      "github.com" = {
+        user = "git";
+        hostname = "github.com";
+        identityFile = "~/.ssh/personal";
+        identitiesOnly = true;
+        addKeysToAgent = "yes";
+      };
     };
   };
 
