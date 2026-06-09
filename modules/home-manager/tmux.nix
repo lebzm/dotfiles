@@ -17,7 +17,7 @@ in
       enable = true;
       baseIndex = 1;
       keyMode = "vi";
-      prefix = "C-Space";
+      prefix = "C-\\;";
       disableConfirmationPrompt = true;
       plugins = with pkgs.tmuxPlugins; [
         catppuccin
