@@ -19,6 +19,7 @@
   };
 
   home.packages = with pkgs.brewCasks; [
+    dbeaver-community
     mongodb-compass
     # openvpn-connect # broken
     slack
