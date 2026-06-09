@@ -17,10 +17,11 @@ in
       enable = true;
       package = pkgs.ghostty-bin;
       settings = {
+        macos-titlebar-style = "hidden";
         theme = "Catppuccin Mocha";
         background-opacity = 0.95;
-        custom-shader = "shaders/cursor_smear.glsl";
         unfocused-split-opacity = 1;
+        custom-shader = "shaders/cursor_smear.glsl";
       };
     };
     home.file.".config/ghostty/shaders/cursor_smear.glsl".source = ./shaders/cursor_smear.glsl;
