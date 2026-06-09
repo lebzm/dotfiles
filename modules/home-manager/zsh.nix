@@ -5,7 +5,7 @@ let
 in
 
 {
-  options.modules.zsh = lib.mkEnableOption "zsh";
+  options.modules.zsh.enable = lib.mkEnableOption "zsh";
 
   config = lib.mkIf cfg.enable {
     programs.zsh = {

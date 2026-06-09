@@ -3,7 +3,7 @@ let
   cfg = config.modules.starship;
 in
 {
-  options.modules.starship = lib.mkEnableOption "starship";
+  options.modules.starship.enable = lib.mkEnableOption "starship";
 
   config = lib.mkIf cfg.enable {
     programs.starship = {
