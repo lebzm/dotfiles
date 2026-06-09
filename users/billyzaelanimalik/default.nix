@@ -9,6 +9,8 @@
   modules = {
     zed.enable = true;
     ghostty.enable = true;
+    zsh.enable = true;
+    starship.enable = true;
     nvim = {
       enable = true;
       dotfilesPath = config.home.homeDirectory;
@@ -22,8 +24,6 @@
     # whatsapp # broken
     zen
   ];
-
-  programs.zsh.enable = true;
 
   programs.ssh = {
     enable = true;

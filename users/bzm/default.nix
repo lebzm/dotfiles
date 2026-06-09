@@ -9,6 +9,9 @@
   modules = {
     zed.enable = true;
     ghostty.enable = true;
+    zsh.enable = true;
+    starship.enable = true;
+    tmux.enable = true;
     nvim = {
       enable = true;
       dotfilesPath = config.home.homeDirectory;
