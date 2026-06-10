@@ -116,7 +116,28 @@ let
                 padding.left = 0;
               }
             ];
-            lualine_x = [ "lsp_status" ];
+            lualine_x = [
+              "lsp_status"
+              {
+                __unkeyed-1.__raw = ''
+                  function()
+                    if vim.bo.filetype ~= "hurl" then
+                      return ""
+                    end
+                    local env_files = _HURL_GLOBAL_CONFIG and _HURL_GLOBAL_CONFIG.env_file or {}
+                    if #env_files == 0 then
+                      return ""
+                    end
+                    local env_file = table.concat(env_files, ",")
+                    if env_file == "" then
+                      return ""
+                    end
+                    local icon = require('mini.icons').get('filetype', 'dotenv')
+                    return icon .. " " .. env_file
+                  end
+                '';
+              }
+            ];
             lualine_y = [ "progress" ];
             lualine_z = [ "location" ];
           };
@@ -596,7 +617,10 @@ let
 
   tool_hurl = {
     programs.nixvim = {
-      plugins.hurl.enable = true;
+      plugins.hurl = {
+        enable = true;
+        settings.env_file = [ "" ];
+      };
       plugins.render-markdown.enable = true; # TODO: this is optional, might move to a dedicated section
       plugins.conform-nvim.settings.formatters_by_ft.hurl = [ "hurlfmt" ];
       plugins.treesitter.grammarPackages = with treesitterGrammars; [ hurl ];
