@@ -246,7 +246,7 @@ let
           cmdline.sources = [ "cmdline" ];
           keymap = {
             preset = "none";
-            "<C-Space>" = [
+            "<A-Space>" = [
               "show"
               "hide"
             ];
