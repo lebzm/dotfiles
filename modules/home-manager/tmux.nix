@@ -39,7 +39,15 @@ in
       '';
       plugins = with pkgs.tmuxPlugins; [
         yank
-        vim-tmux-navigator
+        {
+          plugin = vim-tmux-navigator;
+          extraConfig = ''
+            # restoring clear screen (C-l)
+            bind C-l send-keys 'C-l'
+            # restoring SIGQUIT (C-\)
+            bind C-\\ send-keys 'C-\'
+          '';
+        }
         {
           plugin = catppuccin;
           extraConfig = ''
