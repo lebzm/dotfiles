@@ -238,6 +238,12 @@ let
             documentation.window.border = border_style;
             documentation.auto_show = true;
           };
+          sources.default = [
+            "lsp"
+            "path"
+            "snippets"
+          ];
+          cmdline.sources = [ "cmdline" ];
           keymap = {
             preset = "none";
             "<C-Space>" = [
