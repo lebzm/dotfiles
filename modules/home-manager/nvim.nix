@@ -309,7 +309,7 @@ let
       };
       keymaps = [
         {
-          key = "<Leader>gg";
+          key = "<Leader>g";
           action.__raw = ''function() require("neogit").open() end'';
           mode = normal ++ visual;
         }
