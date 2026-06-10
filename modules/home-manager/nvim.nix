@@ -98,6 +98,28 @@ let
         enable = true;
         settings = {
           options.globalstatus = true;
+          sections = {
+            lualine_a = [ "mode" ];
+            lualine_b = [ "branch" ];
+            lualine_c = [
+              {
+                __unkeyed-1 = "filetype";
+                icon_only = true;
+                separator = "";
+                padding.left = 1;
+                padding.right = 0;
+              }
+              {
+                __unkeyed-1 = "filename";
+                symbols.unnamed = "";
+                path = 1;
+                padding.left = 0;
+              }
+            ];
+            lualine_x = [ "lsp_status" ];
+            lualine_y = [ "progress" ];
+            lualine_z = [ "location" ];
+          };
         };
       };
     };
