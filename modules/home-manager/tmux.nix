@@ -17,7 +17,6 @@ in
       enable = true;
       prefix = "C-\\;";
       keyMode = "vi";
-      newSession = true;
       disableConfirmationPrompt = true;
       sensibleOnTop = true;
       mouse = true;
