@@ -648,6 +648,15 @@ let
           pattern = "hurl";
           callback.__raw = ''
             function()
+              vim.keymap.set({ "n" }, "<Leader>rv", "<Cmd>HurlManageVariable<CR>", { buffer = true, desc = "Manage hurl variable" })
+            end
+          '';
+        }
+        {
+          event = "FileType";
+          pattern = "hurl";
+          callback.__raw = ''
+            function()
               vim.keymap.set({ "n" }, "<Leader>re", function()
                 require("snacks").picker.files({
                   title = "Select Hurl Env File",
