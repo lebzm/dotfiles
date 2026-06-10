@@ -24,6 +24,8 @@ in
       baseIndex = 1;
       terminal = "tmux-256color";
       extraConfig = ''
+        set -g extended-keys on
+        set -ag terminal-features ",*:extkeys"
         set -g renumber-windows on
 
         bind r source-file ~/.config/tmux/tmux.conf
