@@ -96,6 +96,9 @@ let
       opts.showmode = false;
       plugins.lualine = {
         enable = true;
+        settings = {
+          options.globalstatus = true;
+        };
       };
     };
   };
