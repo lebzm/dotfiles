@@ -38,6 +38,7 @@ in
         bind l select-pane -R
       '';
       plugins = with pkgs.tmuxPlugins; [
+        yank
         {
           plugin = catppuccin;
           extraConfig = ''
