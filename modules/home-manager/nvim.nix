@@ -93,7 +93,10 @@ let
 
   ui_statusline = {
     programs.nixvim = {
-      plugins.lualine.enable = true;
+      opts.showmode = false;
+      plugins.lualine = {
+        enable = true;
+      };
     };
   };
 
