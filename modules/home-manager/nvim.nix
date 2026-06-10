@@ -282,9 +282,10 @@ let
       plugins.neogit = {
         enable = true;
         settings = {
-          kind = "vsplit";
+          kind = "floating";
           commit_editor.kind = "floating";
           commit_editor.spell_check = false;
+          disable_hint = true;
         };
       };
       keymaps = [
