@@ -18,9 +18,13 @@ in
       package = pkgs.ghostty-bin;
       settings = {
         macos-titlebar-style = "hidden";
-        theme = "Catppuccin Mocha";
+        window-padding-color = "extend";
+        window-padding-balance = true;
+        window-padding-x = 5;
+        window-padding-y = 5;
         background-opacity = 0.95;
         unfocused-split-opacity = 1;
+        theme = "Catppuccin Mocha";
         custom-shader = "shaders/cursor_smear.glsl";
       };
     };
