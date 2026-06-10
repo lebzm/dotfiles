@@ -276,9 +276,22 @@ let
     };
   };
 
-  autopairs = {
+  pairs = {
     programs.nixvim = {
       plugins.mini-pairs.enable = true;
+      plugins.mini-surround = {
+        enable = true;
+        settings = {
+          mappings = {
+            add = "gsa";
+            delete = "gsd";
+            find = "gsf";
+            find_left = "gsF";
+            highlight = "gsh";
+            replace = "gsr";
+          };
+        };
+      };
     };
   };
 
@@ -746,7 +759,7 @@ in
 
       motion
       completion
-      autopairs
+      pairs
 
       git
 
