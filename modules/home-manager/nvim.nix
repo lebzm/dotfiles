@@ -51,6 +51,11 @@ let
           mode = terminal;
         }
         {
+          key = "<Esc>";
+          action = "<Cmd>nohlsearch<CR>";
+          mode = normal;
+        }
+        {
           key = "<Leader>w";
           action = "<Cmd>w<CR>";
           mode = normal;
@@ -156,6 +161,7 @@ let
           label.uppercase = false;
         };
       };
+      plugins.tmux-navigator.enable = true;
       keymaps = [
         {
           key = "s";
@@ -166,26 +172,6 @@ let
           key = "S";
           action.__raw = ''function() require("flash").treesitter() end'';
           mode = normal ++ visual ++ operator;
-        }
-        {
-          key = "gh";
-          action = "<C-w>h";
-          mode = normal ++ visual;
-        }
-        {
-          key = "gj";
-          action = "<C-w>j";
-          mode = normal ++ visual;
-        }
-        {
-          key = "gk";
-          action = "<C-w>k";
-          mode = normal ++ visual;
-        }
-        {
-          key = "gl";
-          action = "<C-w>l";
-          mode = normal ++ visual;
         }
       ];
     };

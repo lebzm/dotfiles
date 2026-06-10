@@ -39,6 +39,7 @@ in
       '';
       plugins = with pkgs.tmuxPlugins; [
         yank
+        vim-tmux-navigator
         {
           plugin = catppuccin;
           extraConfig = ''
