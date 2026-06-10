@@ -15,7 +15,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.tmux = {
       enable = true;
-      prefix = "C-\\;";
+      prefix = "C-Space";
       keyMode = "vi";
       disableConfirmationPrompt = true;
       sensibleOnTop = true;
