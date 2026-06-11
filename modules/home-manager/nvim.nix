@@ -18,6 +18,14 @@ let
 
   border_style = "rounded";
 
+  icons = {
+    error = " ";
+    warn = " ";
+    info = " ";
+    debug = " ";
+    trace = " ";
+  };
+
   nixvim = {
     home.packages = with pkgs; [
       nodejs
@@ -162,25 +170,9 @@ let
                 kind = [
                   "bufwrite"
                   "undo"
-                  "echo"
-                  "echomsg"
-                  "echoerr"
-                  "lua_print"
-                  "lua_error"
                 ];
               };
               view = "mini";
-            }
-            {
-              filter = {
-                event = "msg_show";
-                kind = [
-                  "shell_out"
-                  "shell_err"
-                  "shell_ret"
-                ];
-              };
-              view = "split";
             }
           ];
           lsp.override = {
@@ -195,7 +187,11 @@ let
   ui_snacks = {
     programs.nixvim.plugins.snacks = {
       enable = true;
-      settings.input.enable = true;
+      settings = {
+        input.enable = true;
+        notifier.enable = true;
+        notifier.icons = icons;
+      };
     };
   };
 
@@ -509,7 +505,15 @@ let
   dep_lsp = {
     programs.nixvim = {
       plugins.lspconfig.enable = true;
-      diagnostic.settings.virtual_text.current_line = true;
+      diagnostic.settings = {
+        virtual_text.current_line = true;
+        signs.text = {
+          "__rawKey__vim.diagnostic.severity.ERROR" = icons.error;
+          "__rawKey__vim.diagnostic.severity.WARN" = icons.warn;
+          "__rawKey__vim.diagnostic.severity.INFO" = icons.info;
+          "__rawKey__vim.diagnostic.severity.HINT" = icons.trace;
+        };
+      };
       lsp.inlayHints.enable = true;
       autoCmd = [
         {
