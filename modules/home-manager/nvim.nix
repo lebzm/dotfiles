@@ -102,7 +102,11 @@ let
           options.globalstatus = true;
           sections = {
             lualine_a = [ "mode" ];
-            lualine_b = [ "branch" ];
+            lualine_b = [
+              "branch"
+              "diff"
+              "diagnostics"
+            ];
             lualine_c = [
               {
                 __unkeyed-1 = "filetype";
