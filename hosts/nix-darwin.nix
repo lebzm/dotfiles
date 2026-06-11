@@ -9,6 +9,7 @@
   environment.systemPackages = with pkgs; [
     git
     gnumake
+    htop
     home-manager
   ];
 
