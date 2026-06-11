@@ -283,56 +283,6 @@ let
     };
   };
 
-  completion = {
-    programs.nixvim = {
-      plugins.blink-cmp = {
-        enable = true;
-        settings = {
-          completion = {
-            ghost_text.enabled = true;
-            menu.auto_show = false;
-            menu.border = border_style;
-            documentation.window.border = border_style;
-            documentation.auto_show = true;
-          };
-          sources.default = [
-            "lsp"
-            "path"
-            "snippets"
-          ];
-          cmdline.sources = [ "cmdline" ];
-          keymap = {
-            preset = "none";
-            "<A-Space>" = [
-              "show"
-              "hide"
-            ];
-            "<Tab>" = [
-              "select_and_accept"
-              "fallback"
-            ];
-            "<C-n>" = [
-              "select_next"
-              "fallback_to_mappings"
-            ];
-            "<C-p>" = [
-              "select_prev"
-              "fallback_to_mappings"
-            ];
-            "<C-b>" = [
-              "scroll_documentation_up"
-              "fallback"
-            ];
-            "<C-f>" = [
-              "scroll_documentation_down"
-              "fallback"
-            ];
-          };
-        };
-      };
-    };
-  };
-
   pairs = {
     programs.nixvim = {
       plugins.mini-pairs.enable = true;
@@ -443,6 +393,61 @@ let
         settings.format_on_save = {
           lsp_format = "fallback";
           timeout_ms = 500;
+        };
+      };
+    };
+  };
+
+  dep_completion = {
+    programs.nixvim = {
+      plugins.friendly-snippets.enable = true;
+      plugins.blink-cmp = {
+        enable = true;
+        settings = {
+          completion = {
+            ghost_text.enabled = true;
+            menu.auto_show = false;
+            menu.border = border_style;
+            documentation.window.border = border_style;
+            documentation.auto_show = true;
+          };
+          sources.default = [
+            "lsp"
+            "path"
+            "snippets"
+          ];
+          sources.providers.snippets = {
+            opts.friendly_snippets = true;
+            score_offset = 5;
+          };
+          cmdline.sources = [ "cmdline" ];
+          keymap = {
+            preset = "none";
+            "<A-Space>" = [
+              "show"
+              "hide"
+            ];
+            "<Tab>" = [
+              "select_and_accept"
+              "fallback"
+            ];
+            "<C-n>" = [
+              "select_next"
+              "fallback_to_mappings"
+            ];
+            "<C-p>" = [
+              "select_prev"
+              "fallback_to_mappings"
+            ];
+            "<C-b>" = [
+              "scroll_documentation_up"
+              "fallback"
+            ];
+            "<C-f>" = [
+              "scroll_documentation_down"
+              "fallback"
+            ];
+          };
         };
       };
     };
@@ -637,46 +642,6 @@ let
     };
   };
 
-  lang_nix = {
-    programs.nixvim = {
-      plugins.conform-nvim.settings.formatters_by_ft.nix = [ "nixfmt" ];
-      plugins.treesitter.grammarPackages = with treesitterGrammars; [ nix ];
-      lsp.servers.nixd = {
-        enable = true;
-        config.settings.nixd = {
-          nixpkgs.expr = "import (builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs { }";
-          options.home-manager.expr = "(builtins.getFlake \"${cfg.dotfilesPath}/.config/dotfiles\").homeConfigurations.bzm.options";
-          options.nix-darwin.expr = "(builtins.getFlake \"${cfg.dotfilesPath}/.config/dotfiles\").darwinConfigurations.amartha.options";
-        };
-      };
-    };
-  };
-
-  lang_go = {
-    programs.nixvim = {
-      plugins.conform-nvim.settings.formatters_by_ft.go = [ "gofumpt" ];
-      plugins.treesitter.grammarPackages = with treesitterGrammars; [ go ];
-      plugins.neotest.adapters.golang = {
-        enable = true;
-        settings.go_test_args = {
-          __raw = ''
-            function()
-              return { "-coverprofile=" .. vim.fn.getcwd() .. "/coverage.out" }
-            end
-          '';
-        };
-      };
-      autoCmd = [
-        {
-          event = "FileType";
-          pattern = "go";
-          callback.__raw = ''function() require("coverage").load(true) end '';
-        }
-      ];
-      lsp.servers.gopls.enable = true;
-    };
-  };
-
   tool_git = {
     programs.nixvim = {
       plugins.gitsigns.enable = true;
@@ -761,7 +726,7 @@ let
     };
   };
 
-  ai_opencode = {
+  tool_opencode = {
     home.packages = with pkgs.llm-agents; [ opencode ];
     programs.nixvim = {
       plugins.opencode.enable = true;
@@ -790,7 +755,7 @@ let
     };
   };
 
-  ai_pi = {
+  tool_pi = {
     home.packages = with pkgs.llm-agents; [ pi ];
     programs.nixvim = {
       extraPlugins = with pkgs.vimPlugins; [ pi-nvim ];
@@ -803,6 +768,45 @@ let
     };
   };
 
+  lang_nix = {
+    programs.nixvim = {
+      plugins.treesitter.grammarPackages = with treesitterGrammars; [ nix ];
+      plugins.conform-nvim.settings.formatters_by_ft.nix = [ "nixfmt" ];
+      lsp.servers.nixd = {
+        enable = true;
+        config.settings.nixd = {
+          nixpkgs.expr = "import (builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs { }";
+          options.home-manager.expr = "(builtins.getFlake \"${cfg.dotfilesPath}/.config/dotfiles\").homeConfigurations.bzm.options";
+          options.nix-darwin.expr = "(builtins.getFlake \"${cfg.dotfilesPath}/.config/dotfiles\").darwinConfigurations.amartha.options";
+        };
+      };
+    };
+  };
+
+  lang_go = {
+    programs.nixvim = {
+      plugins.treesitter.grammarPackages = with treesitterGrammars; [ go ];
+      plugins.conform-nvim.settings.formatters_by_ft.go = [ "gofumpt" ];
+      plugins.neotest.adapters.golang = {
+        enable = true;
+        settings.go_test_args = {
+          __raw = ''
+            function()
+              return { "-coverprofile=" .. vim.fn.getcwd() .. "/coverage.out" }
+            end
+          '';
+        };
+      };
+      autoCmd = [
+        {
+          event = "FileType";
+          pattern = "go";
+          callback.__raw = ''function() require("coverage").load(true) end '';
+        }
+      ];
+      lsp.servers.gopls.enable = true;
+    };
+  };
 in
 
 {
@@ -824,22 +828,21 @@ in
       nav_motion
       nav_picker
 
-      completion
       pairs
 
       dep_treesitter
       dep_format
+      dep_completion
       dep_test
       dep_lsp
 
-      lang_nix
-      lang_go
-
       tool_git
       tool_hurl
+      tool_opencode
+      tool_pi
 
-      ai_opencode
-      ai_pi
+      lang_nix
+      lang_go
     ]
   );
 }
