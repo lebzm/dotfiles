@@ -411,12 +411,13 @@ let
           ];
           sources.providers.snippets = {
             opts.friendly_snippets = true;
-            score_offset = 3;
+            # score_offset = 3; # TODO: tweak the snippets score
           };
           cmdline.sources = [ "cmdline" ];
+          cmdline.keymap.preset = "inherit";
           keymap = {
             preset = "none";
-            "<A-Space>" = [
+            "<C-a>" = [
               "show"
               "hide"
             ];
