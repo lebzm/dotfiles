@@ -13,6 +13,11 @@ in
   options.modules.tmux.enable = lib.mkEnableOption "tmux";
 
   config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [
+      fzf
+      bat
+      zoxide
+    ];
     programs.tmux = {
       enable = true;
       prefix = "C-Space";
@@ -28,26 +33,28 @@ in
         set -ag terminal-features ",*:extkeys"
         set -g renumber-windows on
 
-        bind r source-file ~/.config/tmux/tmux.conf
-
         bind c new-window -c "#{pane_current_path}"
         bind s split-window -v -c "#{pane_current_path}"
         bind v split-window -h -c "#{pane_current_path}"
-
-        bind h select-pane -L
-        bind j select-pane -D
-        bind k select-pane -U
-        bind l select-pane -R
       '';
       plugins = with pkgs.tmuxPlugins; [
         yank
         {
+          plugin = session-wizard;
+          extraConfig = ''
+            set -g @session-wizard "f"
+            set -g @session-wizard-height 50
+            set -g @session-wizard-width 50
+            set -g @session-wizard-mode "directory"
+          '';
+        }
+        {
           plugin = vim-tmux-navigator;
           extraConfig = ''
             # restoring clear screen (C-l)
-            bind C-l send-keys 'C-l'
+            bind C-l send-keys "C-l"
             # restoring SIGQUIT (C-\)
-            bind C-\\ send-keys 'C-\'
+            bind C-\\ send-keys "C-\"
           '';
         }
         {
