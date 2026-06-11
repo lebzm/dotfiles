@@ -14,7 +14,6 @@ let
   command = [ "c" ];
   visual = [ "x" ];
   operator = [ "o" ];
-  terminal = [ "t" ];
 
   border_style = "rounded";
 
@@ -52,11 +51,6 @@ let
           key = "jj";
           action = "<Esc>";
           mode = insert ++ command;
-        }
-        {
-          key = "jj";
-          action = "<C-\\><C-n>";
-          mode = terminal;
         }
         {
           key = "<Esc>";
@@ -693,23 +687,6 @@ let
     };
   };
 
-  tool_terminal = {
-    programs.nixvim = {
-      plugins.snacks.settings.terminal = {
-        start_insert = true;
-        auto_insert = false;
-        auto_close = true;
-      };
-      keymaps = [
-        {
-          key = "<S-CR>";
-          action.__raw = ''function() require("snacks").terminal() end'';
-          mode = normal ++ visual;
-        }
-      ];
-    };
-  };
-
   tool_hurl = {
     programs.nixvim = {
       plugins.hurl = {
@@ -848,7 +825,6 @@ in
 
       tool_picker
       tool_explorer
-      tool_terminal
       tool_hurl
 
       ai_opencode
