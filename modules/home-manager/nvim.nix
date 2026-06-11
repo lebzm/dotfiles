@@ -195,7 +195,10 @@ let
       fd
     ];
     programs.nixvim = {
-      plugins.snacks.settings.picker.enable = true;
+      plugins.snacks.settings.picker = {
+        enable = true;
+        matcher.frecency = true;
+      };
       plugins.snacks.settings.explorer.enable = true;
       keymaps = [
         {
