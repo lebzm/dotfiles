@@ -639,6 +639,7 @@ let
     ];
     programs.nixvim = {
       plugins.snacks.settings.picker.enable = true;
+      plugins.snacks.settings.explorer.enable = true;
       keymaps = [
         {
           key = "<Leader>f";
@@ -656,6 +657,11 @@ let
           mode = normal ++ visual;
         }
         {
+          key = "<Leader>e";
+          action.__raw = ''function() require("snacks").explorer() end'';
+          mode = normal ++ visual;
+        }
+        {
           key = "<Leader>/";
           action.__raw = ''function() require("snacks").picker.grep() end'';
           mode = normal ++ visual;
@@ -668,19 +674,6 @@ let
         {
           key = "?k";
           action.__raw = ''function() require("snacks").picker.keymaps() end'';
-          mode = normal ++ visual;
-        }
-      ];
-    };
-  };
-
-  tool_explorer = {
-    programs.nixvim = {
-      plugins.snacks.settings.explorer.enable = true;
-      keymaps = [
-        {
-          key = "<Leader>e";
-          action.__raw = ''function() require("snacks").explorer() end'';
           mode = normal ++ visual;
         }
       ];
@@ -824,7 +817,6 @@ in
       lang_go
 
       tool_picker
-      tool_explorer
       tool_hurl
 
       ai_opencode
