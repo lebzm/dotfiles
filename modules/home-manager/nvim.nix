@@ -326,6 +326,77 @@ let
         grammarPackages = with treesitterGrammars; [ regex ];
         # folding.enable = true; # TODO: enable folding and other related folding config
       };
+      plugins.treesitter-textobjects.enable = true;
+      extraConfigLua = ''
+        require("nvim-treesitter-textobjects").setup({
+          select = { lookahead = true },
+          move = { set_jumps = true },
+        })
+      '';
+      keymaps = [
+        {
+          key = "af";
+          action.__raw = ''function() require("nvim-treesitter-textobjects.select").select_textobject("@function.outer", "textobjects") end'';
+          mode = operator ++ visual;
+        }
+        {
+          key = "if";
+          action.__raw = ''function() require("nvim-treesitter-textobjects.select").select_textobject("@function.inner", "textobjects") end'';
+          mode = operator ++ visual;
+        }
+        {
+          key = "at";
+          action.__raw = ''function() require("nvim-treesitter-textobjects.select").select_textobject("@class.outer", "textobjects") end'';
+          mode = operator ++ visual;
+        }
+        {
+          key = "it";
+          action.__raw = ''function() require("nvim-treesitter-textobjects.select").select_textobject("@class.inner", "textobjects") end'';
+          mode = operator ++ visual;
+        }
+
+        {
+          key = "]f";
+          action.__raw = ''function() require("nvim-treesitter-textobjects.move").goto_next_start("@function.outer", "textobjects") end'';
+          mode = normal ++ operator ++ visual;
+        }
+        {
+          key = "]F";
+          action.__raw = ''function() require("nvim-treesitter-textobjects.move").goto_next_end("@function.outer", "textobjects") end'';
+          mode = normal ++ operator ++ visual;
+        }
+        {
+          key = "[f";
+          action.__raw = ''function() require("nvim-treesitter-textobjects.move").goto_previous_start("@function.outer", "textobjects") end'';
+          mode = normal ++ operator ++ visual;
+        }
+        {
+          key = "[F";
+          action.__raw = ''function() require("nvim-treesitter-textobjects.move").goto_previous_end("@function.outer", "textobjects") end'';
+          mode = normal ++ operator ++ visual;
+        }
+
+        {
+          key = "]t";
+          action.__raw = ''function() require("nvim-treesitter-textobjects.move").goto_next_start("@class.outer", "textobjects") end'';
+          mode = normal ++ operator ++ visual;
+        }
+        {
+          key = "]T";
+          action.__raw = ''function() require("nvim-treesitter-textobjects.move").goto_next_end("@class.outer", "textobjects") end'';
+          mode = normal ++ operator ++ visual;
+        }
+        {
+          key = "[t";
+          action.__raw = ''function() require("nvim-treesitter-textobjects.move").goto_previous_start("@class.outer", "textobjects") end'';
+          mode = normal ++ operator ++ visual;
+        }
+        {
+          key = "[T";
+          action.__raw = ''function() require("nvim-treesitter-textobjects.move").goto_previous_end("@class.outer", "textobjects") end'';
+          mode = normal ++ operator ++ visual;
+        }
+      ];
     };
   };
 
