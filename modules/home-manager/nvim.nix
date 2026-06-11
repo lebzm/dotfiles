@@ -302,6 +302,31 @@ let
     };
   };
 
+  todo = {
+    programs.nixvim = {
+      plugins.todo-comments = {
+        enable = true;
+      };
+      keymaps = [
+        {
+          key = "<Leader>td";
+          action.__raw = ''function() require("snacks").picker.todo_comments() end'';
+          mode = normal;
+        }
+        {
+          key = "]t";
+          action.__raw = ''function() require("todo-comments").jump_next() end'';
+          mode = normal;
+        }
+        {
+          key = "[t";
+          action.__raw = ''function() require("todo-comments").jump_prev() end'';
+          mode = normal;
+        }
+      ];
+    };
+  };
+
   dep_treesitter = {
     programs.nixvim = {
       plugins.treesitter = {
@@ -795,6 +820,7 @@ in
       nav_picker
 
       pairs
+      todo
 
       dep_treesitter
       dep_format
