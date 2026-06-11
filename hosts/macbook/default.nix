@@ -19,8 +19,8 @@
       persistent-workspaces = [
         "main"
         "browser"
-        "code"
         "ai"
+        "code"
         "vm"
       ];
 
@@ -42,12 +42,12 @@
           run = [ "move-node-to-workspace browser" ];
         }
         {
-          "if".app-id = "org.gnu.Emacs";
-          run = [ "move-node-to-workspace code" ];
-        }
-        {
           "if".app-id = "com.openai.chat";
           run = [ "move-node-to-workspace ai" ];
+        }
+        {
+          "if".app-id = "com.mitchellh.ghostty";
+          run = [ "move-node-to-workspace code" ];
         }
         {
           "if".app-id = "com.vmware.fusion";
@@ -78,14 +78,14 @@
 
         cmd-1 = "workspace main";
         cmd-2 = "workspace browser";
-        cmd-3 = "workspace code";
-        cmd-4 = "workspace ai";
+        cmd-3 = "workspace ai";
+        cmd-4 = "workspace code";
         cmd-5 = "workspace vm";
 
         cmd-ctrl-1 = "move-node-to-workspace main";
         cmd-ctrl-2 = "move-node-to-workspace browser";
-        cmd-ctrl-3 = "move-node-to-workspace code";
-        cmd-ctrl-4 = "move-node-to-workspace ai";
+        cmd-ctrl-3 = "move-node-to-workspace ai";
+        cmd-ctrl-4 = "move-node-to-workspace code";
         cmd-ctrl-5 = "move-node-to-workspace vm";
       };
     };
