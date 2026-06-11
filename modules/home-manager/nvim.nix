@@ -189,7 +189,55 @@ let
     };
   };
 
-  motion = {
+  nav_picker = {
+    home.packages = with pkgs; [
+      ripgrep
+      fd
+    ];
+    programs.nixvim = {
+      plugins.snacks.settings.picker.enable = true;
+      plugins.snacks.settings.explorer.enable = true;
+      keymaps = [
+        {
+          key = "<Leader>f";
+          action.__raw = ''function() require("snacks").picker.files() end'';
+          mode = normal ++ visual;
+        }
+        {
+          key = "<Leader>b";
+          action.__raw = ''function() require("snacks").picker.buffers() end'';
+          mode = normal ++ visual;
+        }
+        {
+          key = "<Leader>p";
+          action.__raw = ''function() require("snacks").picker.projects() end'';
+          mode = normal ++ visual;
+        }
+        {
+          key = "<Leader>/";
+          action.__raw = ''function() require("snacks").picker.grep() end'';
+          mode = normal ++ visual;
+        }
+        {
+          key = "<Leader>e";
+          action.__raw = ''function() require("snacks").explorer() end'';
+          mode = normal ++ visual;
+        }
+        {
+          key = "?h";
+          action.__raw = ''function() require("snacks").picker.help() end'';
+          mode = normal ++ visual;
+        }
+        {
+          key = "?k";
+          action.__raw = ''function() require("snacks").picker.keymaps() end'';
+          mode = normal ++ visual;
+        }
+      ];
+    };
+  };
+
+  nav_motion = {
     programs.nixvim = {
       plugins.flash = {
         enable = true;
@@ -201,6 +249,7 @@ let
         };
       };
       plugins.tmux-navigator.enable = true;
+      plugins.harpoon.enable = true;
       keymaps = [
         {
           key = "s";
@@ -212,7 +261,22 @@ let
           action.__raw = ''function() require("flash").treesitter() end'';
           mode = normal ++ visual ++ operator;
         }
-      ];
+        {
+          key = "<Leader>ha";
+          action.__raw = ''function() require("harpoon"):list():append() end'';
+          mode = normal;
+        }
+        {
+          key = "<Leader>hh";
+          action.__raw = ''function() require("harpoon").ui:toggle_quick_menu(require("harpoon"):list()) end'';
+          mode = normal;
+        }
+      ]
+      ++ (lib.genList (i: {
+        key = "<Leader>${toString (i + 1)}";
+        action.__raw = ''function() require("harpoon"):list():select(${toString (i + 1)}) end'';
+        mode = normal;
+      }) 9);
     };
   };
 
@@ -610,54 +674,6 @@ let
     };
   };
 
-  tool_picker = {
-    home.packages = with pkgs; [
-      ripgrep
-      fd
-    ];
-    programs.nixvim = {
-      plugins.snacks.settings.picker.enable = true;
-      plugins.snacks.settings.explorer.enable = true;
-      keymaps = [
-        {
-          key = "<Leader>f";
-          action.__raw = ''function() require("snacks").picker.files() end'';
-          mode = normal ++ visual;
-        }
-        {
-          key = "<Leader>b";
-          action.__raw = ''function() require("snacks").picker.buffers() end'';
-          mode = normal ++ visual;
-        }
-        {
-          key = "<Leader>p";
-          action.__raw = ''function() require("snacks").picker.projects() end'';
-          mode = normal ++ visual;
-        }
-        {
-          key = "<Leader>e";
-          action.__raw = ''function() require("snacks").explorer() end'';
-          mode = normal ++ visual;
-        }
-        {
-          key = "<Leader>/";
-          action.__raw = ''function() require("snacks").picker.grep() end'';
-          mode = normal ++ visual;
-        }
-        {
-          key = "?h";
-          action.__raw = ''function() require("snacks").picker.help() end'';
-          mode = normal ++ visual;
-        }
-        {
-          key = "?k";
-          action.__raw = ''function() require("snacks").picker.keymaps() end'';
-          mode = normal ++ visual;
-        }
-      ];
-    };
-  };
-
   tool_git = {
     programs.nixvim = {
       plugins.gitsigns.enable = true;
@@ -802,7 +818,9 @@ in
       ui_noice
       ui_snacks
 
-      motion
+      nav_motion
+      nav_picker
+
       completion
       pairs
 
@@ -814,7 +832,6 @@ in
       lang_nix
       lang_go
 
-      tool_picker
       tool_git
       tool_hurl
 
