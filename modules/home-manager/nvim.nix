@@ -330,17 +330,6 @@ let
           mode = operator ++ visual;
         }
         {
-          key = "at";
-          action.__raw = ''function() require("nvim-treesitter-textobjects.select").select_textobject("@class.outer", "textobjects") end'';
-          mode = operator ++ visual;
-        }
-        {
-          key = "it";
-          action.__raw = ''function() require("nvim-treesitter-textobjects.select").select_textobject("@class.inner", "textobjects") end'';
-          mode = operator ++ visual;
-        }
-
-        {
           key = "]f";
           action.__raw = ''function() require("nvim-treesitter-textobjects.move").goto_next_start("@function.outer", "textobjects") end'';
           mode = normal ++ operator ++ visual;
@@ -358,27 +347,6 @@ let
         {
           key = "[F";
           action.__raw = ''function() require("nvim-treesitter-textobjects.move").goto_previous_end("@function.outer", "textobjects") end'';
-          mode = normal ++ operator ++ visual;
-        }
-
-        {
-          key = "]t";
-          action.__raw = ''function() require("nvim-treesitter-textobjects.move").goto_next_start("@class.outer", "textobjects") end'';
-          mode = normal ++ operator ++ visual;
-        }
-        {
-          key = "]T";
-          action.__raw = ''function() require("nvim-treesitter-textobjects.move").goto_next_end("@class.outer", "textobjects") end'';
-          mode = normal ++ operator ++ visual;
-        }
-        {
-          key = "[t";
-          action.__raw = ''function() require("nvim-treesitter-textobjects.move").goto_previous_start("@class.outer", "textobjects") end'';
-          mode = normal ++ operator ++ visual;
-        }
-        {
-          key = "[T";
-          action.__raw = ''function() require("nvim-treesitter-textobjects.move").goto_previous_end("@class.outer", "textobjects") end'';
           mode = normal ++ operator ++ visual;
         }
       ];
@@ -629,13 +597,13 @@ let
           mode = normal;
         }
         {
-          key = "[d";
-          action.__raw = "function() vim.diagnostic.jump({ count=-1 }) end";
+          key = "]d";
+          action.__raw = "function() vim.diagnostic.jump({ count=1 }) end";
           mode = normal;
         }
         {
-          key = "]d";
-          action.__raw = "function() vim.diagnostic.jump({ count=1 }) end";
+          key = "[d";
+          action.__raw = "function() vim.diagnostic.jump({ count=-1 }) end";
           mode = normal;
         }
       ];
