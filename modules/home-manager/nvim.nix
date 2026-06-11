@@ -418,7 +418,7 @@ let
           ];
           sources.providers.snippets = {
             opts.friendly_snippets = true;
-            score_offset = 5;
+            score_offset = 3;
           };
           cmdline.sources = [ "cmdline" ];
           keymap = {
