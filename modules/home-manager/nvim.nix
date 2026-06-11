@@ -285,28 +285,6 @@ let
     };
   };
 
-  git = {
-    programs.nixvim = {
-      plugins.gitsigns.enable = true;
-      plugins.neogit = {
-        enable = true;
-        settings = {
-          kind = "floating";
-          commit_editor.kind = "floating";
-          commit_editor.spell_check = false;
-          disable_hint = true;
-        };
-      };
-      keymaps = [
-        {
-          key = "<Leader>g";
-          action.__raw = ''function() require("neogit").open() end'';
-          mode = normal ++ visual;
-        }
-      ];
-    };
-  };
-
   dep_treesitter = {
     programs.nixvim = {
       plugins.treesitter = {
@@ -680,6 +658,28 @@ let
     };
   };
 
+  tool_git = {
+    programs.nixvim = {
+      plugins.gitsigns.enable = true;
+      plugins.neogit = {
+        enable = true;
+        settings = {
+          kind = "floating";
+          commit_editor.kind = "floating";
+          commit_editor.spell_check = false;
+          disable_hint = true;
+        };
+      };
+      keymaps = [
+        {
+          key = "<Leader>g";
+          action.__raw = ''function() require("neogit").open() end'';
+          mode = normal ++ visual;
+        }
+      ];
+    };
+  };
+
   tool_hurl = {
     programs.nixvim = {
       plugins.hurl = {
@@ -806,8 +806,6 @@ in
       completion
       pairs
 
-      git
-
       dep_treesitter
       dep_format
       dep_test
@@ -817,6 +815,7 @@ in
       lang_go
 
       tool_picker
+      tool_git
       tool_hurl
 
       ai_opencode
