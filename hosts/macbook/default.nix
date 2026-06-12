@@ -66,15 +66,15 @@
       mode.main.binding = {
         cmd-ctrl-f = "fullscreen";
 
-        cmd-h = "focus left";
-        cmd-j = "focus down";
-        cmd-k = "focus up";
-        cmd-l = "focus right";
+        cmd-left = "focus left";
+        cmd-down = "focus down";
+        cmd-up = "focus up";
+        cmd-right = "focus right";
 
-        cmd-shift-h = "move left";
-        cmd-shift-j = "move down";
-        cmd-shift-k = "move up";
-        cmd-shift-l = "move right";
+        cmd-ctrl-left = "move left";
+        cmd-ctrl-down = "move down";
+        cmd-ctrl-up = "move up";
+        cmd-ctrl-right = "move right";
 
         cmd-1 = "workspace main";
         cmd-2 = "workspace browser";
