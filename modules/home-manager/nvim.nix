@@ -270,7 +270,7 @@ let
         }
         {
           key = "<Leader>ha";
-          action.__raw = ''function() require("harpoon"):list():append() end'';
+          action.__raw = ''function() require("harpoon"):list():add() end'';
           mode = normal;
         }
         {
