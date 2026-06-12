@@ -16,6 +16,7 @@
       enable = true;
       dotfilesPath = config.home.homeDirectory;
     };
+    opencode.enable = true;
   };
 
   home.packages = with pkgs.brewCasks; [

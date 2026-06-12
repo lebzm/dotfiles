@@ -724,35 +724,6 @@ let
     };
   };
 
-  tool_opencode = {
-    home.packages = with pkgs.llm-agents; [ opencode ];
-    programs.nixvim = {
-      plugins.opencode.enable = true;
-      keymaps = [
-        {
-          key = "<Leader><Tab>";
-          action.__raw = ''function() require("opencode").command("agent.cycle") end'';
-          mode = normal;
-        }
-        {
-          key = "<Leader>/";
-          action.__raw = ''function() require("opencode").select() end'';
-          mode = normal;
-        }
-        {
-          key = "<Leader>a";
-          action.__raw = ''function() require("opencode").ask() end'';
-          mode = normal;
-        }
-        {
-          key = "<Leader>a";
-          action.__raw = ''function() require("opencode").ask("@this: ") end'';
-          mode = visual;
-        }
-      ];
-    };
-  };
-
   tool_pi = {
     home.packages = with pkgs.llm-agents; [ pi ];
     programs.nixvim = {
@@ -835,7 +806,6 @@ in
 
       tool_git
       tool_hurl
-      tool_opencode
       tool_pi
 
       lang_nix
