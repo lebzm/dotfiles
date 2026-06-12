@@ -54,7 +54,7 @@ in
             # restoring clear screen (C-l)
             bind C-l send-keys "C-l"
             # restoring SIGQUIT (C-\)
-            bind C-\\ send-keys "C-\"
+            bind C-\\ send-keys "C-\\"
           '';
         }
         {
