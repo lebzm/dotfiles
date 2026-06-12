@@ -165,9 +165,15 @@ let
             {
               filter = {
                 event = "msg_show";
-                kind = [
-                  "bufwrite"
-                  "undo"
+                # NOTE: ideally we should filter by kind, but delete multiline doesn't have kind
+                # kind = [
+                #   "bufwrite"
+                #   "undo"
+                # ];
+                any = [
+                  { find = "%d+L, %d+B"; }
+                  { find = "fewer lines"; }
+                  { find = "more lines"; }
                 ];
               };
               view = "mini";
