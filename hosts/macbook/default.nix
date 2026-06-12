@@ -66,16 +66,6 @@
       mode.main.binding = {
         cmd-ctrl-f = "fullscreen";
 
-        cmd-left = "focus left";
-        cmd-down = "focus down";
-        cmd-up = "focus up";
-        cmd-right = "focus right";
-
-        cmd-ctrl-left = "move left";
-        cmd-ctrl-down = "move down";
-        cmd-ctrl-up = "move up";
-        cmd-ctrl-right = "move right";
-
         cmd-1 = "workspace main";
         cmd-2 = "workspace browser";
         cmd-3 = "workspace ai";
