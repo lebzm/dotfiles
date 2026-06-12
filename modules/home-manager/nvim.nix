@@ -221,7 +221,7 @@ let
           mode = normal ++ visual;
         }
         {
-          key = "<Leader>/";
+          key = "<Leader>s";
           action.__raw = ''function() require("snacks").picker.grep() end'';
           mode = normal ++ visual;
         }
@@ -735,7 +735,7 @@ let
           mode = normal;
         }
         {
-          key = "<Leader>o";
+          key = "<Leader>/";
           action.__raw = ''function() require("opencode").select() end'';
           mode = normal;
         }
