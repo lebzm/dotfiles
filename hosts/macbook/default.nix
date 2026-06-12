@@ -8,12 +8,12 @@
       automatically-unhide-macos-hidden-apps = true;
 
       gaps = {
-        inner.horizontal = 4;
-        inner.vertical = 4;
-        outer.left = 4;
-        outer.bottom = 4;
+        inner.horizontal = 8;
+        inner.vertical = 8;
+        outer.left = 8;
+        outer.bottom = 8;
         outer.top = 0;
-        outer.right = 4;
+        outer.right = 8;
       };
 
       persistent-workspaces = [
