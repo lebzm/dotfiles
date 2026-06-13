@@ -7,7 +7,6 @@
   home.homeDirectory = "/Users/bzm";
 
   modules = {
-    zed.enable = true;
     ghostty.enable = true;
     tmux.enable = true;
     zsh.enable = true;
