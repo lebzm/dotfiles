@@ -16,6 +16,7 @@
       enable = true;
       dotfilesPath = config.home.homeDirectory;
     };
+    git.enable = true;
     opencode.enable = true;
   };
 
@@ -63,6 +64,7 @@
     };
   };
 
+  # TODO: move into modules.git
   programs.git = {
     enable = true;
     ignores = [

@@ -647,28 +647,6 @@ let
     };
   };
 
-  tool_git = {
-    programs.nixvim = {
-      plugins.gitsigns.enable = true;
-      plugins.neogit = {
-        enable = true;
-        settings = {
-          kind = "floating";
-          commit_editor.kind = "floating";
-          commit_editor.spell_check = false;
-          disable_hint = true;
-        };
-      };
-      keymaps = [
-        {
-          key = "<Leader>g";
-          action.__raw = ''function() require("neogit").open() end'';
-          mode = normal ++ visual;
-        }
-      ];
-    };
-  };
-
   tool_hurl = {
     programs.nixvim = {
       plugins.hurl = {
@@ -811,7 +789,6 @@ in
       dep_test
       dep_lsp
 
-      tool_git
       tool_hurl
       tool_pi
 
