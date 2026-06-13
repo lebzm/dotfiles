@@ -722,43 +722,6 @@ let
     };
   };
 
-  lang_nix = {
-    programs.nixvim = {
-      plugins.treesitter.grammarPackages = with treesitterGrammars; [ nix ];
-      plugins.conform-nvim.settings.formatters_by_ft.nix = [ "nixfmt" ];
-      lsp.servers.nixd = {
-        enable = true;
-        config.settings.nixd = {
-          nixpkgs.expr = "import (builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs { }";
-        };
-      };
-    };
-  };
-
-  lang_go = {
-    programs.nixvim = {
-      plugins.treesitter.grammarPackages = with treesitterGrammars; [ go ];
-      plugins.conform-nvim.settings.formatters_by_ft.go = [ "gofumpt" ];
-      plugins.neotest.adapters.golang = {
-        enable = true;
-        settings.go_test_args = {
-          __raw = ''
-            function()
-              return { "-coverprofile=" .. vim.fn.getcwd() .. "/coverage.out" }
-            end
-          '';
-        };
-      };
-      autoCmd = [
-        {
-          event = "FileType";
-          pattern = "go";
-          callback.__raw = ''function() require("coverage").load(true) end '';
-        }
-      ];
-      lsp.servers.gopls.enable = true;
-    };
-  };
 in
 
 {
@@ -791,9 +754,6 @@ in
 
       tool_hurl
       tool_pi
-
-      lang_nix
-      lang_go
     ]
   );
 }
