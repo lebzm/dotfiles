@@ -9,15 +9,23 @@
   modules = {
     zed.enable = true;
     ghostty.enable = true;
+    tmux.enable = true;
     zsh.enable = true;
     starship.enable = true;
-    tmux.enable = true;
+    direnv.enable = true;
     nvim = {
       enable = true;
       dotfilesPath = config.home.homeDirectory;
     };
     git.enable = true;
     opencode.enable = true;
+    podman.enable = true;
+  };
+
+  modules.lang = {
+    nix.enable = true;
+    go.enable = true;
+    gleam.enable = true;
   };
 
   home.packages = with pkgs.brewCasks; [
