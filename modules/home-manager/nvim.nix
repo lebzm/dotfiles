@@ -174,6 +174,7 @@ let
                   { find = "%d+L, %d+B"; }
                   { find = "fewer lines"; }
                   { find = "more lines"; }
+                  { find = "lines yanked"; }
                 ];
               };
               view = "mini";
