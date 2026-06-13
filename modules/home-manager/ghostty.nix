@@ -28,6 +28,6 @@ in
         custom-shader = "shaders/cursor_smear.glsl";
       };
     };
-    home.file.".config/ghostty/shaders/cursor_smear.glsl".source = ./shaders/cursor_smear.glsl;
+    home.file.".config/ghostty/shaders/cursor_smear.glsl".source = ./ghostty/shaders/cursor_smear.glsl;
   };
 }
