@@ -42,19 +42,6 @@
 
   security.pam.services.sudo_local.touchIdAuth = true;
 
-  system.defaults = {
-    NSGlobalDomain = {
-      "com.apple.swipescrolldirection" = true;
-      AppleSpacesSwitchOnActivate = false;
-      NSAutomaticSpellingCorrectionEnabled = false;
-      NSAutomaticCapitalizationEnabled = false;
-    };
-    dock = {
-      autohide = true;
-      mru-spaces = false;
-    };
-  };
-
   system.keyboard = {
     enableKeyMapping = true;
     remapCapsLockToControl = true;
@@ -64,9 +51,6 @@
     # Apply changes without logout/login cycle.
     /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
   '';
-
-  # TODO: remove this once nix-darwin deprecate them
-  system.primaryUser = "bzm";
 
   system.stateVersion = 6;
 }

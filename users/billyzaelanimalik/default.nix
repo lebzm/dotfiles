@@ -7,6 +7,7 @@
   home.homeDirectory = "/Users/billyzaelanimalik";
 
   modules = {
+    darwin.defaults = true;
     aerospace.enable = true;
     ghostty.enable = true;
     tmux.enable = true;
