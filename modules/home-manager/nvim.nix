@@ -551,6 +551,58 @@ let
     };
   };
 
+  dep_dap = {
+    programs.nixvim = {
+      plugins.dap.enable = true;
+      plugins.dap-view = {
+        enable = true;
+        settings = {
+          virtual_text = {
+            enabled = true;
+            format.__raw = ''function(variable, _, _) return " = " .. variable.value end '';
+          };
+        };
+      };
+      keymaps = [
+        {
+          key = "<leader>db";
+          action.__raw = ''function() require("dap").toggle_breakpoint() end'';
+          mode = normal;
+        }
+        {
+          key = "<leader>d.";
+          action.__raw = ''function() require("neotest").run.run({ strategy = "dap" }) end'';
+          mode = normal;
+        }
+        {
+          key = "<leader>dc";
+          action.__raw = ''function() require("dap").continue() end'';
+          mode = normal;
+        }
+        {
+          key = "<leader>dt";
+          action.__raw = ''function() require("dap").terminate() end'';
+          mode = normal;
+        }
+        {
+          key = "<leader>dl";
+          action.__raw = ''function() require("dap").step_into() end'';
+          mode = normal;
+        }
+        {
+          key = "<leader>dh";
+          action.__raw = ''function() require("dap").step_out() end'';
+          mode = normal;
+        }
+        {
+          key = "<leader>dj";
+          action.__raw = ''function() require("dap").step_over() end'';
+          mode = normal;
+        }
+      ];
+    };
+  };
+
   dep_lsp = {
     programs.nixvim = {
       plugins.lspconfig.enable = true;
@@ -750,6 +802,7 @@ in
       dep_format
       dep_completion
       dep_test
+      dep_dap
       dep_lsp
 
       tool_hurl
