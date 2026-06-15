@@ -14,7 +14,10 @@ in
   options.modules.lang.go.enable = lib.mkEnableOption "go";
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ go ];
+    home.packages = with pkgs; [
+      go
+      delve
+    ];
     programs.nixvim = {
       plugins.treesitter.grammarPackages = with treesitterGrammars; [ go ];
       plugins.conform-nvim.settings.formatters_by_ft.go = [ "gofumpt" ];
@@ -35,6 +38,7 @@ in
           callback.__raw = ''function() require("coverage").load(true) end '';
         }
       ];
+      plugins.dap-go.enable = true;
       lsp.servers.gopls.enable = true;
     };
   };
