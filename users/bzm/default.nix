@@ -12,6 +12,7 @@
     ghostty.enable = true;
     tmux.enable = true;
     zsh.enable = true;
+    nushell.enable = true;
     starship.enable = true;
     direnv.enable = true;
     nvim = {
