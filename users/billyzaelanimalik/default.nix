@@ -16,6 +16,7 @@
     git.enable = true;
     opencode.enable = true;
     podman.enable = true;
+    mise.enable = true;
   };
 
   modules.term = {
