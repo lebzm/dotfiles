@@ -5,10 +5,10 @@
 }:
 
 let
-  cfg = config.modules.direnv;
+  cfg = config.modules.term.direnv;
 in
 {
-  options.modules.direnv.enable = lib.mkEnableOption "direnv";
+  options.modules.term.direnv.enable = lib.mkEnableOption "direnv";
 
   config = lib.mkIf cfg.enable {
     programs.direnv = {

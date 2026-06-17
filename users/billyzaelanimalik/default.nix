@@ -9,12 +9,6 @@
   modules = {
     darwin.defaults = true;
     aerospace.enable = true;
-    ghostty.enable = true;
-    tmux.enable = true;
-    zsh.enable = true;
-    nushell.enable = true;
-    starship.enable = true;
-    direnv.enable = true;
     nvim = {
       enable = true;
       dotfilesPath = config.home.homeDirectory;
@@ -22,6 +16,15 @@
     git.enable = true;
     opencode.enable = true;
     podman.enable = true;
+  };
+
+  modules.term = {
+    ghostty.enable = true;
+    tmux.enable = true;
+    zsh.enable = true;
+    nushell.enable = true;
+    starship.enable = true;
+    direnv.enable = true;
   };
 
   modules.lang = {

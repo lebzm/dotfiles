@@ -6,11 +6,11 @@
 }:
 
 let
-  cfg = config.modules.nushell;
+  cfg = config.modules.term.nushell;
 in
 
 {
-  options.modules.nushell.enable = lib.mkEnableOption "nushell";
+  options.modules.term.nushell.enable = lib.mkEnableOption "nushell";
 
   config = lib.mkIf cfg.enable {
     programs.nushell = {

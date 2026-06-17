@@ -6,11 +6,11 @@
 }:
 
 let
-  cfg = config.modules.ghostty;
+  cfg = config.modules.term.ghostty;
 in
 
 {
-  options.modules.ghostty.enable = lib.mkEnableOption "ghostty";
+  options.modules.term.ghostty.enable = lib.mkEnableOption "ghostty";
 
   config = lib.mkIf cfg.enable {
     programs.ghostty = {
@@ -28,6 +28,6 @@ in
         custom-shader = "shaders/cursor_smear.glsl";
       };
     };
-    home.file.".config/ghostty/shaders/cursor_smear.glsl".source = ./ghostty/shaders/cursor_smear.glsl;
+    home.file.".config/ghostty/shaders/cursor_smear.glsl".source = ./shaders/cursor_smear.glsl;
   };
 }

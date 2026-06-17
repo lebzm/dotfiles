@@ -6,11 +6,11 @@
 }:
 
 let
-  cfg = config.modules.tmux;
+  cfg = config.modules.term.tmux;
 in
 
 {
-  options.modules.tmux.enable = lib.mkEnableOption "tmux";
+  options.modules.term.tmux.enable = lib.mkEnableOption "tmux";
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
