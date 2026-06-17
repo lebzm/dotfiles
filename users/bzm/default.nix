@@ -30,6 +30,7 @@
     nix.enable = true;
     go.enable = true;
     gleam.enable = true;
+    zig.enable = true;
   };
 
   home.packages = with pkgs.brewCasks; [
