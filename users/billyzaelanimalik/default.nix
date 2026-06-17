@@ -24,6 +24,7 @@
     zsh.enable = true;
     nushell.enable = true;
     starship.enable = true;
+    carapace.enable = true;
     direnv.enable = true;
   };
 
