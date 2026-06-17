@@ -18,5 +18,6 @@ in
     };
     home.packages = [ pkgs.podman-compose ];
     programs.zsh.shellAliases.docker = "podman";
+    programs.nushell.shellAliases.docker = "podman";
   };
 }
