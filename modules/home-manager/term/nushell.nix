@@ -17,6 +17,20 @@ in
       enable = true;
       settings = {
         show_banner = false;
+        keybindings = [
+          {
+            name = "tab_completion";
+            modifier = "none";
+            keycode = "tab";
+            mode = [ "emacs" "vi_insert" "vi_normal" ];
+            event = {
+              until = [
+                { send = "menu"; name = "completion_menu"; }
+                { send = "enter"; }
+              ];
+            };
+          }
+        ];
       };
     };
 
