@@ -14,6 +14,14 @@ in
   config = lib.mkIf cfg.enable {
     programs.mise = {
       enable = true;
+      globalConfig = {
+        settings = {
+          trusted_config_paths = [
+            "~/pinggirjurang.studio"
+            "~/amartha"
+          ];
+        };
+      };
     };
   };
 }
