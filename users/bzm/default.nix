@@ -16,7 +16,10 @@
     git.enable = true;
     opencode.enable = true;
     podman.enable = true;
-    mise.enable = true;
+    mise = {
+      enable = true;
+      trustedConfigPaths = [ "~/pinggirjurang.studio" ];
+    };
   };
 
   modules.term = {

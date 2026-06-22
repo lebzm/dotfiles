@@ -9,17 +9,21 @@ let
 in
 
 {
-  options.modules.mise.enable = lib.mkEnableOption "mise";
+  options.modules.mise = {
+    enable = lib.mkEnableOption "mise";
+    trustedConfigPaths = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      description = "List of trusted config paths for mise.";
+    };
+  };
 
   config = lib.mkIf cfg.enable {
     programs.mise = {
       enable = true;
       globalConfig = {
         settings = {
-          trusted_config_paths = [
-            "~/pinggirjurang.studio"
-            "~/amartha"
-          ];
+          trusted_config_paths = cfg.trustedConfigPaths;
         };
       };
     };
