@@ -31,6 +31,7 @@
   };
 
   modules.lang = {
+    markdown.enable = true;
     nix.enable = true;
     go.enable = true;
   };

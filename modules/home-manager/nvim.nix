@@ -705,7 +705,6 @@ let
         enable = true;
         settings.env_file = [ "" ];
       };
-      plugins.render-markdown.enable = true; # TODO: this is optional, might move to a dedicated section
       plugins.conform-nvim.settings.formatters_by_ft.hurl = [ "hurlfmt" ];
       plugins.treesitter.grammarPackages = with treesitterGrammars; [
         hurl

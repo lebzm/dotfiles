@@ -97,12 +97,19 @@
                     command = "${pkgs.prettier}/bin/prettier";
                     options = [ "--write" ];
                     includes = [
-                      "*.md"
                       "*.json"
                       "*.yaml"
                       "*.yml"
                     ];
                     excludes = [ ".zed/*.json" ];
+                  };
+                  rumdl = {
+                    command = "${pkgs.rumdl}/bin/rumdl";
+                    options = [
+                      "fmt"
+                      "--silent"
+                    ];
+                    includes = [ "*.md" ];
                   };
                   actionlint = {
                     command = "${pkgs.actionlint}/bin/actionlint";
