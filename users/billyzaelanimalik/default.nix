@@ -32,6 +32,9 @@
 
   modules.lang = {
     markdown.enable = true;
+    json.enable = true;
+    yaml.enable = true;
+    toml.enable = true;
     nix.enable = true;
     go.enable = true;
   };
