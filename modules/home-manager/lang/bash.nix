@@ -16,8 +16,7 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       bash-language-server
-      # shellcheck
-      # shfmt
+      shfmt
     ];
     programs.nixvim = {
       plugins.treesitter.grammarPackages = with treesitterGrammars; [ bash ];
