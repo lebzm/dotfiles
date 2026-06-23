@@ -15,6 +15,13 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [ rumdl ];
+    xdg.configFile."rumdl/rumdl.toml".text = ''
+      [MD013]
+      line-length = 80
+      code-blocks = false
+      tables = false
+      reflow = true
+    '';
     programs.nixvim = {
       plugins.render-markdown.enable = true;
       plugins.treesitter.grammarPackages = with treesitterGrammars; [
