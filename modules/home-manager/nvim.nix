@@ -214,7 +214,7 @@ let
       keymaps = [
         {
           key = "<Leader>f";
-          action.__raw = ''function() require("snacks").picker.files() end'';
+          action.__raw = ''function() require("snacks").picker.files({ hidden = true }) end'';
           mode = normal ++ visual;
         }
         {
@@ -234,7 +234,7 @@ let
         }
         {
           key = "<Leader>e";
-          action.__raw = ''function() require("snacks").explorer() end'';
+          action.__raw = ''function() require("snacks").explorer({ hidden = true }) end'';
           mode = normal ++ visual;
         }
         {
