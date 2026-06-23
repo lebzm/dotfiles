@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 
@@ -13,12 +14,16 @@ in
   options.modules.lang.nix.enable = lib.mkEnableOption "nix";
 
   config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [
+      nixd
+      nixfmt
+    ];
     programs.nixvim = {
       plugins.treesitter.grammarPackages = with treesitterGrammars; [ nix ];
-      plugins.conform-nvim.settings.formatters_by_ft.nix = [ "nixfmt" ];
       lsp.servers.nixd = {
         enable = true;
         config.settings.nixd = {
+          formatting.command = [ "nixfmt" ];
           nixpkgs.expr = "import (builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs { }";
         };
       };

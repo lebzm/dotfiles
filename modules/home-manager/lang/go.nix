@@ -16,11 +16,12 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       go
+      gopls
+      gofumpt
       delve
     ];
     programs.nixvim = {
       plugins.treesitter.grammarPackages = with treesitterGrammars; [ go ];
-      plugins.conform-nvim.settings.formatters_by_ft.go = [ "gofumpt" ];
       plugins.neotest.adapters.golang = {
         enable = true;
         settings.go_test_args = {
@@ -39,7 +40,12 @@ in
         }
       ];
       plugins.dap-go.enable = true;
-      lsp.servers.gopls.enable = true;
+      lsp.servers.gopls = {
+        enable = true;
+        config.settings.gopls = {
+          gofumpt = true;
+        };
+      };
     };
   };
 }

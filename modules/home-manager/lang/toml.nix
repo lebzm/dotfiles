@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 
@@ -13,9 +14,10 @@ in
   options.modules.lang.toml.enable = lib.mkEnableOption "toml";
 
   config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [ taplo ];
     programs.nixvim = {
       plugins.treesitter.grammarPackages = with treesitterGrammars; [ toml ];
-      plugins.conform-nvim.settings.formatters_by_ft.toml = [ "oxfmt" ];
+      lsp.servers.taplo.enable = true;
     };
   };
 }

@@ -22,7 +22,6 @@ in
     ];
     programs.nixvim = {
       plugins.treesitter.grammarPackages = with treesitterGrammars; [ gleam ];
-      plugins.conform-nvim.settings.formatters_by_ft.gleam = [ "gleam" ];
       lsp.servers.gleam.enable = true;
     };
   };

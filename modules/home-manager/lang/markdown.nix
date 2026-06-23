@@ -21,7 +21,6 @@ in
         markdown
         markdown_inline
       ];
-      plugins.conform-nvim.settings.formatters_by_ft.markdown = [ "rumdl" ];
       lsp.servers.rumdl.enable = true;
     };
   };

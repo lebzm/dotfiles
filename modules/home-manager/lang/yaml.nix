@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 
@@ -13,9 +14,17 @@ in
   options.modules.lang.yaml.enable = lib.mkEnableOption "yaml";
 
   config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [ yaml-language-server ];
     programs.nixvim = {
       plugins.treesitter.grammarPackages = with treesitterGrammars; [ yaml ];
-      plugins.conform-nvim.settings.formatters_by_ft.yaml = [ "oxfmt" ];
+      lsp.servers.yamlls = {
+        enable = true;
+        config.settings.redhat.telemetry.enabled = false;
+        config.settings.yaml = {
+          format.enable = true;
+          validate = true;
+        };
+      };
     };
   };
 }

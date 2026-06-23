@@ -390,14 +390,15 @@ let
   };
 
   dep_format = {
+    home.packages = with pkgs; [ treefmt ];
     programs.nixvim = {
       plugins.conform-nvim = {
         enable = true;
-        autoInstall.enable = true;
         settings.format_on_save = {
           lsp_format = "fallback";
           timeout_ms = 500;
         };
+        settings.formatters_by_ft."*" = [ "treefmt" ];
       };
     };
   };

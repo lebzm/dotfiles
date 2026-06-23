@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 
@@ -13,9 +14,16 @@ in
   options.modules.lang.json.enable = lib.mkEnableOption "json";
 
   config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [ vscode-langservers-extracted ];
     programs.nixvim = {
       plugins.treesitter.grammarPackages = with treesitterGrammars; [ json ];
-      plugins.conform-nvim.settings.formatters_by_ft.json = [ "oxfmt" ];
+      lsp.servers.jsonls = {
+        enable = true;
+        config.settings.json = {
+          format.enable = true;
+          validate.enable = true;
+        };
+      };
     };
   };
 }
