@@ -21,6 +21,7 @@ in
       code-blocks = false
       tables = false
       reflow = true
+      reflow-mode = "normalize"
     '';
     programs.nixvim = {
       plugins.render-markdown.enable = true;
