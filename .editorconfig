@@ -8,6 +8,6 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 indent_style = unset
 
-[*.{md,json,toml,yaml,yml,sh,nix}]
+[*.{md,json,toml,yaml,sh,nix}]
 indent_style = space
 indent_size = 2
