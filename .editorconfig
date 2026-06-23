@@ -8,9 +8,6 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 indent_style = unset
 
-[Makefile]
-indent_style = tab
-
-[{*.nix,flake.lock}]
+[*.{md,json,toml,yaml,yml,sh,nix}]
 indent_style = space
 indent_size = 2
