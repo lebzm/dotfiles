@@ -1,0 +1,15 @@
+[tasks.system]
+description = "Rebuild macOS system configuration (nix-darwin)"
+run = "sudo darwin-rebuild switch --flake .#$(hostname -s)"
+
+[tasks.home]
+description = "Rebuild user home configuration (home-manager)"
+run = "home-manager switch --flake .#$(whoami)"
+
+[tasks.build]
+description = "Rebuild both system and home configuration"
+depends = ["system", "home"]
+
+[tasks.gc]
+description = "Collect Nix garbage"
+run = "nix-collect-garbage -d"
