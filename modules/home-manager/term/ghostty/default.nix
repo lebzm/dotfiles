@@ -13,6 +13,7 @@ in
   options.modules.term.ghostty.enable = lib.mkEnableOption "ghostty";
 
   config = lib.mkIf cfg.enable {
+    xdg.configFile."ghostty/shaders/cursor_smear.glsl".source = ./shaders/cursor_smear.glsl;
     programs.ghostty = {
       enable = true;
       package = pkgs.ghostty-bin;
@@ -28,6 +29,5 @@ in
         custom-shader = "shaders/cursor_smear.glsl";
       };
     };
-    home.file.".config/ghostty/shaders/cursor_smear.glsl".source = ./shaders/cursor_smear.glsl;
   };
 }
