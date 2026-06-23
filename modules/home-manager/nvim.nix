@@ -608,7 +608,17 @@ let
     programs.nixvim = {
       plugins.lspconfig.enable = true;
       diagnostic.settings = {
-        virtual_text.current_line = true;
+        virtual_text = {
+          current_line = true;
+          format.__raw = ''
+            function(diagnostic)
+              if diagnostic.code then
+                return string.format("[%s] %s", diagnostic.code, diagnostic.message)
+              end
+              return diagnostic.message
+            end
+          '';
+        };
         signs.text = {
           "__rawKey__vim.diagnostic.severity.ERROR" = icons.error;
           "__rawKey__vim.diagnostic.severity.WARN" = icons.warn;
