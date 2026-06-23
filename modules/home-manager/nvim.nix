@@ -411,6 +411,9 @@ let
         settings = {
           completion = {
             ghost_text.enabled = true;
+            # NOTE: this options only available once this commit available in the nixpkgs
+            # see: https://github.com/saghen/blink.cmp/commit/6607cb7870ea48955264198c2fb2adaf73f57788
+            # ghost_text.show_first_line_only = true;
             menu.auto_show = false;
             menu.border = border_style;
             documentation.window.border = border_style;
