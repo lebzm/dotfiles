@@ -88,36 +88,27 @@
             {
               # See: https://treefmt.com/latest/getting-started/configure/#config-file
               treefmt = {
-                formatter = {
-                  nixfmt = {
-                    command = "${pkgs.nixfmt}/bin/nixfmt";
-                    includes = [ "*.nix" ];
-                  };
-                  prettier = {
-                    command = "${pkgs.prettier}/bin/prettier";
-                    options = [ "--write" ];
-                    includes = [
-                      "*.json"
-                      "*.yaml"
-                      "*.yml"
-                    ];
-                    excludes = [ ".zed/*.json" ];
-                  };
-                  rumdl = {
-                    command = "${pkgs.rumdl}/bin/rumdl";
-                    options = [
-                      "fmt"
-                      "--silent"
-                    ];
-                    includes = [ "*.md" ];
-                  };
-                  actionlint = {
-                    command = "${pkgs.actionlint}/bin/actionlint";
-                    includes = [
-                      ".github/workflows/*.yaml"
-                      ".github/workflows/*.yml"
-                    ];
-                  };
+                formatter.oxfmt = {
+                  command = "${pkgs.oxfmt}/bin/oxfmt";
+                  includes = [
+                    "*.md"
+                    "*.json"
+                    "*.toml"
+                    "*yaml"
+                  ];
+                };
+                formatter.actionlint = {
+                  command = "${pkgs.actionlint}/bin/actionlint";
+                  includes = [ ".github/workflows/*.yaml" ];
+                };
+                formatter.shfmt = {
+                  command = "${pkgs.shfmt}/bin/shfmt";
+                  options = [ "--write" ];
+                  includes = [ "*.sh" ];
+                };
+                formatter.nixfmt = {
+                  command = "${pkgs.nixfmt}/bin/nixfmt";
+                  includes = [ "*.nix" ];
                 };
               };
             };
