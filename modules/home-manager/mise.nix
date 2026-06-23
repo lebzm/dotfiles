@@ -23,7 +23,7 @@ in
       enable = true;
       globalConfig = {
         settings = {
-          trusted_config_paths = cfg.trustedConfigPaths;
+          trusted_config_paths = cfg.trustedConfigPaths ++ [ "~/.config/dotfiles" ];
         };
       };
     };
