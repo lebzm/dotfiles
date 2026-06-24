@@ -46,6 +46,7 @@
   };
 
   modules.lang = {
+    lua.enable = true;
     go.enable = true;
     gleam.enable = true;
     zig.enable = true;
