@@ -14,6 +14,7 @@
       dotfilesPath = config.home.homeDirectory;
     };
     git.enable = true;
+    curl.enable = true;
     opencode.enable = true;
     podman.enable = true;
     mise = {
