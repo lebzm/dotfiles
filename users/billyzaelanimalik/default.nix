@@ -15,6 +15,7 @@
     };
     git.enable = true;
     curl.enable = true;
+    rest.enable = true;
     opencode.enable = true;
     podman.enable = true;
     mise = {
