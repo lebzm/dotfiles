@@ -21,7 +21,10 @@
     podman.enable = true;
     mise = {
       enable = true;
-      trustedConfigPaths = [ "~/pinggirjurang.studio" ];
+      trustedConfigPaths = [
+        "~/lebzm"
+        "~/pinggirjurang.studio"
+      ];
     };
   };
 
