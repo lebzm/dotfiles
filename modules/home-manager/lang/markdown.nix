@@ -15,6 +15,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [ rumdl ];
+    programs.git.ignores = [ ".rumdl_cache" ];
     xdg.configFile."rumdl/rumdl.toml".text = ''
       [MD013]
       line-length = 80
