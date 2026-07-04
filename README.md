@@ -1,6 +1,9 @@
 # dotfiles
 
-TODO: turn this README into a golden path.
+> TODO:
+>
+> - Turn this README into a golden path.
+> - Consider using `config.lib.file.mkOutOfStoreSymlink` for faster ricing.
 
 ## Bootstrap
 
