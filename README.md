@@ -4,6 +4,7 @@
 >
 > - Turn this README into a golden path.
 > - Consider using `config.lib.file.mkOutOfStoreSymlink` for faster ricing.
+> - Consider using [Hammerspoon](https://www.hammerspoon.org/) for MacOS automation.
 
 ## Bootstrap
 
