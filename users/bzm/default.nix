@@ -14,7 +14,7 @@
       dotfilesPath = config.home.homeDirectory;
     };
     git.enable = true;
-    curl.enable = true;
+    curl.enable = false;
     hurl.enable = true;
     rest.enable = true;
     opencode.enable = true;
