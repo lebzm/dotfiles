@@ -12,15 +12,32 @@ in
   options.modules.aerospace.enable = lib.mkEnableOption "aerospace";
 
   config = lib.mkIf cfg.enable {
+    launchd.agents.aerospace = lib.mkForce {
+      enable = true;
+      config = {
+        ProgramArguments = [
+          "/bin/sh"
+          "-c"
+          "/bin/wait4path /nix/store && exec ${config.programs.aerospace.package}/Applications/AeroSpace.app/Contents/MacOS/AeroSpace"
+        ];
+        RunAtLoad = true;
+        KeepAlive = true;
+        # NOTE: https://github.com/nix-community/home-manager/issues/9611
+        StandardOutPath = "${config.home.homeDirectory}/Library/Logs/aerospace.out.log";
+        StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/aerospace.err.log";
+      };
+    };
+
     programs.aerospace = {
       enable = true;
       package = pkgs.aerospace;
       launchd = {
-        enable = true;
+        enable = false;
         keepAlive = true;
       };
       settings = {
         config-version = 2;
+        start-at-login = false;
         automatically-unhide-macos-hidden-apps = true;
 
         gaps = {
