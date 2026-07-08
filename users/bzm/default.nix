@@ -43,6 +43,7 @@
     yaml.enable = true;
     bash.enable = true;
     nix.enable = true;
+    hcl.enable = true;
   };
 
   modules.lang = {
