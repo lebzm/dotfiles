@@ -19,6 +19,10 @@ in
       tofu-ls
     ];
     programs.nixvim = {
+      filetype.extension = {
+        tf = "terraform";
+        tfvars = "terraform";
+      };
       plugins.treesitter.grammarPackages = with treesitterGrammars; [ hcl ];
       lsp.servers.tofu_ls.enable = true;
     };
