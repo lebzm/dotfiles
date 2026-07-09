@@ -86,10 +86,14 @@
       init.defaultBranch = "main";
       pull.rebase = true;
       push.default = "current";
+      push.autoSetupRemote = true;
       url."ssh://git@bitbucket.org/".insteadOf = "https://bitbucket.org/";
       user = {
         email = "billy.malik@amartha.com";
         name = "Billy Zaelani Malik";
+      };
+      alias = {
+        fix-bare = "config remote.origin.fetch +refs/heads/*:refs/remotes/origin/*";
       };
     };
   };

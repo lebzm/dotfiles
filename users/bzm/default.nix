@@ -107,9 +107,13 @@
       init.defaultBranch = "main";
       pull.rebase = true;
       push.default = "current";
+      push.autoSetupRemote = true;
       user = {
         email = "bzm@pinggirjurang.studio";
         name = "Billy Zaelani Malik";
+      };
+      alias = {
+        fix-bare = "config remote.origin.fetch +refs/heads/*:refs/remotes/origin/*";
       };
     };
   };
