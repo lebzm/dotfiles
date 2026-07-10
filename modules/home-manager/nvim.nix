@@ -78,6 +78,11 @@ let
           group = "highlight_yank";
           callback.__raw = "function() vim.hl.on_yank({ timeout = 200, visual = true }) end";
         }
+        {
+          event = "FileType";
+          pattern = "help";
+          command = "wincmd L";
+        }
       ];
     };
   };
