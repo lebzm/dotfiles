@@ -83,6 +83,10 @@ let
           pattern = "help";
           command = "wincmd L";
         }
+        {
+          event = "VimResized";
+          command = "wincmd =";
+        }
       ];
     };
   };
