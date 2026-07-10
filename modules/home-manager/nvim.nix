@@ -68,6 +68,17 @@ let
           mode = normal;
         }
       ];
+      autoGroups = {
+        highlight_yank.clear = true;
+      };
+      autoCmd = [
+        {
+          event = "TextYankPost";
+          pattern = "*";
+          group = "highlight_yank";
+          callback.__raw = "function() vim.hl.on_yank({ timeout = 200, visual = true }) end";
+        }
+      ];
     };
   };
 
