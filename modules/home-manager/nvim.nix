@@ -32,6 +32,10 @@ let
     ];
     programs.nixvim = {
       enable = true;
+      nixpkgs = {
+        config.allowUnfree = true;
+        config.allowBroken = true;
+      };
       defaultEditor = true;
       viAlias = true;
       vimAlias = true;

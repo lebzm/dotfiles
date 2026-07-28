@@ -18,6 +18,7 @@
     hurl.enable = true;
     rest.enable = false;
     opencode.enable = true;
+    claudecode.enable = true;
     podman.enable = true;
     mise = {
       enable = true;
